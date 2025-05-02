@@ -2,6 +2,7 @@
   "name": "front-ief",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@10.10.0",
   "scripts": {
     "dev": "vite --port 4173",
     "build": "run-p typecheck \"build-only {@}\" --",
