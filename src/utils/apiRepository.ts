@@ -63,6 +63,35 @@ export const apiRepository = {
         body: JSON.stringify(childId)
       })
     }
+  },
+
+  program: {
+    create: async (programData: Partial<User>) => {
+      return useFetch<User>('/api/program', {
+        method: 'POST',
+        body: JSON.stringify(programData)
+      })
+    },
+
+    get: async (level: string) => {
+      return useFetch<User>(`/api/program:${level}`, {
+        method: 'GET',
+      })
+    },
+
+    update: async (programData: Partial<User>) => {
+      return useFetch<User>('/api/program', {
+        method: 'PUT',
+        body: JSON.stringify(programData)
+      })
+    },
+
+    delete: async (programId: string) => {
+      return useFetch<void>('/api/program', {
+        method: 'DELETE',
+        body: JSON.stringify(programId)
+      })
+    }
   }
 }
 
