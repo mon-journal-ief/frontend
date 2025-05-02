@@ -15,44 +15,44 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@primevue/themes':
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3
       '@unhead/vue':
-        specifier: ^1.11.7
+        specifier: ^1.11.20
         version: 1.11.20(vue@3.5.13(typescript@5.8.3))
       '@vueuse/core':
-        specifier: ^13.0.0
+        specifier: ^13.1.0
         version: 13.1.0(vue@3.5.13(typescript@5.8.3))
       '@vueuse/head':
         specifier: ^2.0.0
         version: 2.0.0(vue@3.5.13(typescript@5.8.3))
       chart.js:
-        specifier: ^4.4.8
+        specifier: ^4.4.9
         version: 4.4.9
       pinia:
-        specifier: ^3.0.1
+        specifier: ^3.0.2
         version: 3.0.2(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3))
       primevue:
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3(vue@3.5.13(typescript@5.8.3))
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.3)
       vue-router:
-        specifier: ^4.5.0
+        specifier: ^4.5.1
         version: 4.5.1(vue@3.5.13(typescript@5.8.3))
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.27.3
         version: 2.27.3(@typescript-eslint/utils@8.31.1(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-sfc@3.5.13)(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3)(vitest@3.1.2(@types/node@22.15.3)(jiti@2.4.2)(jsdom@26.1.0)(yaml@2.7.1))
       '@primevue/auto-import-resolver':
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3
       '@rushstack/eslint-patch':
         specifier: ^1.11.0
         version: 1.11.0
       '@tsconfig/node20':
-        specifier: ^20.1.4
+        specifier: ^20.1.5
         version: 20.1.5
       '@types/jsdom':
         specifier: ^21.1.7
@@ -61,7 +61,7 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2
       '@types/node':
-        specifier: ^22.13.10
+        specifier: ^22.15.3
         version: 22.15.3
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
@@ -73,19 +73,19 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.3)
       dompurify:
-        specifier: ^3.2.4
+        specifier: ^3.2.5
         version: 3.2.5
       eslint:
-        specifier: ^9.22.0
+        specifier: ^9.25.1
         version: 9.25.1(jiti@2.4.2)
       eslint-plugin-tailwindcss:
-        specifier: ^3.17.5
+        specifier: ^3.18.0
         version: 3.18.0(tailwindcss@3.4.17)
       eslint-plugin-vue:
-        specifier: ^10.0.0
+        specifier: ^10.1.0
         version: 10.1.0(eslint@9.25.1(jiti@2.4.2))(vue-eslint-parser@9.4.3(eslint@9.25.1(jiti@2.4.2)))
       jsdom:
-        specifier: ^26.0.0
+        specifier: ^26.1.0
         version: 26.1.0
       markdown-it:
         specifier: ^14.1.0
@@ -97,16 +97,16 @@ importers:
         specifier: ^8.5.3
         version: 8.5.3
       prettier-eslint:
-        specifier: ^16.3.0
+        specifier: ^16.4.1
         version: 16.4.1(typescript@5.8.3)
       tailwindcss:
-        specifier: ^3.4.13
+        specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ~5.8.2
+        specifier: ~5.8.3
         version: 5.8.3
       unplugin-auto-import:
-        specifier: ^19.1.1
+        specifier: ^19.1.2
         version: 19.1.2(@nuxt/kit@3.17.1)(@vueuse/core@13.1.0(vue@3.5.13(typescript@5.8.3)))
       unplugin-fonts:
         specifier: ^1.3.1
@@ -115,22 +115,22 @@ importers:
         specifier: ^22.1.0
         version: 22.1.0(@vue/compiler-sfc@3.5.13)
       unplugin-vue-components:
-        specifier: ^28.4.1
+        specifier: ^28.5.0
         version: 28.5.0(@babel/parser@7.27.1)(@nuxt/kit@3.17.1)(vue@3.5.13(typescript@5.8.3))
       unplugin-vue-router:
         specifier: ^0.12.0
         version: 0.12.0(vue-router@4.5.1(vue@3.5.13(typescript@5.8.3)))(vue@3.5.13(typescript@5.8.3))
       vite:
-        specifier: ^6.2.2
+        specifier: ^6.3.4
         version: 6.3.4(@types/node@22.15.3)(jiti@2.4.2)(yaml@2.7.1)
       vite-plugin-vue-devtools:
-        specifier: ^7.7.2
+        specifier: ^7.7.6
         version: 7.7.6(@nuxt/kit@3.17.1)(rollup@4.40.1)(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
       vitest:
-        specifier: ^3.0.9
+        specifier: ^3.1.2
         version: 3.1.2(@types/node@22.15.3)(jiti@2.4.2)(jsdom@26.1.0)(yaml@2.7.1)
       vue-tsc:
-        specifier: ^2.2.8
+        specifier: ^2.2.10
         version: 2.2.10(typescript@5.8.3)
 
 packages:
@@ -1590,8 +1590,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.148:
-    resolution: {integrity: sha512-8uc1QXwwqayD4mblcsQYZqoi+cOc97A2XmKSBOIRbEAvbp6vrqmSYs4dHD2qVygUgn7Mi0qdKgPaJ9WC8cv63A==}
+  electron-to-chromium@1.5.149:
+    resolution: {integrity: sha512-UyiO82eb9dVOx8YO3ajDf9jz2kKyt98DEITRdeLPstOEuTlLzDA4Gyq5K9he71TQziU5jUVu2OAu5N48HmQiyQ==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -4738,7 +4738,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001716
-      electron-to-chromium: 1.5.148
+      electron-to-chromium: 1.5.149
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -4941,7 +4941,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.148: {}
+  electron-to-chromium@1.5.149: {}
 
   emoji-regex@8.0.0: {}
 
