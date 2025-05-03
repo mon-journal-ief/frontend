@@ -20,7 +20,7 @@ const useApiFetch = createFetch({
     },
     afterFetch(ctx) {
       if (!ctx.data) {
-        console.log('ℹ️ No data found')
+        console.warn('ℹ️ No data found')
 
         return {
           data: null,
