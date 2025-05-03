@@ -1,7 +1,7 @@
 import { createFetch } from '@vueuse/core'
 
 const useApiFetch = createFetch({
-  baseUrl: 'http://localhost:4000',
+  baseUrl: import.meta.env.VITE_API_URL,
   options: {
     onFetchError(ctx) {
       console.error('❌ API Error:', ctx.error)
@@ -10,9 +10,7 @@ const useApiFetch = createFetch({
     },
 
     afterFetch(ctx) {
-      if (!ctx.data) {
-        console.warn('ℹ️ No data found')
-      }
+      if (!ctx.data) console.warn('ℹ️ No data found')
 
       return ctx
     },
@@ -24,7 +22,7 @@ export const apiRepository = {
     getAll: () => useApiFetch<IProgram[]>(`/programs`).json(),
     get: (id: string) => useApiFetch<IProgram>(`/programs/${id}`).json(),
     create: (program: Partial<IProgram>) =>
-      useApiFetch<IProgram>(`/programs`, { method: 'POST', body: JSON.stringify(program) }).json(),
+      useApiFetch<IProgram>(`/prosrams`, { method: 'POST', body: JSON.stringify(program) }).json(),
     update: (id: string, program: Partial<IProgram>) =>
       useApiFetch<IProgram>(`/programs/${id}`, { method: 'PUT', body: JSON.stringify(program) }).json(),
     delete: (id: string) =>
