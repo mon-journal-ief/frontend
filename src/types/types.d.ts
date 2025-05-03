@@ -13,6 +13,13 @@ declare global {
     CM2 = 'CM2',
   }
 
+  interface IUser {
+    id: string
+    email: string
+    name: string
+    children: IChild[]
+  }
+
   interface IProgram {
     id: string
     name: string
