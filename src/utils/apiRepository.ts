@@ -3,12 +3,6 @@ import { createFetch } from '@vueuse/core'
 const useApiFetch = createFetch({
   baseUrl: 'http://localhost:4000',
   options: {
-    beforeFetch({ options }) {
-      options.headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    },
     onFetchError(ctx) {
       console.error('❌ API Error:', ctx)
 
