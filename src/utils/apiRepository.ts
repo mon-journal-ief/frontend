@@ -1,129 +1,100 @@
-import { useFetch } from '@vueuse/core'
+import { createFetch } from '@vueuse/core'
 
-const apiUrl = 'http://localhost:8000'
-
-interface ApiResponse<T> {
-  data: T | null
-  error: string | null
-  isFetching: boolean
-}
-
-async function apiFetch<T>(
-  url: string,
+const useApiFetch = createFetch({
+  baseUrl: 'http://localhost:4000',
   options: {
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
-    body?: any
-  } = {},
-): Promise<ApiResponse<T>> {
-  try {
-    const { data, error: fetchError, isFetching } = await useFetch<T>(url, {
-      method: options.method || 'GET',
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      headers: {
+    beforeFetch({ options }) {
+      options.headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-      },
-    })
-
-    if (fetchError.value) {
-      console.error('❌ API Error:', fetchError.value)
+      }
+    },
+    onFetchError(ctx) {
+      console.error('❌ API Error:', ctx)
 
       return {
         data: null,
-        error: fetchError.value.message,
-        isFetching: isFetching.value,
+        error: ctx.error,
+        isFetching: false,
       }
-    }
+    },
+    afterFetch(ctx) {
+      if (!ctx.data) {
+        console.log('ℹ️ No data found')
 
-    if (!data.value) {
-      console.log('ℹ️ No data found')
-
-      return {
-        data: null,
-        error: null,
-        isFetching: isFetching.value,
+        return {
+          data: null,
+          error: null,
+          isFetching: false,
+        }
       }
-    }
 
-    return {
-      data: data.value,
-      error: null,
-      isFetching: isFetching.value,
-    }
-  }
-  catch (e) {
-    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred'
-    console.error('❌ Error:', e)
-
-    return {
-      data: null,
-      error: errorMessage,
-      isFetching: false,
-    }
-  }
-}
+      return ctx
+    },
+  },
+})
 
 export const apiRepository = {
   programs: {
-    getAll: () => apiFetch<IProgram[]>(`${apiUrl}/programs`),
-    get: (id: string) => apiFetch<IProgram>(`${apiUrl}/programs/${id}`),
+    getAll: () => useApiFetch<IProgram[]>(`/programs`).json(),
+    get: (id: string) => useApiFetch<IProgram>(`/programs/${id}`).json(),
     create: (program: Partial<IProgram>) =>
-      apiFetch<IProgram>(`${apiUrl}/programs`, { method: 'POST', body: program }),
+      useApiFetch<IProgram>(`/prosrams`, { method: 'POST', body: JSON.stringify(program) }).json(),
     update: (id: string, program: Partial<IProgram>) =>
-      apiFetch<IProgram>(`${apiUrl}/programs/${id}`, { method: 'PUT', body: program }),
+      useApiFetch<IProgram>(`/programs/${id}`, { method: 'PUT', body: JSON.stringify(program) }).json(),
     delete: (id: string) =>
-      apiFetch<void>(`${apiUrl}/programs/${id}`, { method: 'DELETE' }),
+      useApiFetch<void>(`/programs/${id}`, { method: 'DELETE' }).json(),
   },
 
   programElements: {
     get: (id: string) =>
-      apiFetch<IProgramElement>(`${apiUrl}/program-elements/${id}`),
+      useApiFetch<IProgramElement>(`/program-elements/${id}`).json(),
     getAll: (programId: string) =>
-      apiFetch<IProgramElement[]>(`${apiUrl}/program-elements/program/${programId}`),
+      useApiFetch<IProgramElement[]>(`/program-elements/program/${programId}`).json(),
     create: (element: Partial<IProgramElement>) =>
-      apiFetch<IProgramElement>(`${apiUrl}/program-elements`, { method: 'POST', body: element }),
+      useApiFetch<IProgramElement>(`/program-elements`, { method: 'POST', body: JSON.stringify(element) }).json(),
     update: (id: string, element: Partial<IProgramElement>) =>
-      apiFetch<IProgramElement>(`${apiUrl}/program-elements/${id}`, { method: 'PUT', body: element }),
+      useApiFetch<IProgramElement>(`/program-elements/${id}`, { method: 'PUT', body: JSON.stringify(element) }).json(),
     delete: (id: string) =>
-      apiFetch<void>(`${apiUrl}/program-elements/${id}`, { method: 'DELETE' }),
+      useApiFetch<void>(`/program-elements/${id}`, { method: 'DELETE' }).json(),
   },
 
   users: {
     get: (id: string) =>
-      apiFetch<IUser>(`${apiUrl}/users/${id}`),
+      useApiFetch<IUser>(`/users/${id}`).json(),
     getAll: () =>
-      apiFetch<IUser[]>(`${apiUrl}/users`),
+      useApiFetch<IUser[]>(`/users`).json(),
     update: (id: string, user: Partial<IUser>) =>
-      apiFetch<IUser>(`${apiUrl}/users/${id}`, { method: 'PUT', body: user }),
+      useApiFetch<IUser>(`/users/${id}`, { method: 'PUT', body: JSON.stringify(user) }).json(),
     login: (credentials: { email: string, password: string }) =>
-      apiFetch<IUser>(`${apiUrl}/auth/login`, { method: 'POST', body: credentials }),
+      useApiFetch<IUser>(`/auth/login`, { method: 'POST', body: JSON.stringify(credentials) }).json(),
     logout: () =>
-      apiFetch<void>(`${apiUrl}/auth/logout`, { method: 'POST' }),
+      useApiFetch<void>(`/auth/logout`, { method: 'POST' }).json(),
   },
 
   children: {
     create: (child: Partial<IUser>) =>
-      apiFetch<IUser>(`${apiUrl}/children`, { method: 'POST', body: child }),
+      useApiFetch<IUser>(`/children`, { method: 'POST', body: JSON.stringify(child) }).json(),
     get: (id: string) =>
-      apiFetch<IUser>(`${apiUrl}/children/${id}`),
+      useApiFetch<IUser>(`/children/${id}`).json(),
     getAll: (userId: string) =>
-      apiFetch<IUser[]>(`${apiUrl}/users/${userId}/children`),
+      useApiFetch<IUser[]>(`/users/${userId}/children`).json(),
     update: (id: string, child: Partial<IUser>) =>
-      apiFetch<IUser>(`${apiUrl}/children/${id}`, { method: 'PUT', body: child }),
+      useApiFetch<IUser>(`/children/${id}`, { method: 'PUT', body: JSON.stringify(child) }).json(),
     delete: (id: string) =>
-      apiFetch<void>(`${apiUrl}/children`, { method: 'DELETE', body: id }),
+      useApiFetch<void>(`/children`, { method: 'DELETE', body: id }).json(),
   },
 
   journalEntries: {
     create: (entry: Partial<IJournalEntry>) =>
-      apiFetch<IJournalEntry>(`${apiUrl}/journal-entries`, { method: 'POST', body: entry }),
+      useApiFetch<IJournalEntry>(`/journal-entries`, { method: 'POST', body: JSON.stringify(entry) }).json(),
     get: (id: string) =>
-      apiFetch<IJournalEntry>(`${apiUrl}/journal-entries/${id}`),
+      useApiFetch<IJournalEntry>(`/journal-entries/${id}`).json(),
     getAll: (childId: string) =>
-      apiFetch<IJournalEntry[]>(`${apiUrl}/journal-entries/child/${childId}`),
+      useApiFetch<IJournalEntry[]>(`/journal-entries/child/${childId}`).json(),
     update: (id: string, entry: Partial<IJournalEntry>) =>
-      apiFetch<IJournalEntry>(`${apiUrl}/journal-entries/${id}`, { method: 'PUT', body: entry }),
+      useApiFetch<IJournalEntry>(`/journal-entries/${id}`, { method: 'PUT', body: JSON.stringify(entry) }).json(),
     delete: (id: string) =>
-      apiFetch<void>(`${apiUrl}/journal-entries/${id}`, { method: 'DELETE' }),
+      useApiFetch<void>(`/journal-entries/${id}`, { method: 'DELETE' }).json(),
   },
 }
