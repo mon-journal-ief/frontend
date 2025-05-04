@@ -50,6 +50,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
       dirs: [
         'src/stores/**/*.ts',
+        'src/utils/**/*.ts',
       ],
       vueTemplate: true,
     }),
