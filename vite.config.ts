@@ -26,7 +26,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 
 // TODO update
-const isDebugMode = process.env.DEBUG === 'True' 
+const isDebugMode = process.env.DEBUG === 'True'
 
 // https://vitejs.dev/config/
 export default defineConfig({

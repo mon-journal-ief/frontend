@@ -1,7 +1,6 @@
-<script setup lang="ts">
-console.log('Hello')
-</script>
-
 <template>
-  bite
+  <div>
+    <h1>Bienvenue sur l'application Ief</h1>
+    <p>Cette application est en cours de développement.</p>
+  </div>
 </template>
