@@ -62,6 +62,13 @@ onMounted(() => {
           route="/"
         />
 
+        <!-- LOGIN -->
+        <TheSidebarButton
+          icon="i-ci-house-01"
+          label="Login"
+          route="/login"
+        />
+
         <!-- ASSETS -->
         <TheSidebarSection
           icon="i-ci-file-document"

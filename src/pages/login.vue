@@ -1,4 +1,6 @@
 <script setup>
+import { useApi } from '@/api'
+
 const token = ref('')
 const user = ref({})
 
@@ -14,36 +16,12 @@ const registerForm = ref({
   confirmPassword: '',
 })
 
-const toast = useToast()
+const api = useApi()
 
 async function handleLogin() {
-  try {
-    const response = await fetch('http://localhost:4000/auth/login', {
-      method: 'POST',
-      body: JSON.stringify(loginForm.value),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    const data = await response.json()
-    token.value = data.token
+  const response = await api.auth.login(loginForm.value)
 
-    toast.add({
-      summary: 'Login successful',
-      detail: 'You have been logged in successfully',
-      severity: 'success',
-      life: _.TOAST_LIFE,
-    })
-  }
-  catch (error) {
-    console.error('Login error:', error)
-    toast.add({
-      summary: 'Login failed',
-      detail: 'Invalid credentials',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
-  }
+  token.value = response.data.value.token
 }
 
 async function handleRegister() {
@@ -51,60 +29,13 @@ async function handleRegister() {
   if (!name || !email || !password || !confirmPassword) return
   if (password !== confirmPassword) return
 
-  try {
-    const response = await fetch('http://localhost:4000/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(registerForm.value),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    const data = await response.json()
-    token.value = data.token
-
-    toast.add({
-      summary: 'Registration successful',
-      detail: 'You have been registered successfully',
-      severity: 'success',
-      life: _.TOAST_LIFE,
-    })
-  }
-  catch (error) {
-    console.error('Registration error:', error)
-    toast.add({
-      summary: 'Registration failed',
-      detail: 'Invalid credentials',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
-  }
+  const response = await api.auth.register(registerForm.value)
+  token.value = response.data.value.token
 }
 
 async function handleGetMe() {
-  const response = await fetch('http://localhost:4000/auth/me', {
-    headers: {
-      'Content-Type': 'application/json',
-      'x-auth-token': token.value,
-    },
-  })
-  const data = await response.json()
-  user.value = data
-  if (response.ok) {
-    toast.add({
-      summary: 'Get /me successful',
-      detail: 'You have been fetched successfully',
-      severity: 'success',
-      life: _.TOAST_LIFE,
-    })
-  }
-  else {
-    toast.add({
-      summary: 'Get /me failed',
-      detail: data.message,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
-  }
+  const response = await api.auth.me(token.value)
+  user.value = response.data.value
 }
 </script>
 
