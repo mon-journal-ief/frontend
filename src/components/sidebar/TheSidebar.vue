@@ -62,6 +62,11 @@ onMounted(() => {
           route="/"
         />
 
+        <TheSidebarButton
+          image="https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg"
+          label="Thimothée"
+          :route="`/enfant/${mockedChild.id}`"
+        />
         <!-- ASSETS -->
         <TheSidebarSection
           icon="i-ci-file-document"
