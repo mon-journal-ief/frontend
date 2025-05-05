@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import useDateFormatter from '@/composables/useDateFormatter'
 
-defineProps<{
-  entry: IJournalEntry
-}>()
+const entry = defineModel<IJournalEntry>({ required: true })
 </script>
 
 <template>
@@ -11,7 +9,14 @@ defineProps<{
     <div class="flex items-center justify-between">
       <h3 class="flex items-center font-medium">
         <i class="i-ci-calendar mr-1 shrink-0" />
-        {{ useDateFormatter(entry.date) }}
+        <Inplace>
+          <template #display>
+            {{ useDateFormatter(entry.date) }}
+          </template>
+          <template #content="{ closeCallback }">
+            <DatePicker v-model="entry.date" @update:model-value="closeCallback" />
+          </template>
+        </Inplace>
       </h3>
       <span class="text-sm text-gray-500">{{ entry.validatedElements.length }} éléments validés</span>
     </div>
