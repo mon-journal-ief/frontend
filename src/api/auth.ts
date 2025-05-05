@@ -10,7 +10,7 @@ export function authApiRepository() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).json()
+    })
 
     if (response.response.value?.ok) {
       toast.add({
@@ -20,7 +20,7 @@ export function authApiRepository() {
         life: _.TOAST_LIFE,
       })
 
-      return response
+      return response.json()
     }
 
     console.error('Login error:', response.error)
@@ -39,9 +39,9 @@ export function authApiRepository() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).json()
+    })
 
-    if (response.data.value.token) {
+    if (response.response.value?.ok) {
       toast.add({
         summary: 'Registration successful',
         detail: 'You have been registered successfully',
@@ -49,7 +49,7 @@ export function authApiRepository() {
         life: _.TOAST_LIFE,
       })
 
-      return response
+      return response.json()
     }
 
     console.error('Registration error:', response.error)
@@ -64,9 +64,9 @@ export function authApiRepository() {
   async function logout() {
     const response = await useApiFetch<void>(`/auth/logout`, {
       method: 'POST',
-    }).json()
+    })
 
-    return response
+    return response.json()
   }
 
   async function me(token: string) {
@@ -74,9 +74,9 @@ export function authApiRepository() {
       headers: {
         'x-auth-token': token,
       },
-    }).json()
+    })
 
-    if (response.data.value.token) {
+    if (response.response.value?.ok) {
       toast.add({
         summary: 'Me successful',
         detail: 'You have been fetched successfully',
@@ -84,7 +84,7 @@ export function authApiRepository() {
         life: _.TOAST_LIFE,
       })
 
-      return response
+      return response.json()
     }
 
     return response
