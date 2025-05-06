@@ -21,5 +21,9 @@ export default function useDateFormatter(date: Date) {
     frenchOrdinal(day),
   )
 
+  // output formatted dates look like this:
+  // 1er janvier 2025
+  // 2 février 2025
+
   return formatted
 }
