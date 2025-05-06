@@ -17,7 +17,7 @@
     <div class="flex w-full flex-col gap-4 md:flex-row">
       <Card class="w-full md:w-2/3">
         <template #title>
-          <h2>Journal de bord de l'enfant</h2>
+          <h2>Journal de bord de {{ mockedChild.firstName }} </h2>
         </template>
         <template #content>
           <div class="flex flex-col gap-4">
