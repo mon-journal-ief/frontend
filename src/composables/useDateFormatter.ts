@@ -1,5 +1,5 @@
 function frenchOrdinal(n: number) {
-  return n === 1 ? '1er' : `${n}ème`
+  return n === 1 ? '1er' : `${n}`
 }
 
 export default function useDateFormatter(date: Date) {
