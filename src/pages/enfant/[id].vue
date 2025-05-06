@@ -14,8 +14,8 @@
         <p>{{ mockedChild.program.grade }}</p>
       </div>
     </div>
-    <div class="flex w-full gap-4">
-      <Card class="w-2/3">
+    <div class="flex w-full flex-col gap-4 md:flex-row">
+      <Card class="w-full md:w-2/3">
         <template #title>
           <h2>Journal de bord de l'enfant</h2>
         </template>
@@ -38,7 +38,7 @@
         </template>
       </Card>
 
-      <Card class="w-1/3">
+      <Card class="w-full md:w-1/3">
         <template #title>
           <h2>Program</h2>
         </template>
