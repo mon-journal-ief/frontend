@@ -11,7 +11,7 @@ export const mockedJournalEntries: IJournalEntry[] = [
   },
 ]
 
-export const mockedChild = ref<IChild>({
+export const mockedChild: IChild = {
   id: '1',
   firstName: 'Thimothé',
   name: 'Benjaoui',
@@ -20,4 +20,4 @@ export const mockedChild = ref<IChild>({
   gender: 'MALE',
   program: mockedProgram,
   journalEntries: mockedJournalEntries,
-})
+}
