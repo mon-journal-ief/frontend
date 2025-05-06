@@ -108,12 +108,13 @@ function onUploadImage(event: FileUploadSelectEvent) {
       <template v-if="entry.images.length">
         <div v-for="(image, index) in entry.images" :key="index" class="relative">
           <div class="size-24 overflow-hidden rounded-lg">
-            <img
+            <Image
               alt="Journal image"
-              class="size-full rounded-lg object-cover"
+              class="size-full"
+              image-class="size-full object-cover"
               preview
               :src="image"
-            >
+            />
           </div>
           <Button
             aria-label="Supprimer l'image"
@@ -124,26 +125,14 @@ function onUploadImage(event: FileUploadSelectEvent) {
           />
         </div>
       </template>
-      <Inplace>
-        <template #display>
-          <Button
-            class="rounded-lg text-white"
-            icon="i-ci-plus"
-            severity="secondary"
-            variant="outlined"
-          />
-        </template>
-        <template #content>
-          <FileUpload
-            v-model="entry.images"
-            accept="image/*"
-            auto
-            choose-label="Ajouter"
-            mode="basic"
-            @select="onUploadImage"
-          />
-        </template>
-      </Inplace>
+      <FileUpload
+        v-model="entry.images"
+        accept="image/*"
+        auto
+        choose-label="Ajouter"
+        mode="basic"
+        @select="onUploadImage"
+      />
     </div>
   </div>
 </template>

@@ -25,6 +25,6 @@ export function useInplaceEdit<T>(initialValue: T) {
     editingValue,
     onEditOpen,
     onCancel,
-    onSave
+    onSave,
   }
-} 
+}
