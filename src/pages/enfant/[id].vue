@@ -14,21 +14,38 @@
         <p>{{ mockedChild.program.grade }}</p>
       </div>
     </div>
+    <div class="flex w-full gap-4">
+      <Card class="w-2/3">
+        <template #title>
+          <h2>Journal de bord de l'enfant</h2>
+        </template>
+        <template #content>
+          <div class="flex flex-col gap-4">
+            <JournalEntry
+              v-for="entry in mockedChild.journalEntries"
+              :key="entry.id"
+              :model-value="entry"
+            />
+            <div class="flex justify-center">
+              <Button
+                class="rounded-lg text-white"
+                icon="i-ci-plus"
+                severity="secondary"
+                variant="outlined"
+              />
+            </div>
+          </div>
+        </template>
+      </Card>
 
-    <div class="mt-4 space-y-4">
-      <JournalEntry
-        v-for="entry in mockedChild.journalEntries"
-        :key="entry.id"
-        :model-value="entry"
-      />
-      <div class="flex justify-center">
-        <Button
-          class="rounded-lg text-white"
-          icon="i-ci-plus"
-          severity="secondary"
-          variant="outlined"
-        />
-      </div>
+      <Card class="w-1/3">
+        <template #title>
+          <h2>Program</h2>
+        </template>
+        <template #content>
+          <p>{{ mockedProgram }}</p>
+        </template>
+      </Card>
     </div>
   </div>
 </template>
