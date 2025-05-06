@@ -6,7 +6,7 @@
         alt="Avatar enfant"
         class="mr-4 size-16 rounded-full border-4 object-cover"
         :class="mockedChild.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
-        src="https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg"
+        :src="mockedChild.image"
       >
       <div class="flex flex-col gap-1 rounded-lg bg-gray-900 p-4">
         <h1>{{ mockedChild.firstName }} {{ mockedChild.name }}</h1>
