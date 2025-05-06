@@ -14,6 +14,7 @@
         <p>{{ mockedChild.program.grade }}</p>
       </div>
     </div>
+
     <div class="flex w-full flex-col gap-4 md:flex-row">
       <Card class="w-full md:w-2/3">
         <template #title>
