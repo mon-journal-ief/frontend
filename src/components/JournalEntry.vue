@@ -52,7 +52,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
                 v-model="editingDate"
                 class="w-full"
               />
-              <div class="mt-2 flex justify-end gap-2">
+              <div class="flex justify-end gap-2">
                 <Button
                   class="rounded-lg"
                   icon="i-ci-close"
@@ -77,7 +77,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
     </div>
     <Inplace @open="() => onEditOpenComment(entry.comment)">
       <template #display>
-        <p class="mt-2">{{ entry.comment }}</p>
+        <p>{{ entry.comment }}</p>
       </template>
       <template #content="{ closeCallback }">
         <div class="flex w-full flex-col gap-3">
@@ -108,7 +108,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
       </template>
     </Inplace>
 
-    <div class="mt-3 flex flex-wrap items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <template v-if="entry.images.length">
         <div v-for="(image, index) in entry.images" :key="index" class="relative">
           <div class="size-24 overflow-hidden rounded-lg">
