@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-type Section = 'assets' | 'threats' | 'controls' | 'organization' | 'admin'
+type Section = 'assets' | 'enfant'
 
 // Responsive
 const isSidebarOpen = defineModel<boolean>()
@@ -21,7 +21,7 @@ const route = useRoute()
 const activeSection = ref<Section | null>(null)
 
 function getSectionFromPath(path: string): Section | undefined {
-  return ['assets', 'threats', 'controls', 'organization', 'admin'].find(
+  return ['assets', 'enfant'].find(
     section => path.includes(`/${section}`),
   ) as Section | undefined
 }
@@ -62,11 +62,20 @@ onMounted(() => {
           route="/"
         />
 
-        <TheSidebarButton
-          image="https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg"
-          label="Thimothée"
-          :route="`/enfant/${mockedChild.id}`"
-        />
+        <TheSidebarSection
+          icon="i-ci-users-group"
+          :model-value="activeSection === 'enfant'"
+          title="Enfants"
+          @update:model-value="toggleSection('enfant')"
+        >
+          <TheSidebarButton
+            image="https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg"
+            :image-border="mockedChild.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
+            label="Thimothée"
+            :route="`/enfant/${mockedChild.id}`"
+          />
+        </TheSidebarSection>
+
         <!-- ASSETS -->
         <TheSidebarSection
           icon="i-ci-file-document"

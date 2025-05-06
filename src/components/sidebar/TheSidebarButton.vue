@@ -6,7 +6,10 @@ const props = defineProps<{
   icon?: string
   label?: string
   image?: string
+  imageBorder?: string
 }>()
+
+const borderClass = computed(() => props.imageBorder ? `border-2 ${props.imageBorder}` : '')
 </script>
 
 <template>
@@ -23,7 +26,8 @@ const props = defineProps<{
         <img
           v-if="props.image"
           alt="icon"
-          class="size-6 rounded-full object-cover"
+          class="size-10 rounded-full object-cover"
+          :class="borderClass"
           :src="props.image"
         >
         <i v-if="props.icon" class="text-2xl" :class="props.icon" />
