@@ -1,7 +1,22 @@
 <script setup lang="ts">
 import useDateFormatter from '@/composables/useDateFormatter'
+import { useInplaceEdit } from '@/composables/useInplaceEdit'
 
 const entry = defineModel<IJournalEntry>({ required: true })
+
+const {
+  editingValue: editingComment,
+  onEditOpen: onEditOpenComment,
+  onCancel: onCancelComment,
+  onSave: onSaveComment,
+} = useInplaceEdit(entry.value.comment)
+
+const {
+  editingValue: editingDate,
+  onEditOpen: onEditOpenDate,
+  onCancel: onCancelDate,
+  onSave: onSaveDate,
+} = useInplaceEdit(entry.value.date)
 </script>
 
 <template>
@@ -9,18 +24,71 @@ const entry = defineModel<IJournalEntry>({ required: true })
     <div class="flex items-center justify-between">
       <h3 class="flex items-center font-medium">
         <i class="i-ci-calendar mr-1 shrink-0" />
-        <Inplace>
+        <Inplace @open="() => onEditOpenDate(entry.date)">
           <template #display>
             {{ useDateFormatter(entry.date) }}
           </template>
           <template #content="{ closeCallback }">
-            <DatePicker v-model="entry.date" @update:model-value="closeCallback" />
+            <div class="flex gap-3">
+              <DatePicker
+                v-model="editingDate"
+                class="w-full"
+              />
+              <div class="mt-2 flex justify-end gap-2">
+                <Button
+                  class="rounded-lg"
+                  icon="i-ci-close"
+                  label="Annuler"
+                  severity="secondary"
+                  text
+                  @click="() => onCancelDate(entry.date, closeCallback)"
+                />
+                <Button
+                  class="rounded-lg text-white"
+                  icon="i-ci-save"
+                  label="Enregistrer"
+                  severity="primary"
+                  @click="() => onSaveDate(v => entry.date = v, closeCallback)"
+                />
+              </div>
+            </div>
           </template>
         </Inplace>
       </h3>
       <span class="text-sm text-gray-500">{{ entry.validatedElements.length }} éléments validés</span>
     </div>
-    <p class="mt-2">{{ entry.comment }}</p>
+    <Inplace @open="() => onEditOpenComment(entry.comment)">
+      <template #display>
+        <p class="mt-2">{{ entry.comment }}</p>
+      </template>
+      <template #content="{ closeCallback }">
+        <div class="flex w-full flex-col gap-3">
+          <Textarea
+            v-model="editingComment"
+            auto-resize
+            class="w-full"
+            placeholder="Ajoutez votre commentaire ici..."
+          />
+          <div class="flex justify-end gap-2">
+            <Button
+              class="rounded-lg"
+              icon="i-ci-close"
+              label="Annuler"
+              severity="secondary"
+              text
+              @click="() => onCancelComment(entry.comment, closeCallback)"
+            />
+            <Button
+              class="rounded-lg text-white"
+              icon="i-ci-save"
+              label="Enregistrer"
+              severity="primary"
+              @click="() => onSaveComment(v => entry.comment = v, closeCallback)"
+            />
+          </div>
+        </div>
+      </template>
+    </Inplace>
 
     <div class="mt-3 flex items-center gap-2">
       <template v-if="entry.images.length">
