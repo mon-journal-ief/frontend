@@ -20,4 +20,5 @@ export const mockedChild: IChild = {
   gender: 'MALE',
   program: mockedProgram,
   journalEntries: mockedJournalEntries,
+  image: 'https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg',
 }

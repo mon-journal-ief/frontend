@@ -37,6 +37,7 @@ declare global {
     id: string
     name: string
     firstName: string
+    image?: string
     age: number
     gender: string
     birthDate: Date
