@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { FileUploadSelectEvent } from 'primevue/fileupload'
+import { useToast } from 'primevue/usetoast'
 import useDateFormatter from '@/composables/useDateFormatter'
 import { useInplaceEdit } from '@/composables/useInplaceEdit'
+
+const toast = useToast()
 
 const entry = defineModel<IJournalEntry>({ required: true })
 
@@ -20,14 +23,16 @@ const {
 } = useInplaceEdit(entry.value.date)
 
 function onUploadImage(event: FileUploadSelectEvent) {
-  console.log('🖼️ Uploading image...', event)
   if (import.meta.env.DEV) {
-    console.log('🖼️ uploading locally...')
     const files = Array.isArray(event.files) ? event.files : [event.files]
     for (const file of files) {
       const url = URL.createObjectURL(file)
       entry.value.images.push(url)
-      console.log('🖼️ Image added locally for preview!', url)
+      toast.add({
+        severity: 'info',
+        summary: 'Image ajoutée',
+        detail: 'L\'image a été ajoutée à la liste des images',
+      })
     }
   }
 }
