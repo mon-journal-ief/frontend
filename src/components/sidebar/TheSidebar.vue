@@ -69,9 +69,9 @@ onMounted(() => {
           @update:model-value="toggleSection('enfant')"
         >
           <TheSidebarButton
-            image="https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg"
+            :image="mockedChild.image"
             :image-border="mockedChild.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
-            label="Thimothée"
+            :label="mockedChild.firstName"
             :route="`/enfant/${mockedChild.id}`"
           />
         </TheSidebarSection>
