@@ -1,5 +1,3 @@
-import { ref } from 'vue'
-
 export function useInplaceEdit<T>(initialValue: T) {
   const editingValue = ref<T>(initialValue)
 
