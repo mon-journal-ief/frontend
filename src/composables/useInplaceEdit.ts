@@ -10,15 +10,11 @@ export function useInplaceEdit<T>(initialValue: T) {
   function onCancel(currentValue: T, closeCallback: () => void) {
     editingValue.value = currentValue
     closeCallback()
-    // 🛑 Edit canceled
-    // console.log('🛑 Edit canceled')
   }
 
   function onSave(applyValue: (v: T) => void, closeCallback: () => void) {
     applyValue(editingValue.value)
     closeCallback()
-    // 💾 Value saved
-    // console.log('💾 Value saved')
   }
 
   return {
