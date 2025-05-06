@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FileUploadSelectEvent } from 'primevue/fileupload'
 import useDateFormatter from '@/composables/useDateFormatter'
 import { useInplaceEdit } from '@/composables/useInplaceEdit'
 
@@ -17,6 +18,19 @@ const {
   onCancel: onCancelDate,
   onSave: onSaveDate,
 } = useInplaceEdit(entry.value.date)
+
+function onUploadImage(event: FileUploadSelectEvent) {
+  console.log('🖼️ Uploading image...', event)
+  if (import.meta.env.DEV) {
+    console.log('🖼️ uploading locally...')
+    const files = Array.isArray(event.files) ? event.files : [event.files]
+    for (const file of files) {
+      const url = URL.createObjectURL(file)
+      entry.value.images.push(url)
+      console.log('🖼️ Image added locally for preview!', url)
+    }
+  }
+}
 </script>
 
 <template>
@@ -90,15 +104,25 @@ const {
       </template>
     </Inplace>
 
-    <div class="mt-3 flex items-center gap-2">
+    <div class="mt-3 flex flex-wrap items-center gap-2">
       <template v-if="entry.images.length">
-        <img
-          v-for="(image, index) in entry.images"
-          :key="index"
-          alt="Journal image"
-          class="size-20 rounded object-cover"
-          :src="image"
-        >
+        <div v-for="(image, index) in entry.images" :key="index" class="relative">
+          <div class="size-24 overflow-hidden rounded-lg">
+            <img
+              alt="Journal image"
+              class="size-full rounded-lg object-cover"
+              preview
+              :src="image"
+            >
+          </div>
+          <Button
+            aria-label="Supprimer l'image"
+            class="absolute -right-2 -top-2 size-6 rounded-full"
+            icon="i-ci-trash-empty"
+            severity="danger"
+            @click="entry.images.splice(index, 1)"
+          />
+        </div>
       </template>
       <Inplace>
         <template #display>
@@ -110,7 +134,14 @@ const {
           />
         </template>
         <template #content>
-          <InputText />
+          <FileUpload
+            v-model="entry.images"
+            accept="image/*"
+            auto
+            choose-label="Ajouter"
+            mode="basic"
+            @select="onUploadImage"
+          />
         </template>
       </Inplace>
     </div>
