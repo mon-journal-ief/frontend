@@ -73,6 +73,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
           </template>
         </Inplace>
       </h3>
+
       <span class="text-sm text-gray-500">{{ entry.validatedElements.length }} éléments validés</span>
     </div>
     <Inplace @open="() => onEditOpenComment(entry.comment)">
@@ -122,7 +123,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
           </div>
           <Button
             aria-label="Supprimer l'image"
-            class="absolute -right-2 -top-2 size-6 rounded-full"
+            class="absolute -right-2 -top-2 size-8 rounded-full"
             icon="i-ci-trash-empty"
             severity="danger"
             @click="entry.images.splice(index, 1)"
