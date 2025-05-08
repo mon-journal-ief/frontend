@@ -54,7 +54,6 @@ function onUploadImage(event: FileUploadSelectEvent) {
               />
               <div class="flex justify-end gap-2">
                 <Button
-                  class="rounded-lg"
                   icon="i-ci-close"
                   label="Annuler"
                   severity="secondary"
@@ -62,7 +61,6 @@ function onUploadImage(event: FileUploadSelectEvent) {
                   @click="() => onCancelDate(entry.date, closeCallback)"
                 />
                 <Button
-                  class="rounded-lg text-white"
                   icon="i-ci-save"
                   label="Enregistrer"
                   severity="primary"
