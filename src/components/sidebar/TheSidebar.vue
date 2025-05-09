@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-type Section = 'assets' | 'threats' | 'controls' | 'organization' | 'admin'
+type Section = 'assets' | 'enfant'
 
 // Responsive
 const isSidebarOpen = defineModel<boolean>()
@@ -21,7 +21,7 @@ const route = useRoute()
 const activeSection = ref<Section | null>(null)
 
 function getSectionFromPath(path: string): Section | undefined {
-  return ['assets', 'threats', 'controls', 'organization', 'admin'].find(
+  return ['assets', 'enfant'].find(
     section => path.includes(`/${section}`),
   ) as Section | undefined
 }
@@ -61,6 +61,15 @@ onMounted(() => {
           label="Overview"
           route="/"
         />
+
+        <TheSidebarSection
+          icon="i-ci-users-group"
+          :model-value="activeSection === 'enfant'"
+          title="Enfants"
+          @update:model-value="toggleSection('enfant')"
+        >
+          <TheSidebarButtonChild :child="mockedChild" />
+        </TheSidebarSection>
 
         <!-- LOGIN -->
         <TheSidebarButton
