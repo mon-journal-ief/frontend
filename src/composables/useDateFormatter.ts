@@ -2,6 +2,11 @@ function frenchOrdinal(n: number) {
   return n === 1 ? '1er' : `${n}`
 }
 
+/**
+ * output dates look like this:
+ * 1er janvier 2025
+ * 2 février 2025
+ */
 export default function useDateFormatter(date: Date) {
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
@@ -20,10 +25,6 @@ export default function useDateFormatter(date: Date) {
     new RegExp(`\\b${day}\\b`),
     frenchOrdinal(day),
   )
-
-  // output formatted dates look like this:
-  // 1er janvier 2025
-  // 2 février 2025
 
   return formatted
 }
