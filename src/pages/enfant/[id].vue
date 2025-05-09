@@ -4,26 +4,34 @@ const childRef = ref<IChild>(mockedChild)
 
 <template>
   <div class="flex flex-col gap-8">
-    <div class="flex items-center gap-2 rounded-lg bg-gray-900 p-4">
-      <img
-        v-if="childRef.image"
-        alt="Avatar enfant"
-        class="mr-4 size-16 rounded-full border-4 object-cover"
-        :class="childRef.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
-        :src="childRef.image"
-      >
-      <div class="flex flex-col gap-1 rounded-lg bg-gray-900 p-4">
-        <h1>{{ childRef.firstName }} {{ childRef.name }}</h1>
-        <p>{{ childRef.age }} ans</p>
-        <p>{{ childRef.program.grade }}</p>
-      </div>
-    </div>
+    <Card>
+      <template #title>
+        <div class="flex items-center gap-2">
+          <img
+            v-if="childRef.image"
+            alt="Avatar enfant"
+            class="size-16 rounded-full border-4 object-cover"
+            :class="childRef.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
+            :src="childRef.image"
+          >
+          <h1>{{ childRef.firstName }} {{ childRef.name }}</h1>
+        </div>
+      </template>
+
+      <template #content>
+        <div class="flex flex-col gap-1">
+          <p>{{ childRef.age }} ans</p>
+          <p>{{ childRef.program.grade }}</p>
+        </div>
+      </template>
+    </Card>
 
     <div class="flex w-full flex-col gap-4 md:flex-row">
       <Card class="w-full md:w-2/3">
         <template #title>
           <h2>Journal de bord de {{ childRef.firstName }} </h2>
         </template>
+
         <template #content>
           <div class="flex flex-col gap-4">
             <JournalEntry
@@ -47,6 +55,7 @@ const childRef = ref<IChild>(mockedChild)
         <template #title>
           <h2>Program</h2>
         </template>
+
         <template #content>
           <p>{{ mockedProgram }}</p>
         </template>
