@@ -11,7 +11,7 @@ const childRef = ref<IChild>(mockedChild)
             v-if="childRef.image"
             alt="Avatar enfant"
             class="size-16 rounded-full border-4 object-cover"
-            :class="childRef.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
+            :class="childRef.gender === 'MALE' ? 'dark:border-blue-800 border-blue-400' : 'dark:border-pink-800 border-pink-400'"
             :src="childRef.image"
           >
           <h1>{{ childRef.firstName }} {{ childRef.name }}</h1>
