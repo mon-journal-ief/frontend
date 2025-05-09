@@ -3,7 +3,7 @@ const childRef = ref<IChild>(mockedChild)
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-4">
     <Card>
       <template #title>
         <div class="flex items-center gap-2">
