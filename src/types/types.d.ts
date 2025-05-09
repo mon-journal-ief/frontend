@@ -23,7 +23,7 @@ declare global {
   interface IProgram {
     id: string
     name: string
-    grade: EGrade
+    grade: string
     elements: IProgramElement[]
   }
 
@@ -37,8 +37,9 @@ declare global {
     id: string
     name: string
     firstName: string
+    image?: string
     age: number
-    gender: EGender
+    gender: string
     birthDate: Date
     program: IProgram
     journalEntries: IJournalEntry[]
