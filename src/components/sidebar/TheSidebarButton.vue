@@ -10,17 +10,13 @@ const props = defineProps<{
 }>()
 
 const borderClass = computed(() => {
-  switch (props.imageBorder) {
-    case 'gray':
-      return 'border-4 border-gray-500'
-    case 'blue':
-      return 'border-4 border-blue-500'
-    case 'pink':
-      return 'border-4 border-pink-500'
-    default:
-      return ''
-  }
+  if (props.imageBorder === 'blue') return 'border-2 border-blue-800 dark:border-blue-200'
+  if (props.imageBorder === 'pink') return 'border-2 border-pink-800 dark:border-pink-200'
+
+  return ''
 })
+
+console.log(borderClass.value)
 </script>
 
 <template>

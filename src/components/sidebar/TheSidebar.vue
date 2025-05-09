@@ -68,12 +68,7 @@ onMounted(() => {
           title="Enfants"
           @update:model-value="toggleSection('enfant')"
         >
-          <TheSidebarButton
-            :image="mockedChild.image"
-            :image-border="mockedChild.gender ? mockedChild.gender === 'MALE' ? 'blue' : 'pink' : 'gray'"
-            :label="mockedChild.firstName"
-            :route="`/enfant/${mockedChild.id}`"
-          />
+          <TheSidebarButtonChild :child="mockedChild" />
         </TheSidebarSection>
 
         <!-- LOGIN -->
