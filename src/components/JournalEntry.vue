@@ -22,21 +22,17 @@ const {
 } = useInplaceEdit(entry.value.date)
 
 function onUploadImage(event: FileUploadSelectEvent) {
-  if (import.meta.env.DEV) {
-    const files = Array.isArray(event.files) ? event.files : [event.files]
-    const newImages = [...entry.value.images]
-    for (const file of files) {
-      const url = URL.createObjectURL(file)
-      newImages.push(url)
-    }
-    // This will trigger the model update and reactivity
-    entry.value = { ...entry.value, images: newImages }
-    toast.add({
-      severity: 'info',
-      summary: '️Image ajoutée',
-      detail: 'L\'image a été ajoutée à la liste des images',
-    })
+  const files = Array.isArray(event.files) ? event.files : [event.files]
+  for (const file of files) {
+    const url = URL.createObjectURL(file)
+    entry.value.images.push(url)
   }
+
+  toast.add({
+    severity: 'info',
+    summary: files.length > 1 ? '️Images ajoutées' : '️Image ajoutée',
+    detail: files.length > 1 ? 'Les images ont été ajoutées à la liste des images' : 'L\'image a été ajoutée à la liste des images',
+  })
 }
 </script>
 
@@ -131,6 +127,7 @@ function onUploadImage(event: FileUploadSelectEvent) {
             />
           </div>
         </template>
+
         <FileUpload
           accept="image/*"
           auto
