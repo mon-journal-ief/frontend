@@ -6,10 +6,21 @@ const props = defineProps<{
   icon?: string
   label?: string
   image?: string
-  imageBorder?: string
+  imageBorder?: 'gray' | 'blue' | 'pink'
 }>()
 
-const borderClass = computed(() => props.imageBorder ? `border-2 ${props.imageBorder}` : '')
+const borderClass = computed(() => {
+  switch (props.imageBorder) {
+    case 'gray':
+      return 'border-4 border-gray-500'
+    case 'blue':
+      return 'border-4 border-blue-500'
+    case 'pink':
+      return 'border-4 border-pink-500'
+    default:
+      return ''
+  }
+})
 </script>
 
 <template>

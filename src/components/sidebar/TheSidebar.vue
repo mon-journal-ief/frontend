@@ -70,7 +70,7 @@ onMounted(() => {
         >
           <TheSidebarButton
             :image="mockedChild.image"
-            :image-border="mockedChild.gender === 'MALE' ? 'border-blue-500' : 'border-pink-500'"
+            :image-border="mockedChild.gender ? mockedChild.gender === 'MALE' ? 'blue' : 'pink' : 'gray'"
             :label="mockedChild.firstName"
             :route="`/enfant/${mockedChild.id}`"
           />
