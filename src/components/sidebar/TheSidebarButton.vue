@@ -16,7 +16,6 @@ const borderClass = computed(() => {
   return ''
 })
 
-console.log(borderClass.value)
 </script>
 
 <template>

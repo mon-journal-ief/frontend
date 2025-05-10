@@ -47,7 +47,6 @@ useHead({
   <div class="flex bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
 
-    <TheSidebar v-if="pageWithNavigation" v-model="isSidebarOpen" />
     <div class="flex grow flex-col overflow-hidden">
       <BaseToast />
       <TheHeader v-if="pageWithNavigation" @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
