@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-
 import { useHeaderHeight } from '@/composables/useHeaderHeight'
 
 const emit = defineEmits<{
@@ -12,11 +11,6 @@ const isDesktopView = ref(breakpoints.md.value)
 watch(breakpoints.md, (value: boolean) => {
   isDesktopView.value = value
 })
-
-const activeSection = ref<Section | null>(null)
-function toggleSection(section: Section) {
-  activeSection.value = activeSection.value === section ? null : section
-}
 
 const headerRef = ref<HTMLElement>()
 const { setHeaderHeight } = useHeaderHeight()
@@ -35,6 +29,8 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
+
+const children = ref([mockedChild])
 </script>
 
 <template>
@@ -53,19 +49,14 @@ onUnmounted(() => {
           />
           <TheHeaderSection
             icon="i-ci-users-group"
-            :model-value="activeSection === 'enfant'"
             title="Enfants"
-            @update:model-value="toggleSection('enfant')"
           >
             <TheHeaderButton
-              icon="i-ci-house-01"
-              label="IEF"
-              route="/"
-            />
-            <TheHeaderButton
-              icon="i-ci-house-01"
-              label="IEF"
-              route="/"
+              v-for="child in children"
+              :key="child.id"
+              :image="child.image"
+              :label="child.name"
+              :route="`/enfant/${child.id}`"
             />
           </TheHeaderSection>
 

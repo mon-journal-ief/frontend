@@ -4,15 +4,16 @@ const props = defineProps<{
   icon?: string
   route: string
 }>()
+const currentRoute = useRoute()
 </script>
 
 <template>
   <Button
     as="router-link"
+    :disabled="!currentRoute.path.includes(props.route)"
     :label="props.label"
-    severity="contrast"
-    text
     :to="props.route"
+    variant="ghost"
   >
     <template #icon>
       <i :class="props.icon" />

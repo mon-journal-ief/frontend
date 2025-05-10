@@ -1,16 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   title: string
   icon: string
-  modelValue: boolean
 }>()
-const popoverRef = ref()
-const isOpen = ref(props.modelValue)
-const selectedElement = ref(null)
 
-if (props.modelValue) {
-  popoverRef.value.open()
-}
+const popoverRef = ref()
 
 function toggle(event: Event) {
   if (popoverRef.value) {
@@ -28,10 +22,10 @@ function toggle(event: Event) {
     >
       <div class="flex items-center gap-2">
         <i :class="icon" />
-        <span>{{ selectedElement ? selectedElement : title }}</span>
+        <span>{{ title }}</span>
       </div>
 
-      <i class="i-ci-chevron-right mr-4 transition-transform" :class="{ 'rotate-90': isOpen }" />
+      <i class="i-ci-chevron-right mr-4 transition-transform" :class="{ 'rotate-90': popoverRef?.visible }" />
     </Button>
 
     <Popover ref="popoverRef">
