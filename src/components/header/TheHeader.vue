@@ -54,10 +54,15 @@ const children = ref([mockedChild])
             <TheHeaderButton
               v-for="child in children"
               :key="child.id"
-              :image="child.image"
-              :label="child.name"
+              :label="child.firstName"
               :route="`/enfant/${child.id}`"
-            />
+            >
+              <Avatar
+                :alt="child.name"
+                :image="child.image"
+                shape="circle"
+              />
+            </TheHeaderButton>
           </TheHeaderSection>
 
         </div>
