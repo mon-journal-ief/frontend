@@ -1,6 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZTBiYmMzNmQtNmMzYS00MjA1LTgyYTAtZmRjYzNmMDYwZmM4In0sImlhdCI6MTc0Njk3MDE3MSwiZXhwIjoxNzQ2OTczNzcxfQ.YmRUQUgHG31i1XddeDYamenPWjtBHFIXPXoyKp4217g'
+const token = 'placeholder'
 
 export function programApiRepository() {
   const toast = useToast()
