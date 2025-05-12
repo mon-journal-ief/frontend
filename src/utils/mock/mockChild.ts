@@ -8,6 +8,9 @@ export const mockedJournalEntries: IJournalEntry[] = [
       'https://img.freepik.com/photos-gratuite/concept-education-etudiant-etudiant-faisant-remue-meninges-concept-du-campus-gros-plan-etudiants-qui-discutent-leur-sujet-livres-manuels-scolaires-mise-au-point-selective_1418-645.jpg',
     ],
     validatedElements: [],
+    child: {} as IChild, // should be mockedChild but it would create a circular dependency
+    createdAt: new Date('2020-01-01'),
+    updatedAt: new Date('2020-01-01'),
   },
 ]
 
@@ -21,4 +24,6 @@ export const mockedChild: IChild = {
   program: mockedProgram,
   journalEntries: mockedJournalEntries,
   image: 'https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg',
+  createdAt: new Date('2020-01-01'),
+  updatedAt: new Date('2020-01-01'),
 }
