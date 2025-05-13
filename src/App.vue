@@ -49,11 +49,13 @@ useHead({
 
     <div class="flex grow flex-col overflow-hidden">
       <BaseToast />
-      <TheHeader v-if="pageWithNavigation" @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
-      <RouterView
-        class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mr-4 md:rounded-xl md:px-6 md:py-8"
-        :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
-      />
+      <TheHeader v-if="pageWithNavigation" />
+      <div class="mx-auto w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl md:px-6 md:py-8">
+        <RouterView
+          class="mx-auto w-full max-w-7xl"
+          :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
+        />
+      </div>
     </div>
   </div>
 </template>

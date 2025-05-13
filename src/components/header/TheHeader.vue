@@ -2,10 +2,6 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { useHeaderHeight } from '@/composables/useHeaderHeight'
 
-const emit = defineEmits<{
-  toggleSidebar: []
-}>()
-
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isDesktopView = ref(breakpoints.md.value)
 watch(breakpoints.md, (value: boolean) => {
@@ -40,7 +36,7 @@ const children = ref([mockedChild])
       <div class="flex flex-row justify-between gap-2 p-4 md:gap-4">
         <div class="flex items-center gap-2 md:gap-4">
           <!-- BURGER -->
-          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" @click="emit('toggleSidebar')" />
+          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" />
 
           <TheHeaderButton
             icon="i-ci-house-01"
