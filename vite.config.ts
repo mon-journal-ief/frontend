@@ -46,6 +46,7 @@ export default defineConfig({
         { 'vue-router/auto': ['useLink'] },
         { 'primevue/usetoast': ['useToast'] },
         { 'primevue/useconfirm': ['useConfirm'] },
+        { '@/api': ['useApi'] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
