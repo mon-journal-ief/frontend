@@ -2,6 +2,9 @@
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { useHeaderHeight } from '@/composables/useHeaderHeight'
 
+const emit = defineEmits<{
+  toggleSidebar: []
+}>()
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isDesktopView = ref(breakpoints.md.value)
 watch(breakpoints.md, (value: boolean) => {
@@ -36,31 +39,33 @@ const children = ref([mockedChild])
       <div class="flex flex-row justify-between gap-2 p-4 md:gap-4">
         <div class="flex items-center gap-2 md:gap-4">
           <!-- BURGER -->
-          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" />
+          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" @click="emit('toggleSidebar')" />
 
-          <TheHeaderButton
-            icon="i-ci-house-01"
-            label="IEF"
-            route="/"
-          />
-          <TheHeaderSection
-            icon="i-ci-users-group"
-            title="Enfants"
-          >
+          <template v-if="isDesktopView">
             <TheHeaderButton
-              v-for="child in children"
-              :key="child.id"
-              :label="child.firstName"
-              :route="`/enfant/${child.id}`"
-              severity="secondary"
+              icon="i-ci-house-01"
+              label="IEF"
+              route="/"
+            />
+            <TheHeaderSection
+              icon="i-ci-users-group"
+              title="Enfants"
             >
-              <Avatar
-                :alt="child.name"
-                :image="child.image"
-                shape="circle"
-              />
-            </TheHeaderButton>
-          </TheHeaderSection>
+              <TheHeaderButton
+                v-for="child in children"
+                :key="child.id"
+                :label="child.firstName"
+                :route="`/enfant/${child.id}`"
+                severity="secondary"
+              >
+                <Avatar
+                  :alt="child.name"
+                  :image="child.image"
+                  shape="circle"
+                />
+              </TheHeaderButton>
+            </TheHeaderSection>
+          </template>
 
         </div>
 

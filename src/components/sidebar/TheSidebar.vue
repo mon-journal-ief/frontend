@@ -4,17 +4,11 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 type Section = 'assets' | 'enfant'
 
 // Responsive
-const isSidebarOpen = defineModel<boolean>()
+const isSidebarOpen = defineModel<boolean>('visible')
 const breakpoints = useBreakpoints(breakpointsTailwind)
 watch(breakpoints.md, (value: boolean) => {
-  isSidebarOpen.value = value
+  isSidebarOpen.value = !value
 }, { immediate: true })
-
-function closeSidebarOnMobile() {
-  if (breakpoints.md.value) return
-
-  isSidebarOpen.value = false
-}
 
 // Sections related
 const route = useRoute()
@@ -33,10 +27,6 @@ function toggleSection(section: Section) {
 // Development mode check
 const isDevelopmentMode = ref(import.meta.env.VITE_MODE === 'development')
 
-watch(() => route.path, () => {
-  closeSidebarOnMobile()
-})
-
 onMounted(() => {
   // Open the correct section when the page is loaded
   const section = getSectionFromPath(route.path)
@@ -46,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen min-w-[260px] flex-col">
+  <div v-show="isSidebarOpen" class="flex h-screen min-w-[260px] flex-col bg-surface-50 dark:bg-surface-950">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
       <a class="m-4" href="/">
         <!-- <img alt="IEF" class="h-12" src="@/assets/ief-logo.svg"> -->
