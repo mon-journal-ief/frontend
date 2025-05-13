@@ -52,6 +52,7 @@ const children = ref([mockedChild])
               :key="child.id"
               :label="child.firstName"
               :route="`/enfant/${child.id}`"
+              severity="secondary"
             >
               <Avatar
                 :alt="child.name"
