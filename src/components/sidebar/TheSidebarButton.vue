@@ -15,7 +15,6 @@ const borderClass = computed(() => {
 
   return ''
 })
-
 </script>
 
 <template>
