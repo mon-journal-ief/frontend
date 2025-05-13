@@ -19,23 +19,23 @@ const api = useApi()
 
 const program = ref()
 const programs = ref([])
-async function handleGetProgram() {
+async function getProgram() {
   programs.value = await api.program.getAll()
 }
 
 // CRUD operations for programs
 const createProgramResponse = ref()
 const updateProgramResponse = ref()
-async function handleCreateProgram() {
+async function createProgram() {
   const response = await api.program.create(newProgramForm.value)
   createProgramResponse.value = response
   if (response) {
     newProgramForm.value = { name: '', grade: 'CP' }
-    handleGetProgram()
+    getProgram()
   }
 }
 
-async function handleGetProgramById() {
+async function getProgramById() {
   const response = await api.program.get(selectedProgramId.value)
   if (response) {
     program.value = response
@@ -45,7 +45,7 @@ async function handleGetProgramById() {
   }
 }
 
-async function handleUpdateProgram() {
+async function updateProgram() {
   const response = await api.program.update(updateProgramForm.value.id, {
     name: updateProgramForm.value.name,
     grade: updateProgramForm.value.grade,
@@ -53,19 +53,12 @@ async function handleUpdateProgram() {
   if (response) {
     updateProgramResponse.value = response
     updateProgramForm.value = { id: '', name: '', grade: 'CP' }
-    handleGetProgram()
-  }
-}
-
-async function handleDeleteProgram(id) {
-  const response = await api.program.remove(id)
-  if (response) {
-    handleGetProgram()
+    getProgram()
   }
 }
 
 onMounted(() => {
-  handleGetProgram()
+  getProgram()
 })
 </script>
 
@@ -74,10 +67,9 @@ onMounted(() => {
     <template #content>
       <Tabs value="0">
         <TabList>
-          <Tab value="0">Get</Tab>
+          <Tab value="0">Get / Delete</Tab>
           <Tab value="1">Create</Tab>
           <Tab value="2">Update</Tab>
-          <Tab value="3">Delete</Tab>
         </TabList>
 
         <!-- GET -->
@@ -86,7 +78,7 @@ onMounted(() => {
             <Button @click="handleGetProgram">Get All Programs</Button>
             <div class="flex gap-4">
               <InputText v-model="selectedProgramId" class="grow" placeholder="Program ID" />
-              <Button @click="handleGetProgramById">Get By ID</Button>
+              <Button @click="getProgramById">Get By ID</Button>
             </div>
 
             <!-- Display program single -->
@@ -97,7 +89,7 @@ onMounted(() => {
               <template #content>
                 <CardDebugProgram
                   :program
-                  :title="program.name"
+                  @refetch="getProgram"
                 />
               </template>
             </Card>
@@ -112,7 +104,7 @@ onMounted(() => {
                   <li v-for="p in programs" :key="p.id">
                     <CardDebugProgram
                       :program="p"
-                      :title="p.name"
+                      @refetch="getProgram"
                     />
                   </li>
                 </ul>
@@ -124,7 +116,7 @@ onMounted(() => {
         <!-- CREATE -->
         <TabPanel value="1">
           <div class="flex flex-col gap-4">
-            <form class="flex flex-col gap-4" @submit.prevent="handleCreateProgram">
+            <form class="flex flex-col gap-4" @submit.prevent="createProgram">
               <InputText v-model="newProgramForm.name" placeholder="Program Name" />
               <Dropdown v-model="newProgramForm.grade" :options="['CP', 'CE1', 'CE2', 'CM1', 'CM2']" placeholder="Select Grade" />
               <Button type="submit">Create Program</Button>
@@ -134,7 +126,7 @@ onMounted(() => {
             <CardDebugProgram
               v-if="createProgramResponse"
               :program="createProgramResponse"
-              :title="createProgramResponse.name"
+              @refetch="getProgram"
             />
           </div>
         </TabPanel>
@@ -142,7 +134,7 @@ onMounted(() => {
         <!-- UPDATE -->
         <TabPanel value="2">
           <div class="flex flex-col gap-4">
-            <form class="flex flex-col gap-4" @submit.prevent="handleUpdateProgram">
+            <form class="flex flex-col gap-4" @submit.prevent="updateProgram">
               <InputText v-model="updateProgramForm.id" class="grow" placeholder="Program ID" />
               <InputText v-model="updateProgramForm.name" placeholder="Program Name" />
               <Dropdown v-model="updateProgramForm.grade" :options="['CP', 'CE1', 'CE2', 'CM1', 'CM2']" placeholder="Select Grade" />
@@ -153,32 +145,11 @@ onMounted(() => {
             <CardDebugProgram
               v-if="updateProgramResponse"
               :program="updateProgramResponse"
-              :title="updateProgramResponse.name"
+              @refetch="getProgram"
             />
           </div>
         </TabPanel>
 
-        <!-- DELETE -->
-        <TabPanel value="3">
-          <div class="flex flex-col gap-4">
-            <ul class="flex flex-col gap-8">
-              <li v-for="p in programs" :key="p.id">
-                <div class="flex flex-col justify-between gap-2">
-                  <CardDebugProgram
-                    :program="p"
-                    :title="p.name"
-                  />
-                  <Button
-                    severity="danger"
-                    @click="handleDeleteProgram(p.id)"
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </TabPanel>
       </Tabs>
     </template>
   </Card>

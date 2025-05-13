@@ -21,23 +21,24 @@ const api = useApi()
 
 const programElement = ref()
 const programElements = ref([])
-async function handleGetProgramElement() {
+
+async function getProgramElement() {
   programElements.value = await api.programElement.getAll()
 }
 
 // CRUD operations for programElements
 const createProgramElementResponse = ref()
 const updateProgramElementResponse = ref()
-async function handleCreateProgramElement() {
+async function createProgramElement() {
   const response = await api.programElement.create(newProgramElementForm.value)
   createProgramElementResponse.value = response
   if (response) {
     newProgramElementForm.value = { name: '', description: '', programId: '' }
-    handleGetProgramElement()
+    getProgramElement()
   }
 }
 
-async function handleGetProgramElementById() {
+async function getProgramElementById() {
   const response = await api.programElement.get(selectedProgramElementId.value)
   if (response) {
     programElement.value = response
@@ -48,7 +49,7 @@ async function handleGetProgramElementById() {
   }
 }
 
-async function handleUpdateProgramElement() {
+async function updateProgramElement() {
   const response = await api.programElement.update(updateProgramElementForm.value.id, {
     name: updateProgramElementForm.value.name,
     description: updateProgramElementForm.value.description,
@@ -57,19 +58,12 @@ async function handleUpdateProgramElement() {
   if (response) {
     updateProgramElementResponse.value = response
     updateProgramElementForm.value = { id: '', name: '', description: '', programId: '' }
-    handleGetProgramElement()
-  }
-}
-
-async function handleDeleteProgramElement(id) {
-  const response = await api.programElement.remove(id)
-  if (response) {
-    handleGetProgramElement()
+    getProgramElement()
   }
 }
 
 onMounted(() => {
-  handleGetProgramElement()
+  getProgramElement()
 })
 </script>
 
@@ -78,19 +72,18 @@ onMounted(() => {
     <template #content>
       <Tabs value="0">
         <TabList>
-          <Tab value="0">Get</Tab>
+          <Tab value="0">Get / Delete</Tab>
           <Tab value="1">Create</Tab>
           <Tab value="2">Update</Tab>
-          <Tab value="3">Delete</Tab>
         </TabList>
 
-        <!-- GET -->
+        <!-- GET / DELETE -->
         <TabPanel value="0">
           <div class="flex flex-col gap-4">
-            <Button @click="handleGetProgramElement">Get All Program Elements</Button>
+            <Button @click="getProgramElement">Get All Program Elements</Button>
             <div class="flex gap-4">
               <InputText v-model="selectedProgramElementId" class="grow" placeholder="Program Element ID" />
-              <Button @click="handleGetProgramElementById">Get By ID</Button>
+              <Button @click="getProgramElementById">Get By ID</Button>
             </div>
 
             <!-- Display programElement single -->
@@ -101,8 +94,9 @@ onMounted(() => {
               <template #content>
                 <CardDebugProgramElement
                   :program-element
-                  :title="programElement.name"
+                  @refetch="getProgramElement"
                 />
+
               </template>
             </Card>
 
@@ -116,7 +110,7 @@ onMounted(() => {
                   <li v-for="p in programElements" :key="p.id">
                     <CardDebugProgramElement
                       :program-element="p"
-                      :title="p.name"
+                      @refetch="getProgramElement"
                     />
                   </li>
                 </ul>
@@ -128,7 +122,7 @@ onMounted(() => {
         <!-- CREATE -->
         <TabPanel value="1">
           <div class="flex flex-col gap-4">
-            <form class="flex flex-col gap-4" @submit.prevent="handleCreateProgramElement">
+            <form class="flex flex-col gap-4" @submit.prevent="createProgramElement">
               <InputText v-model="newProgramElementForm.name" placeholder="Program Element Name" />
               <InputText v-model="newProgramElementForm.description" placeholder="Program Element Description" />
               <InputText v-model="newProgramElementForm.programId" placeholder="Program ID" />
@@ -139,7 +133,7 @@ onMounted(() => {
             <CardDebugProgramElement
               v-if="createProgramElementResponse"
               :program-element="createProgramElementResponse"
-              :title="createProgramElementResponse.name"
+              @refetch="getProgramElement"
             />
           </div>
         </TabPanel>
@@ -147,7 +141,7 @@ onMounted(() => {
         <!-- UPDATE -->
         <TabPanel value="2">
           <div class="flex flex-col gap-4">
-            <form class="flex flex-col gap-4" @submit.prevent="handleUpdateProgramElement">
+            <form class="flex flex-col gap-4" @submit.prevent="updateProgramElement">
               <InputText v-model="updateProgramElementForm.id" class="grow" placeholder="Program Element ID" />
               <InputText v-model="updateProgramElementForm.name" placeholder="Program Element Name" />
               <InputText v-model="updateProgramElementForm.description" placeholder="Program Element Description" />
@@ -158,32 +152,11 @@ onMounted(() => {
             <CardDebugProgramElement
               v-if="updateProgramElementResponse"
               :program-element="updateProgramElementResponse"
-              :title="updateProgramElementResponse.name"
+              @refetch="getProgramElement"
             />
           </div>
         </TabPanel>
 
-        <!-- DELETE -->
-        <TabPanel value="3">
-          <div class="flex flex-col gap-4">
-            <ul v-if="programElements && programElements.length" class="flex flex-col gap-8">
-              <li v-for="p in programElements" :key="p.id">
-                <div class="flex flex-col justify-between gap-2">
-                  <CardDebugProgramElement
-                    :program-element="p"
-                    :title="p.name"
-                  />
-                  <Button
-                    severity="danger"
-                    @click="handleDeleteProgramElement(p.id)"
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </TabPanel>
       </Tabs>
     </template>
   </Card>
