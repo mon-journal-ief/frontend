@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { useRouter } from 'vue-router'
 
 type Section = 'assets' | 'enfant'
 
