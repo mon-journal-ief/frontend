@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import { useRouter } from 'vue-router'
 
 type Section = 'assets' | 'enfant'
 
@@ -33,6 +34,14 @@ onMounted(() => {
 
   if (section) toggleSection(section)
 })
+
+// Watch for route changes to close the sidebar
+watch(
+  () => route.path,
+  () => {
+    isSidebarOpen.value = false
+  },
+)
 </script>
 
 <template>
