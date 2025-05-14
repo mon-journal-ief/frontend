@@ -29,7 +29,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
 
-const children = ref([mockedChild])
+const children = ref([mockedChild, mockedChild, mockedChild])
 </script>
 
 <template>
