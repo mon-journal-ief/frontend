@@ -9,7 +9,6 @@ const pageWithNavigation = computed(() =>
   route.name && !['/maintenance', '/[...404]'].includes(route.name),
 )
 
-const isSidebarOpen = ref(false)
 const { headerHeight } = useHeaderHeight()
 const { footerHeight } = useFooterHeight()
 
