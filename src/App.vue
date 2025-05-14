@@ -46,12 +46,11 @@ useHead({
 <template>
   <div class="flex flex-col bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
-    <TheHeader v-if="pageWithNavigation" class="fixed" @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
+    <TheHeader v-if="pageWithNavigation" class="fixed" />
 
     <div class="flex grow flex-col overflow-hidden">
       <BaseToast />
       <div class="relative mx-auto w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl md:px-6 md:py-8">
-        <TheSidebar v-model:visible="isSidebarOpen" class="absolute left-0 top-0 z-10 w-full" />
         <RouterView
           class="mx-auto w-full max-w-7xl"
           :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
