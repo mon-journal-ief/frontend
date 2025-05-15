@@ -18,6 +18,8 @@ declare global {
     email: string
     name: string
     children: IChild[]
+    createdAt: Date
+    updatedAt: Date
   }
 
   interface IProgram {
@@ -25,12 +27,19 @@ declare global {
     name: string
     grade: string
     elements: IProgramElement[]
+    children: IChild[]
+    createdAt: Date
+    updatedAt: Date
   }
 
   interface IProgramElement {
     id: string
     name: string
     description: string
+    journalEntries: IJournalEntry[]
+    program: IProgram
+    createdAt: Date
+    updatedAt: Date
   }
 
   interface IChild {
@@ -43,6 +52,8 @@ declare global {
     birthDate: Date
     program: IProgram
     journalEntries: IJournalEntry[]
+    createdAt: Date
+    updatedAt: Date
   }
 
   interface IJournalEntry {
@@ -51,6 +62,9 @@ declare global {
     comment: string
     images: string[]
     validatedElements: IProgramElement[]
+    child: IChild
+    createdAt: Date
+    updatedAt: Date
   }
 }
 
