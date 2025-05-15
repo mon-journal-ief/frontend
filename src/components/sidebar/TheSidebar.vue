@@ -78,6 +78,13 @@ onMounted(() => {
           route="/login"
         />
 
+        <!-- DEBUG -->
+        <TheSidebarButton
+          icon="i-ci-cookie"
+          label="Debug"
+          route="/debug"
+        />
+
         <!-- ASSETS -->
         <TheSidebarSection
           icon="i-ci-file-document"
