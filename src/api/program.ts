@@ -1,11 +1,7 @@
-import { useApiFetch } from '@/utils/apiRepository'
-
-const token = 'placeholder'
+import type { ToastServiceMethods } from 'primevue'
 
 export function programApiRepository() {
-  const toast = useToast()
-
-  async function getAll() {
+  async function getAll(toast?: ToastServiceMethods) {
     return useApiFetch<IProgram[]>(
       `/program`,
       { },
@@ -17,7 +13,7 @@ export function programApiRepository() {
     ).json()
   }
 
-  async function get(id: string) {
+  async function get(id: string, toast?: ToastServiceMethods) {
     return useApiFetch<IProgram>(
       `/program/${id}`,
       { },
@@ -29,7 +25,7 @@ export function programApiRepository() {
     ).json()
   }
 
-  async function create(program: IProgram) {
+  async function create(program: IProgram, toast?: ToastServiceMethods) {
     return useApiFetch<IProgram>(
       `/program`,
       {
@@ -45,7 +41,7 @@ export function programApiRepository() {
     ).json()
   }
 
-  async function update(id: string, program: IProgram) {
+  async function update(id: string, program: IProgram, toast?: ToastServiceMethods) {
     return useApiFetch<IProgram>(
       `/program/${id}`,
       {
@@ -60,7 +56,7 @@ export function programApiRepository() {
     ).json()
   }
 
-  async function remove(id: string) {
+  async function remove(id: string, toast?: ToastServiceMethods) {
     return useApiFetch<IProgram>(
       `/program/${id}`,
       { method: 'DELETE' },

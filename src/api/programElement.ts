@@ -1,140 +1,71 @@
-import { useApiFetch } from '@/utils/apiRepository'
-
-const token = 'placeholder'
+import type { ToastServiceMethods } from 'primevue'
 
 export function programElementApiRepository() {
-  const toast = useToast()
-
-  async function getAll() {
-    const response = await useApiFetch<IProgramElement[]>(`/program/element`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
+  async function getAll(programId: string, toast?: ToastServiceMethods) {
+    return useApiFetch<IProgramElement[]>(
+      `/program-elements/program/${programId}`,
+      {},
+      {
+        success: { summary: 'Program Elements fetched successfully', detail: 'Elements fetched successfully' },
+        error: { summary: 'Program Elements fetch failed', detail: 'Could not fetch program elements.' },
       },
-    })
-
-    if (response.response.value?.ok) {
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Program Elements fetch error:', response.error)
-    toast.add({
-      summary: 'Program Elements fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      toast,
+    ).json()
   }
 
-  async function get(id: string) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+  async function get(id: string, toast?: ToastServiceMethods) {
+    return useApiFetch<IProgramElement>(
+      `/program-elements/${id}`,
+      {},
+      {
+        success: { summary: 'Program Element fetched successfully', detail: 'Element fetched successfully' },
+        error: { summary: 'Program Element fetch failed', detail: 'Could not fetch program element.' },
       },
-    })
-
-    if (response.response.value?.ok) {
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Program Element fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      toast,
+    ).json()
   }
 
-  async function create(programElement: IProgramElement) {
-    const response = await useApiFetch<IProgramElement>(`/program/element`, {
-      method: 'POST',
-      body: JSON.stringify(programElement),
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
+  async function create(programElement: Partial<IProgramElement>, toast?: ToastServiceMethods) {
+    return useApiFetch<IProgramElement>(
+      `/program-elements`,
+      {
+        method: 'POST',
+        body: JSON.stringify(programElement),
+        headers: { 'Content-Type': 'application/json' },
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element created successfully',
-        detail: 'You have been created successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Program Element creation error:', response.error)
-    toast.add({
-      summary: 'Program Element creation failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      {
+        success: { summary: 'Program Element created!', detail: 'Element created successfully.' },
+        error: { summary: 'Creation failed', detail: 'Could not create program element.' },
+      },
+      toast,
+    ).json()
   }
 
-  async function update(id: string, programElement: IProgramElement) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(programElement),
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
+  async function update(id: string, programElement: Partial<IProgramElement>, toast?: ToastServiceMethods) {
+    return useApiFetch<IProgramElement>(
+      `/program-elements/${id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(programElement),
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element updated successfully',
-        detail: 'You have been updated successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Program Element update error:', response.error)
-    toast.add({
-      summary: 'Program Element update failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      {
+        success: { summary: 'Program Element updated successfully', detail: 'Element updated successfully.' },
+        error: { summary: 'Program Element update failed', detail: 'Could not update program element.' },
+      },
+      toast,
+    ).json()
   }
 
-  async function remove(id: string) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
+  async function remove(id: string, toast?: ToastServiceMethods) {
+    return useApiFetch<IProgramElement>(
+      `/program-elements/${id}`,
+      { method: 'DELETE' },
+      {
+        success: { summary: 'Program Element deleted successfully', detail: 'Element deleted successfully.' },
+        error: { summary: 'Program Element deletion failed', detail: 'Could not delete program element.' },
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element deleted successfully',
-        detail: 'You have been deleted successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Program Element deletion error:', response.error)
-    toast.add({
-      summary: 'Program Element deletion failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      toast,
+    ).json()
   }
 
   return {

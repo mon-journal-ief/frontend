@@ -1,9 +1,7 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import type { ToastServiceMethods } from 'primevue'
 
 export function authApiRepository() {
-  const toast = useToast()
-
-  function login(credentials: { email: string, password: string }) {
+  function login(credentials: { email: string, password: string }, toast?: ToastServiceMethods) {
     return useApiFetch<IUser>(
       `/auth/login`,
       {
@@ -24,7 +22,7 @@ export function authApiRepository() {
     ).json()
   }
 
-  function register(credentials: { email: string, password: string }) {
+  function register(credentials: { email: string, password: string }, toast?: ToastServiceMethods) {
     return useApiFetch<IUser>(
       `/auth/register`,
       {
@@ -45,7 +43,7 @@ export function authApiRepository() {
     ).json()
   }
 
-  function logout() {
+  function logout(toast?: ToastServiceMethods) {
     return useApiFetch<void>(
       `/auth/logout`,
       { method: 'POST' },
@@ -63,7 +61,7 @@ export function authApiRepository() {
     ).json()
   }
 
-  function me(token: string) {
+  function me(token: string, toast?: ToastServiceMethods) {
     return useApiFetch<IUser>(
       `/auth/me`,
       {},

@@ -1,6 +1,5 @@
 <script setup>
-import { useApi } from '@/api'
-
+const toast = useToast()
 const user = ref({})
 
 const loginForm = ref({
@@ -18,7 +17,7 @@ const registerForm = ref({
 const api = useApi()
 
 async function handleLogin() {
-  const response = await api.auth.login(loginForm.value)
+  const response = await api.auth.login(loginForm.value, toast)
 
   useUserStore().token = response.data.value.token
 }
@@ -28,12 +27,12 @@ async function handleRegister() {
   if (!name || !email || !password || !confirmPassword) return
   if (password !== confirmPassword) return
 
-  const response = await api.auth.register(registerForm.value)
+  const response = await api.auth.register(registerForm.value, toast)
   useUserStore().token = response.data.value.token
 }
 
 async function handleGetMe() {
-  const response = await api.auth.me(useUserStore().token)
+  const response = await api.auth.me(useUserStore().token, toast)
   user.value = response.data.value
 }
 </script>
