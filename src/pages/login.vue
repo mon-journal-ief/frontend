@@ -1,6 +1,5 @@
 <script setup>
 const toast = useToast()
-const user = ref({})
 
 const loginForm = ref({
   email: '',
@@ -33,7 +32,7 @@ async function handleRegister() {
 
 async function handleGetMe() {
   const response = await api.auth.me(useUserStore().token, toast)
-  user.value = response.data.value
+  useUserStore().user = response.data.value
 }
 </script>
 
@@ -42,7 +41,7 @@ async function handleGetMe() {
     <Card>
       <template #content>
         <h1>Token: {{ useUserStore().token?.slice(0, 20) }}...</h1>
-        <h1>User: <pre>{{ user }}</pre></h1>
+        <h1>User: <pre>{{ useUserStore().user }}</pre></h1>
         <Button @click="handleGetMe">Get /me</Button>
       </template>
     </Card>

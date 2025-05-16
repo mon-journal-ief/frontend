@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 const api = useApi()
 export const useUserStore = defineStore('user', () => {
   const token = ref(localStorage.getItem('token') || '')
-  const user = ref<IUser | null>(null)
+  const user = ref<IUser | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : null)
 
   watch(token, async (newToken) => {
     if (newToken) {
@@ -14,6 +14,15 @@ export const useUserStore = defineStore('user', () => {
     else {
       localStorage.removeItem('token')
       user.value = null
+    }
+  })
+
+  watch(user, async (newUser) => {
+    if (newUser) {
+      localStorage.setItem('user', JSON.stringify(newUser))
+    }
+    else {
+      localStorage.removeItem('user')
     }
   })
 
