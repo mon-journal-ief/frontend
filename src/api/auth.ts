@@ -3,91 +3,82 @@ import { useApiFetch } from '@/utils/apiRepository'
 export function authApiRepository() {
   const toast = useToast()
 
-  async function login(credentials: { email: string, password: string }) {
-    const response = await useApiFetch<IUser>(`/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: {
-        'Content-Type': 'application/json',
+  function login(credentials: { email: string, password: string }) {
+    return useApiFetch<IUser>(
+      `/auth/login`,
+      {
+        method: 'POST',
+        body: JSON.stringify(credentials),
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Login successful',
-        detail: 'You have been logged in successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return response.json()
-    }
-
-    console.error('Login error:', response.error)
-    toast.add({
-      summary: 'Login failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      {
+        success: {
+          summary: 'Login successful',
+          detail: 'You have been logged in successfully',
+        },
+        error: {
+          summary: 'Login failed',
+          detail: 'Invalid email or password',
+        },
+      },
+      toast,
+    ).json()
   }
 
-  async function register(credentials: { email: string, password: string }) {
-    const response = await useApiFetch<IUser>(`/auth/register`, {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: {
-        'Content-Type': 'application/json',
+  function register(credentials: { email: string, password: string }) {
+    return useApiFetch<IUser>(
+      `/auth/register`,
+      {
+        method: 'POST',
+        body: JSON.stringify(credentials),
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Registration successful',
-        detail: 'You have been registered successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return response.json()
-    }
-
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Registration failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+      {
+        success: {
+          summary: 'Registration successful',
+          detail: 'You have been registered successfully',
+        },
+        error: {
+          summary: 'Registration failed',
+          detail: 'Registration error',
+        },
+      },
+      toast,
+    ).json()
   }
 
-  async function logout() {
-    const response = await useApiFetch<void>(`/auth/logout`, {
-      method: 'POST',
-    })
-
-    return response.json()
+  function logout() {
+    return useApiFetch<void>(
+      `/auth/logout`,
+      { method: 'POST' },
+      {
+        success: {
+          summary: 'Logout successful',
+          detail: 'You have been logged out',
+        },
+        error: {
+          summary: 'Logout failed',
+          detail: 'Logout error',
+        },
+      },
+      toast,
+    ).json()
   }
 
-  async function me(token: string) {
-    const response = await useApiFetch<IUser>(`/auth/me`, {
-      headers: {
-        'x-auth-token': token,
+  function me(token: string) {
+    return useApiFetch<IUser>(
+      `/auth/me`,
+      {},
+      {
+        success: {
+          summary: 'Me successful',
+          detail: 'You have been fetched successfully',
+        },
+        error: {
+          summary: 'Me failed',
+          detail: 'Could not fetch user',
+        },
       },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Me successful',
-        detail: 'You have been fetched successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return response.json()
-    }
-
-    return response
+      toast,
+    ).json()
   }
 
   return {
