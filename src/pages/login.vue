@@ -1,7 +1,6 @@
 <script setup>
 import { useApi } from '@/api'
 
-const token = ref('')
 const user = ref({})
 
 const loginForm = ref({
@@ -21,7 +20,7 @@ const api = useApi()
 async function handleLogin() {
   const response = await api.auth.login(loginForm.value)
 
-  token.value = response.data.value.token
+  useUserStore().token = response.data.value.token
 }
 
 async function handleRegister() {
@@ -30,11 +29,11 @@ async function handleRegister() {
   if (password !== confirmPassword) return
 
   const response = await api.auth.register(registerForm.value)
-  token.value = response.data.value.token
+  useUserStore().token = response.data.value.token
 }
 
 async function handleGetMe() {
-  const response = await api.auth.me(token.value)
+  const response = await api.auth.me(useUserStore().token)
   user.value = response.data.value
 }
 </script>
@@ -43,7 +42,7 @@ async function handleGetMe() {
   <div class="flex flex-col items-center justify-center gap-8">
     <Card>
       <template #content>
-        <h1>Token: {{ token?.slice(0, 20) }}...</h1>
+        <h1>Token: {{ useUserStore().token?.slice(0, 20) }}...</h1>
         <h1>User: <pre>{{ user }}</pre></h1>
         <Button @click="handleGetMe">Get /me</Button>
       </template>
