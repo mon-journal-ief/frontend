@@ -1,6 +1,6 @@
 import { createFetch } from '@vueuse/core'
 
-interface ToastMessages {
+interface IToastMessages {
   success?: { summary: string, detail: string }
   error?: { summary: string, detail: string }
 }
@@ -12,7 +12,7 @@ const baseFetch = createFetch({
 export function useApiFetch<T = unknown>(
   url: string,
   options?: RequestInit,
-  messages?: ToastMessages,
+  messages?: IToastMessages,
   toast?: ReturnType<typeof useToast>,
 ) {
   const token = useUserStore().token
