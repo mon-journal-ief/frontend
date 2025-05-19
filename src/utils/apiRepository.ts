@@ -53,12 +53,6 @@ export function useApiFetch<T = unknown>(
             life: _.TOAST_LIFE,
           })
         }
-        else if (messages.success) {
-          console.log(`✅ ${messages.success}`, ctx.data)
-        }
-        else {
-          console.log('✅ API Success:', ctx.data)
-        }
       }
 
       return ctx
