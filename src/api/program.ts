@@ -1,8 +1,19 @@
 import type { ToastServiceMethods } from 'primevue'
 
 export function programApiRepository() {
-  async function getAll(toast?: ToastServiceMethods) {
-    return useApiFetch<IProgram[]>(
+  let toast: ToastServiceMethods | undefined
+  try {
+    toast = useToast()
+  }
+  catch (e) {
+    if (e instanceof Error && e.message.includes('No PrimeVue Toast provided')) {
+      console.warn('⚠️ No PrimeVue Toast provided! Proceeding without toast notification.')
+      toast = undefined
+    }
+  }
+
+  async function getAll() {
+    const { data } = await useApiFetch<IProgram[]>(
       `/program`,
       { },
       {
@@ -11,10 +22,12 @@ export function programApiRepository() {
       },
       toast,
     ).json()
+
+    return data.value
   }
 
-  async function get(id: string, toast?: ToastServiceMethods) {
-    return useApiFetch<IProgram>(
+  async function get(id: string) {
+    const { data } = await useApiFetch<IProgram>(
       `/program/${id}`,
       { },
       {
@@ -23,10 +36,12 @@ export function programApiRepository() {
       },
       toast,
     ).json()
+
+    return data.value
   }
 
-  async function create(program: IProgram, toast?: ToastServiceMethods) {
-    return useApiFetch<IProgram>(
+  async function create(program: IProgram) {
+    const { data } = await useApiFetch<IProgram>(
       `/program`,
       {
         method: 'POST',
@@ -39,10 +54,12 @@ export function programApiRepository() {
       },
       toast,
     ).json()
+
+    return data.value
   }
 
-  async function update(id: string, program: IProgram, toast?: ToastServiceMethods) {
-    return useApiFetch<IProgram>(
+  async function update(id: string, program: IProgram) {
+    const { data } = await useApiFetch<IProgram>(
       `/program/${id}`,
       {
         method: 'PUT',
@@ -54,10 +71,12 @@ export function programApiRepository() {
       },
       toast,
     ).json()
+
+    return data.value
   }
 
-  async function remove(id: string, toast?: ToastServiceMethods) {
-    return useApiFetch<IProgram>(
+  async function remove(id: string) {
+    const { data } = await useApiFetch<IProgram>(
       `/program/${id}`,
       { method: 'DELETE' },
       {
@@ -66,6 +85,8 @@ export function programApiRepository() {
       },
       toast,
     ).json()
+
+    return data.value
   }
 
   return {

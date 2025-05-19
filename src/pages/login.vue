@@ -16,7 +16,7 @@ const registerForm = ref({
 const api = useApi()
 
 async function handleLogin() {
-  const response = await api.auth.login(loginForm.value, toast)
+  const response = await api.auth.login(loginForm.value)
 
   useUserStore().token = response.data.value.token
 }

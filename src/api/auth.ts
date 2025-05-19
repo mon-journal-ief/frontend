@@ -1,6 +1,17 @@
 import type { ToastServiceMethods } from 'primevue'
 
 export function authApiRepository() {
+  let toast: ToastServiceMethods | undefined
+  try {
+    toast = useToast()
+  }
+  catch (e) {
+    if (e instanceof Error && e.message.includes('No PrimeVue Toast provided')) {
+      console.warn('⚠️ No PrimeVue Toast provided! Proceeding without toast notification.')
+      toast = undefined
+    }
+  }
+
   function login(credentials: { email: string, password: string }, toast?: ToastServiceMethods) {
     return useApiFetch<IUser>(
       `/auth/login`,
@@ -61,7 +72,7 @@ export function authApiRepository() {
     ).json()
   }
 
-  function me(token: string, toast?: ToastServiceMethods) {
+  function me() {
     return useApiFetch<IUser>(
       `/auth/me`,
       {},

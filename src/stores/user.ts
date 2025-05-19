@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
   watch(token, async (newToken) => {
     if (newToken) {
       localStorage.setItem('token', newToken)
-      const response = await api.auth.me(newToken)
+      const response = await api.auth.me()
       user.value = response.data.value
     }
     else {
