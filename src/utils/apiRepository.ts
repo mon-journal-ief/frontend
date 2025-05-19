@@ -37,12 +37,6 @@ export function useApiFetch<T = unknown>(
             life: _.TOAST_LIFE,
           })
         }
-        else if (messages.error) {
-          console.error(`❌ ${messages.error.summary}`, ctx.error)
-        }
-        else {
-          console.error('❌ API Error:', ctx.error)
-        }
       }
 
       return ctx
@@ -60,7 +54,7 @@ export function useApiFetch<T = unknown>(
           })
         }
         else if (messages.success) {
-          console.log(`✅ ${messages.success.summary}`, ctx.data)
+          console.log(`✅ ${messages.success}`, ctx.data)
         }
         else {
           console.log('✅ API Success:', ctx.data)
