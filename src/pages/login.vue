@@ -1,6 +1,9 @@
 <script setup>
 const toast = useToast()
 
+const userStore = useUserStore()
+const { token, user } = storeToRefs(userStore)
+
 const loginForm = ref({
   email: '',
   password: '',
@@ -18,7 +21,7 @@ const api = useApi()
 async function handleLogin() {
   const response = await api.auth.login(loginForm.value)
 
-  useUserStore().token = response.data.value.token
+  token.value = response.data.value.token
 }
 
 async function handleRegister() {
@@ -27,12 +30,12 @@ async function handleRegister() {
   if (password !== confirmPassword) return
 
   const response = await api.auth.register(registerForm.value, toast)
-  useUserStore().token = response.data.value.token
+  token.value = response.data.value.token
 }
 
 async function handleGetMe() {
-  const response = await api.auth.me(useUserStore().token, toast)
-  useUserStore().user = response.data.value
+  const response = await api.auth.me(token.value, toast)
+  user.value = response.data.value
 }
 </script>
 
@@ -40,8 +43,8 @@ async function handleGetMe() {
   <div class="flex flex-col items-center justify-center gap-8">
     <Card>
       <template #content>
-        <h1>Token: {{ useUserStore().token?.slice(0, 20) }}...</h1>
-        <h1>User: <pre>{{ useUserStore().user }}</pre></h1>
+        <h1>Token: {{ token?.slice(0, 20) }}...</h1>
+        <h1>User: <pre>{{ user }}</pre></h1>
         <Button @click="handleGetMe">Get /me</Button>
       </template>
     </Card>
