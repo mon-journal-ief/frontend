@@ -52,7 +52,6 @@ useHead({
       <div class="relative mx-auto w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl md:px-6 md:py-8">
         <RouterView
           class="mx-auto w-full max-w-7xl"
-          :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
         />
       </div>
     </div>
