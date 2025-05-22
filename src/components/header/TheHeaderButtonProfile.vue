@@ -34,21 +34,7 @@ function toggle(event) {
 </script>
 
 <template>
-  <router-link
-    v-if="!isLoggedIn"
-    v-slot="{ navigate }"
-    custom
-    to="/login"
-  >
-    <Button
-      v-if="!isLoggedIn"
-      label="Login"
-      severity="primary"
-      @click="navigate"
-    />
-  </router-link>
   <Button
-    v-else
     aria-controls="profile_menu"
     aria-haspopup="true"
     icon="i-ci-user"
