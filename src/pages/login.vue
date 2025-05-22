@@ -43,14 +43,6 @@ async function handleGetMe() {
   <div class="flex flex-col items-center justify-center gap-8">
     <Card>
       <template #content>
-        <h1>Token: {{ token?.slice(0, 20) }}...</h1>
-        <h1>User: <pre>{{ user }}</pre></h1>
-        <Button @click="handleGetMe">Get /me</Button>
-      </template>
-    </Card>
-
-    <Card>
-      <template #content>
         <Tabs value="0">
           <TabList class="mb-8">
             <Tab value="0">Login</Tab>

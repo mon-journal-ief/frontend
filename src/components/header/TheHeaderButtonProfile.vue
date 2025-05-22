@@ -1,4 +1,7 @@
 <script setup>
+const userStore = useUserStore()
+const { user, token } = storeToRefs(userStore)
+
 const menu = ref()
 const items = ref([
   {
@@ -19,7 +22,8 @@ const items = ref([
     icon: 'i-ci-log-out',
     class: 'text-red-600 dark:text-red-500',
     async command() {
-      localStorage.clear()
+      token.value = ''
+      user.value = null
     },
   },
 ])
@@ -35,6 +39,7 @@ function toggle(event) {
       aria-controls="profile_menu"
       aria-haspopup="true"
       icon="i-ci-user"
+      :label="user?.name || 'Profile'"
       outlined
       rounded
       severity="secondary"

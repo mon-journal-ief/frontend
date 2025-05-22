@@ -30,6 +30,9 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -54,7 +57,7 @@ onUnmounted(() => {
           <div class="flex items-center gap-2 md:gap-4">
             <TheHeaderButtonDarkMode />
 
-            <TheHeaderButtonProfile />
+            <TheHeaderButtonProfile v-if="user" />
           </div>
         </div>
       </div>
