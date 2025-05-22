@@ -3,7 +3,6 @@ const children = ref([mockedChild, mockedChild, mockedChild])
 
 const items = [
   {
-    label: 'IEF',
     icon: 'i-ci-house-01',
     url: '/',
   },
