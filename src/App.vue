@@ -9,9 +9,6 @@ const pageWithNavigation = computed(() =>
   route.name && !['/maintenance', '/[...404]'].includes(route.name),
 )
 
-const { headerHeight } = useHeaderHeight()
-const { footerHeight } = useFooterHeight()
-
 useHead({
   title: () => {
     switch (import.meta.env.VITE_MODE) {
