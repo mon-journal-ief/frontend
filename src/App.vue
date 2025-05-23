@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import { useHeaderHeight } from '@/composables/useHeaderHeight'
-import { useFooterHeight } from '@/composables/useFooterHeight'
 
 const route = useRoute()
 
