@@ -1,9 +1,6 @@
 <script setup>
 const menu = ref()
 
-// TODO: update this when login is implemented
-const isLoggedIn = ref(true)
-
 const items = ref([
   {
     label: 'Account',
