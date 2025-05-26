@@ -34,7 +34,7 @@ const items = [
           <span v-if="item.image" class="mr-2">
             <Avatar :image="item.image" shape="circle" />
           </span>
-          <span>{{ item.label }}</span>
+          <span v-if="item.label">{{ item.label }}</span>
           <i v-if="hasSubmenu" class="ml-auto" :class="[{ 'i-ci-chevron-down': root, 'i-ci-chevron-right': !root }]" />
         </a>
       </template>
