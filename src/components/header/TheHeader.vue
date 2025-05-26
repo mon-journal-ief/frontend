@@ -20,7 +20,7 @@ const items = [
 
 <template>
   <div class="sticky top-0 z-20">
-    <Menubar :model="items">
+    <Menubar class="rounded-none" :model="items">
       <template #item="{ item, props, hasSubmenu, root }">
         <a
           v-ripple

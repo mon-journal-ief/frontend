@@ -42,7 +42,7 @@ useHead({
     <ConfirmDialog dismissable-mask />
     <TheHeader v-if="pageWithNavigation" class="fixed" />
 
-    <div class="flex h-full grow flex-col overflow-hidden bg-blue-500">
+    <div class="flex h-full grow flex-col overflow-hidden">
       <BaseToast />
       <div class="relative mx-auto size-full h-full px-4 py-6 dark:bg-surface-900 md:px-6 md:py-8">
         <RouterView class="mx-auto size-full h-full max-w-7xl" />
