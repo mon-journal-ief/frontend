@@ -38,16 +38,14 @@ useHead({
 </script>
 
 <template>
-  <div class="flex flex-col bg-surface-50 dark:bg-surface-950">
+  <div class="flex h-screen flex-col bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
     <TheHeader v-if="pageWithNavigation" class="fixed" />
 
-    <div class="flex grow flex-col overflow-hidden">
+    <div class="flex h-full grow flex-col overflow-hidden bg-blue-500">
       <BaseToast />
-      <div class="relative mx-auto w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl md:px-6 md:py-8">
-        <RouterView
-          class="mx-auto w-full max-w-7xl"
-        />
+      <div class="relative mx-auto size-full h-full px-4 py-6 dark:bg-surface-900 md:px-6 md:py-8">
+        <RouterView class="mx-auto size-full h-full max-w-7xl" />
       </div>
     </div>
   </div>
