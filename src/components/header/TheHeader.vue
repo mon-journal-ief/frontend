@@ -1,63 +1,50 @@
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+const children = ref([mockedChild, mockedChild, mockedChild])
 
-import { useHeaderHeight } from '@/composables/useHeaderHeight'
-
-const emit = defineEmits<{
-  toggleSidebar: []
-}>()
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isDesktopView = ref(breakpoints.md.value)
-watch(breakpoints.md, (value: boolean) => {
-  isDesktopView.value = value
-})
-
-const headerRef = ref<HTMLElement>()
-const { setHeaderHeight } = useHeaderHeight()
-
-function updateHeaderHeight() {
-  if (!headerRef.value) return
-
-  setHeaderHeight(headerRef.value.offsetHeight)
-}
-
-onMounted(() => {
-  updateHeaderHeight()
-  window.addEventListener('resize', updateHeaderHeight)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateHeaderHeight)
-})
+const items = [
+  {
+    icon: 'i-ci-house-01',
+    url: '/',
+  },
+  {
+    label: 'Enfants',
+    icon: 'i-ci-users-group',
+    items: children.value.map(child => ({
+      label: child.firstName,
+      image: child.image,
+      url: `/enfant/${child.id}`,
+    })),
+  },
+]
 </script>
 
 <template>
-  <div ref="headerRef" class="sticky top-0 z-20 flex w-full justify-between bg-surface-50 dark:bg-surface-950">
+  <div class="sticky top-0 z-20">
+    <Menubar class="rounded-none" :model="items">
+      <template #item="{ item, props, hasSubmenu, root }">
+        <a
+          v-ripple
+          class="flex items-center gap-2"
+          v-bind="props.action"
+          :href="item.url"
+        >
+          <span v-if="item.icon">
+            <i :class="item.icon" />
+          </span>
+          <span v-if="item.image">
+            <Avatar :image="item.image" shape="circle" />
+          </span>
+          <span v-if="item.label">{{ item.label }}</span>
+          <i v-if="hasSubmenu" class="ml-auto" :class="[{ 'i-ci-chevron-down': root, 'i-ci-chevron-right': !root }]" />
+        </a>
+      </template>
 
-    <div class="flex w-full flex-col">
-      <div class="flex flex-row justify-between gap-2 p-4 md:gap-4">
-        <div class="flex items-center gap-2 md:gap-4">
-          <!-- BURGER -->
-          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" @click="emit('toggleSidebar')" />
-
+      <template #end>
+        <div class="flex items-center gap-2">
+          <TheHeaderButtonDarkMode />
+          <TheHeaderButtonProfile />
         </div>
-
-        <div class="flex gap-2 md:gap-4">
-          <Button
-            label="Chatte"
-            outlined
-            severity="secondary"
-            size="small"
-          />
-
-          <div class="flex items-center gap-2 md:gap-4">
-            <TheHeaderButtonDarkMode />
-
-            <TheHeaderButtonProfile />
-          </div>
-        </div>
-      </div>
-    </div>
+      </template>
+    </Menubar>
   </div>
 </template>
