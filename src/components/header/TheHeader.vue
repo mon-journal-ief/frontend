@@ -24,14 +24,14 @@ const items = [
       <template #item="{ item, props, hasSubmenu, root }">
         <a
           v-ripple
-          class="flex items-center"
+          class="flex items-center gap-2"
           v-bind="props.action"
           :href="item.url"
         >
-          <span v-if="item.icon" class="mr-2 flex items-center">
+          <span v-if="item.icon">
             <i :class="item.icon" />
           </span>
-          <span v-if="item.image" class="mr-2">
+          <span v-if="item.image">
             <Avatar :image="item.image" shape="circle" />
           </span>
           <span v-if="item.label">{{ item.label }}</span>
