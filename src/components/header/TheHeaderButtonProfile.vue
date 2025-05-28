@@ -36,9 +36,11 @@ function toggle(event) {
 
 <template>
   <Button
+    v-if="user"
     aria-controls="profile_menu"
     aria-haspopup="true"
     icon="i-ci-user"
+    :label="user.name"
     outlined
     rounded
     severity="secondary"

@@ -1,27 +1,32 @@
 <script setup lang="ts">
 const children = ref([mockedChild, mockedChild, mockedChild])
 
-const items = [
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+
+const items = computed(() => [
   {
     icon: 'i-ci-house-01',
     url: '/',
   },
-  {
-    label: 'Enfants',
-    icon: 'i-ci-users-group',
-    items: children.value.map(child => ({
-      label: child.firstName,
-      image: child.image,
-      url: `/enfant/${child.id}`,
-    })),
-  },
-]
+  ...(user.value
+    ? [{
+        label: 'Enfants',
+        icon: 'i-ci-users-group',
+        items: children.value.map(child => ({
+          label: child.firstName,
+          image: child.image,
+          url: `/enfant/${child.id}`,
+        })),
+      }]
+    : []),
+])
 </script>
 
 <template>
   <div class="sticky top-0 z-20">
     <Menubar class="rounded-none" :model="items">
-      <template #item="{ item, props, hasSubmenu, root }">
+      <template v-if="user" #item="{ item, props, hasSubmenu, root }">
         <a
           v-ripple
           class="flex items-center gap-2"
