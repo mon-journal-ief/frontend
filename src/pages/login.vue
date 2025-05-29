@@ -3,6 +3,7 @@ const toast = useToast()
 
 const userStore = useUserStore()
 const { token, user } = storeToRefs(userStore)
+const router = useRouter()
 
 const loginForm = ref({
   email: '',
@@ -22,6 +23,7 @@ async function handleLogin() {
   const response = await api.auth.login(loginForm.value)
 
   token.value = response.data.value.token
+  router.push('/')
 }
 
 async function handleRegister() {

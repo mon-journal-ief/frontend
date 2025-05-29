@@ -2,6 +2,8 @@
 const userStore = useUserStore()
 const { user, token } = storeToRefs(userStore)
 
+const router = useRouter()
+
 const menu = ref()
 
 const items = ref([
@@ -25,6 +27,7 @@ const items = ref([
     async command() {
       token.value = ''
       user.value = null
+      router.push('/login')
     },
   },
 ])
