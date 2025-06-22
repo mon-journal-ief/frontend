@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import { useHeaderHeight } from '@/composables/useHeaderHeight'
+import { useFooterHeight } from '@/composables/useFooterHeight'
 
 const route = useRoute()
 
 const pageWithNavigation = computed(() =>
   route.name && !['/maintenance', '/[...404]'].includes(route.name),
 )
+
+const isSidebarOpen = ref(false)
+const { headerHeight } = useHeaderHeight()
+const { footerHeight } = useFooterHeight()
 
 useHead({
   title: () => {
@@ -38,15 +44,17 @@ useHead({
 </script>
 
 <template>
-  <div class="flex h-screen flex-col bg-surface-50 dark:bg-surface-950">
+  <div class="flex bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
-    <TheHeader v-if="pageWithNavigation" class="fixed" />
 
-    <div class="flex h-full grow flex-col overflow-hidden">
+    <TheSidebar v-if="pageWithNavigation" v-model="isSidebarOpen" />
+    <div class="flex grow flex-col overflow-hidden">
       <BaseToast />
-      <div class="relative mx-auto size-full h-full px-4 py-6 dark:bg-surface-900 md:px-6 md:py-8">
-        <RouterView class="mx-auto size-full h-full max-w-7xl" />
-      </div>
+      <TheHeader v-if="pageWithNavigation" @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
+      <RouterView
+        class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mr-4 md:rounded-xl md:px-6 md:py-8"
+        :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
+      />
     </div>
   </div>
 </template>

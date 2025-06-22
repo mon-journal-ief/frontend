@@ -1,6 +1,5 @@
 <script setup>
 const menu = ref()
-
 const items = ref([
   {
     label: 'Account',
@@ -31,50 +30,52 @@ function toggle(event) {
 </script>
 
 <template>
-  <Button
-    aria-controls="profile_menu"
-    aria-haspopup="true"
-    icon="i-ci-user"
-    outlined
-    rounded
-    severity="secondary"
-    @click="toggle"
-  />
+  <div class="card flex justify-center">
+    <Button
+      aria-controls="profile_menu"
+      aria-haspopup="true"
+      icon="i-ci-user"
+      outlined
+      rounded
+      severity="secondary"
+      @click="toggle"
+    />
 
-  <Menu
-    id="profile_menu"
-    ref="menu"
-    class="mt-2"
-    :model="items"
-    popup
-  >
-    <template #item="{ item, props }">
-      <router-link
-        v-if="item.route"
-        v-slot="{ href, navigate }"
-        custom
-        :to="item.route"
-      >
+    <Menu
+      id="profile_menu"
+      ref="menu"
+      class="mt-2"
+      :model="items"
+      popup
+    >
+      <template #item="{ item, props }">
+        <router-link
+          v-if="item.route"
+          v-slot="{ href, navigate }"
+          custom
+          :to="item.route"
+        >
+          <a
+            v-bind="props.action"
+            :class="item.class"
+            :href
+            @click="navigate"
+          >
+            <i v-if="item.icon" :class="item.icon" />
+            <span>{{ item.label }}</span>
+          </a>
+        </router-link>
         <a
-          v-bind="props.action"
+          v-else
           :class="item.class"
-          :href
-          @click="navigate"
+          :href="item.url"
+          target="_blank"
+          v-bind="props.action"
         >
           <i v-if="item.icon" :class="item.icon" />
           <span>{{ item.label }}</span>
         </a>
-      </router-link>
-      <a
-        v-else
-        :class="item.class"
-        :href="item.url"
-        target="_blank"
-        v-bind="props.action"
-      >
-        <i v-if="item.icon" :class="item.icon" />
-        <span>{{ item.label }}</span>
-      </a>
-    </template>
-  </Menu>
+      </template>
+    </Menu>
+  </div>
 </template>
