@@ -2,10 +2,13 @@
 
 import { definePreset } from '@primevue/themes'
 import Aura from '@primevue/themes/aura'
+import type { AccordionDesignTokens } from '@primevue/themes/aura/accordion'
 import type { BreadcrumbDesignTokens } from '@primevue/themes/aura/breadcrumb'
 import type { ButtonDesignTokens } from '@primevue/themes/aura/button'
 import type { CardDesignTokens } from '@primevue/themes/aura/card'
+import type { CheckboxDesignTokens } from '@primevue/themes/aura/checkbox'
 import type { DialogDesignTokens } from '@primevue/themes/aura/dialog'
+import type { DataTableDesignTokens } from '@primevue/themes/aura/datatable'
 import type {
   AutoCompletePassThroughOptions,
   CardPassThroughOptions,
@@ -44,13 +47,28 @@ export const customizedAuraPreset = definePreset(Aura, {
           hoverBackground: '{surface.100}',
           borderColor: '{surface.200}',
         },
+        highlight: {
+          background: '{primary.50}',
+          color: '{primary.500}',
+          focusBackground: '{primary.50}',
+          focusColor: '{primary.500}',
+        },
+        list: {
+          option: {
+            selectedBackground: '{highlight.focusBackground}',
+            selectedColor: '{highlight.focusColor}',
+          },
+        },
         mask: {
-          background: 'rgba(1, 1, 31, 0.15)', // primevue doesn't provide an easier way to handle opacity
+          background: 'rgba(1, 1, 31, 0.15)', // #01011f/15 (not in palette)
         },
         overlay: {
           modal: {
             background: '{surface.50}',
             borderColor: '{surface.200}',
+          },
+          popover: {
+            background: '{slate-50}',
           },
         },
         formField: {
@@ -69,13 +87,28 @@ export const customizedAuraPreset = definePreset(Aura, {
           hoverBackground: '{surface.900}',
           borderColor: '{surface.800}',
         },
+        highlight: {
+          background: '{primary.950}',
+          color: '{primary.500}',
+          focusBackground: '{primary.950}',
+          focusColor: '{primary.500}',
+        },
+        list: {
+          option: {
+            selectedBackground: '{highlight.focusBackground}',
+            selectedColor: '{highlight.focusColor}',
+          },
+        },
         mask: {
-          background: 'rgba(157, 157, 190, 0.05)', // primevue doesn't provide an easier way to handle opacity
+          background: 'rgba(157, 157, 190, 0.05)', // #9d9dbe/50 (not in palette)
         },
         overlay: {
           modal: {
             background: '{surface.950}',
             borderColor: '{surface.800}',
+          },
+          popover: {
+            background: '{slate-950}',
           },
         },
         formField: {
@@ -86,6 +119,20 @@ export const customizedAuraPreset = definePreset(Aura, {
     },
   },
   components: {
+    accordion: {
+      colorScheme: {
+        light: {
+          header: {
+            color: '{surface.950}',
+          },
+        },
+        dark: {
+          header: {
+            color: '{surface.50}',
+          },
+        },
+      },
+    } as AccordionDesignTokens,
     breadcrumb: {
       root: {
         padding: '0',
@@ -98,6 +145,42 @@ export const customizedAuraPreset = definePreset(Aura, {
         // borderRadius: '{border.radius.3xl}',
       },
     } as CardDesignTokens,
+    checkbox: {
+      checked: {
+        background: '{primary.500}',
+        borderColor: '{primary.500}',
+      },
+    } as CheckboxDesignTokens,
+    datatable: {
+      colorScheme: {
+        light: {
+          row: {
+            hover: {
+              background: 'rgba(116, 114, 134, 0.02)', // slate-500/2
+              color: '{surface.950}',
+            },
+            color: '{surface.950}',
+            selected: {
+              background: 'rgba(248, 87, 23, 0.05)', // primary-500/5
+              color: '{surface.950}',
+            },
+          },
+        },
+        dark: {
+          row: {
+            hover: {
+              background: 'rgba(116, 114, 134, 0.05)', // slate-500/5
+              color: '{surface.100}',
+            },
+            color: '{surface.100}',
+            selected: {
+              background: 'rgba(248, 87, 23, 0.1)', // primary-500/10
+              color: '{surface.100}',
+            },
+          },
+        },
+      },
+    } as DataTableDesignTokens,
     dialog: {
       footer: {
         padding: '{overlay.modal.padding}',
@@ -141,6 +224,11 @@ export const customizedAuraPreset = definePreset(Aura, {
         },
       },
     } as ButtonDesignTokens,
+    paginator: {
+      navButton: {
+        borderRadius: '{border.radius.lg}',
+      },
+    },
     toast: {
       colorScheme: {
         light: {
@@ -187,21 +275,21 @@ export const customizedAuraPreset = definePreset(Aura, {
       colorScheme: {
         light: {
           disabled: {
-            background: 'rgba(236, 236, 255, 0.5)',
+            background: 'rgba(236, 236, 255, 0.5)', // #ececff/50 (not in palette)
           },
           handle: {
             disabled: {
-              background: 'rgba(157, 157, 190, 0.5)',
+              background: 'rgba(157, 157, 190, 0.5)', // #9d9dbe/50 (not in palette)
             },
           },
         },
         dark: {
           disabled: {
-            background: 'rgba(119, 119, 161, 0.5)',
+            background: 'rgba(119, 119, 161, 0.5)', // #7777a1/50 (not in palette)
           },
           handle: {
             disabled: {
-              background: 'rgba(20, 20, 46, 0.5)',
+              background: 'rgba(20, 20, 46, 0.5)', // #14142e/50 (not in palette)
             },
           },
         },
@@ -237,13 +325,29 @@ export const customPtConfig = {
           class: 'border-0', // Remove the border-bottom on table's paginator
         },
       },
+      emptyMessage: {
+        class: 'hover:bg-transparent', // fix hover background on empty state (DAS-2709)
+      },
       emptyMessageCell: {
         class: 'border-0',
+      },
+      column: {
+        // We need to override everything since primevue is using {content.background} by default and it's not customized by theme
+        headerCell: {
+          class: `bg-surface-100 dark:bg-surface-900 hover:bg-surface-200 dark:hover:bg-surface-800
+          [&.p-datatable-column-sorted]:bg-primary-50 [&.p-datatable-column-sorted]:dark:bg-primary-950
+          [&.p-datatable-column-sorted]:text-primary-400 [&.p-datatable-column-sorted]:dark:text-primary-600`,
+        },
+      },
+      bodyRow: {
+        class: `[&[data-p-selected="true"]>td]:border-primary-500
+                [&[data-p-selected="false"]:has(+tr[data-p-selected="true"])>td]:border-surface-200
+                [&[data-p-selected="false"]:has(+tr[data-p-selected="true"])>td]:dark:border-surface-800`,
       },
     } as DataTablePassThroughOptions,
     dialog: {
       root: {
-        class: 'w-full max-w-screen-sm xl:max-w-screen-md overflow-hidden',
+        class: 'w-full max-w-screen-sm xl:max-w-screen-md overflow-hidden rounded-3xl',
       },
       mask: {
         class: 'p-4 backdrop-blur-sm',
@@ -252,10 +356,13 @@ export const customPtConfig = {
         class: 'text-xl',
       },
       header: {
-        class: 'bg-surface-100 dark:bg-surface-900 rounded-t-xl border-b border-surface-200 dark:border-surface-800',
+        class: 'bg-surface-100 dark:bg-surface-900 rounded-t-3xl border-b border-surface-200 dark:border-surface-800',
+      },
+      headerActions: {
+        class: 'ml-auto',
       },
       footer: {
-        class: 'border-t border-surface-200 dark:border-surface-800',
+        class: 'border-t border-surface-200 dark:border-surface-800 z-10',
       },
     } as DialogPassThroughOptions,
     chip: {
@@ -273,7 +380,19 @@ export const customPtConfig = {
     } as CardPassThroughOptions,
     drawer: {
       mask: {
-        class: 'p-4 backdrop-blur-sm',
+        class: 'p-5 backdrop-blur-sm',
+      },
+      header: {
+        class: 'bg-surface-100 dark:bg-surface-900 rounded-t-3xl border-b border-surface-200 dark:border-surface-800',
+      },
+      content: {
+        class: 'p-5',
+      },
+      root: {
+        class: 'rounded-3xl border-surface-200 dark:border-surface-800',
+      },
+      footer: {
+        class: 'p-5 border-t border-surface-200 dark:border-surface-800',
       },
     } as DrawerPassThroughOptions,
     selectButton: {
