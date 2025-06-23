@@ -1,8 +1,20 @@
 import { createFetch } from '@vueuse/core'
+import { useUserStore } from '@/stores/user'
 
 export const useApiFetch = createFetch({
   baseUrl: import.meta.env.VITE_API_URL,
   options: {
+    beforeFetch(ctx) {
+      const userStore = useUserStore()
+      const { token } = storeToRefs(userStore)
+
+      if (token.value) {
+        ctx.options.headers = {
+          'x-auth-token': token.value,
+        }
+      }
+    },
+
     onFetchError(ctx) {
       console.error('❌ API Error:', ctx.error)
 

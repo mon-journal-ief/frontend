@@ -1,7 +1,5 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
-const token = 'placeholder'
-
 export function programElementApiRepository() {
   const toast = useToast()
 
@@ -10,7 +8,6 @@ export function programElementApiRepository() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
       },
     })
 
@@ -54,7 +51,6 @@ export function programElementApiRepository() {
       body: JSON.stringify(programElement),
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
       },
     })
 
@@ -84,7 +80,6 @@ export function programElementApiRepository() {
       body: JSON.stringify(programElement),
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
       },
     })
 
@@ -113,7 +108,6 @@ export function programElementApiRepository() {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
       },
     })
 
