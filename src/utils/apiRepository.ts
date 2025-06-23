@@ -42,6 +42,19 @@ export const apiRepository = {
       useApiFetch<void>(`/program-elements/${id}`, { method: 'DELETE' }).json(),
   },
 
+  programTemplates: {
+    get: (id: string) =>
+      useApiFetch<IProgramTemplate>(`/program/templates/${id}`).json(),
+    getAll: () =>
+      useApiFetch<IProgramTemplate[]>(`/program/templates`).json(),
+    create: (template: Partial<IProgramTemplate>) =>
+      useApiFetch<IProgramTemplate>(`/program/templates`, { method: 'POST', body: JSON.stringify(template) }).json(),
+    update: (id: string, template: Partial<IProgramTemplate>) =>
+      useApiFetch<IProgramTemplate>(`/program/templates/${id}`, { method: 'PUT', body: JSON.stringify(template) }).json(),
+    delete: (id: string) =>
+      useApiFetch<void>(`/program/templates/${id}`, { method: 'DELETE' }).json(),
+  },
+
   users: {
     get: (id: string) =>
       useApiFetch<IUser>(`/users/${id}`).json(),

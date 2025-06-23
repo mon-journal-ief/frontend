@@ -26,8 +26,8 @@ const childRef = ref<IChild>(mockedChild)
       </template>
     </Card>
 
-    <div class="flex w-full flex-col gap-4 md:flex-row">
-      <Card class="w-full md:w-2/3">
+    <div class="flex w-full flex-col gap-4">
+      <Card class="w-full">
         <template #title>
           <h2>Journal de bord de {{ childRef.firstName }} </h2>
         </template>
@@ -51,15 +51,8 @@ const childRef = ref<IChild>(mockedChild)
         </template>
       </Card>
 
-      <Card class="w-full md:w-1/3">
-        <template #title>
-          <h2>Program</h2>
-        </template>
+      <ProgramViewer />
 
-        <template #content>
-          <p>{{ mockedProgram }}</p>
-        </template>
-      </Card>
     </div>
   </div>
 </template>

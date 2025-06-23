@@ -38,6 +38,17 @@ declare global {
     description: string
     journalEntries: IJournalEntry[]
     program: IProgram
+    children: IProgramElement[]
+    createdAt: Date
+    updatedAt: Date
+  }
+
+  interface IProgramTemplate {
+    id: string
+    name: string
+    description: string
+    elements: IProgramElement[]
+    grade: EGrade
     createdAt: Date
     updatedAt: Date
   }
