@@ -1,8 +1,8 @@
 <script setup>
-import { useApi } from '@/api'
+const userStore = useUserStore()
+const { token } = storeToRefs(userStore)
 
-const token = ref('')
-const user = ref({})
+const router = useRouter()
 
 const loginForm = ref({
   email: '',
@@ -21,7 +21,9 @@ const api = useApi()
 async function handleLogin() {
   const response = await api.auth.login(loginForm.value)
 
-  token.value = response.data.value.token
+  token.value = JSON.parse(response.data.value).token
+
+  router.push('/')
 }
 
 async function handleRegister() {
@@ -32,23 +34,10 @@ async function handleRegister() {
   const response = await api.auth.register(registerForm.value)
   token.value = response.data.value.token
 }
-
-async function handleGetMe() {
-  const response = await api.auth.me(token.value)
-  user.value = response.data.value
-}
 </script>
 
 <template>
   <div class="flex flex-col items-center justify-center gap-8">
-    <Card>
-      <template #content>
-        <h1>Token: {{ token?.slice(0, 20) }}...</h1>
-        <h1>User: <pre>{{ user }}</pre></h1>
-        <Button @click="handleGetMe">Get /me</Button>
-      </template>
-    </Card>
-
     <Card>
       <template #content>
         <Tabs value="0">

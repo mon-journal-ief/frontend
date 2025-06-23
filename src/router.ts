@@ -5,6 +5,7 @@ import {
   createWebHistory,
 } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
+import { useUserStore } from '@/stores/user'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -25,3 +26,19 @@ declare module 'vue-router/auto-routes' {
     >
   }
 }
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  const { token } = storeToRefs(userStore)
+  const isAuthenticated = !!token.value
+
+  const publicPages = ['/login', '/register']
+  const isPublic = publicPages.includes(to.path)
+
+  if (!isPublic && !isAuthenticated) {
+    next({ name: '/login' })
+  }
+  else {
+    next()
+  }
+})

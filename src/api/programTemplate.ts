@@ -1,16 +1,17 @@
 import { useApiFetch } from '@/utils/apiRepository'
-
-const token = 'placeholder'
+import { useUserStore } from '@/stores/user'
 
 export function programTemplateApiRepository() {
   const toast = useToast()
+  const userStore = useUserStore()
+  const { token } = storeToRefs(userStore)
 
   async function getAll() {
     const response = await useApiFetch<IProgramTemplate[]>(`/program/template`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
+        'x-auth-token': token.value,
       },
     })
 
@@ -54,7 +55,7 @@ export function programTemplateApiRepository() {
       body: JSON.stringify(programTemplate),
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
+        'x-auth-token': token.value,
       },
     })
 
@@ -84,7 +85,7 @@ export function programTemplateApiRepository() {
       body: JSON.stringify(programElement),
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
+        'x-auth-token': token.value,
       },
     })
 
@@ -113,7 +114,7 @@ export function programTemplateApiRepository() {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token,
+        'x-auth-token': token.value,
       },
     })
 

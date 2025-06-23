@@ -2,6 +2,7 @@ import PrimeVue from 'primevue/config'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
 import ConfirmationService from 'primevue/confirmationservice'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createHead } from '@unhead/vue'
 import { customPtConfig, customizedAuraPreset } from '@/primevue.config'
 import '@/assets/main.css'
@@ -10,6 +11,7 @@ import App from '@/App.vue'
 
 const app = createApp(App)
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 
 const primeVueSettings = {
