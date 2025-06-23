@@ -4,11 +4,20 @@ const visible = defineModel<boolean>({ required: true })
 const dialogRef = useTemplateRef('dialogRef')
 const dialogContentElement = ref<HTMLElement>()
 const isContentElementScrollable = ref(false)
+const isScrolledToBottom = ref(false)
 
 function checkScrollOnContentElement() {
   if (!dialogContentElement.value) return
 
   isContentElementScrollable.value = dialogContentElement.value.scrollHeight > dialogContentElement.value.clientHeight
+
+  // Check if scrolled to bottom
+  const { scrollTop, scrollHeight, clientHeight } = dialogContentElement.value
+  isScrolledToBottom.value = Math.abs(scrollHeight - scrollTop - clientHeight) <= 1
+}
+
+function onContentScroll() {
+  checkScrollOnContentElement()
 }
 
 const resizeObserver = new ResizeObserver(() => {
@@ -30,9 +39,19 @@ watch(visible, (value) => {
 
     if (dialogContentElement.value) {
       resizeObserver.observe(dialogContentElement.value)
+      dialogContentElement.value.addEventListener('scroll', onContentScroll)
     }
   })
 }, { immediate: true })
+
+// Clean up scroll listener when dialog is hidden
+watch(visible, (value) => {
+  if (!value && dialogContentElement.value) {
+    dialogContentElement.value.removeEventListener('scroll', onContentScroll)
+  }
+})
+
+const shouldShowShadow = computed(() => isContentElementScrollable.value && !isScrolledToBottom.value)
 </script>
 
 <template>
@@ -42,7 +61,10 @@ watch(visible, (value) => {
     dismissable-mask
     :draggable="false"
     modal
-    :pt:footer:class="isContentElementScrollable && 'shadow-[0px_-4px_16px_0px] shadow-slate-950/[.06] dark:shadow-slate-950'"
+    :pt:footer:class="[
+      'transition-shadow shadow-[0px_-4px_16px_0px]',
+      shouldShowShadow ? 'shadow-slate-950/[.06] dark:shadow-slate-950' : 'shadow-slate-950/[0] dark:shadow-slate-950/[0]',
+    ]"
   >
     <template #header>
       <slot name="header" />
