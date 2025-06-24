@@ -73,7 +73,7 @@ onMounted(() => {
 
         <!-- LOGIN -->
         <TheSidebarButton
-          icon="i-ci-house-01"
+          icon="i-ci-log-out"
           label="Login"
           route="/login"
         />
@@ -84,17 +84,6 @@ onMounted(() => {
           label="Debug"
           route="/debug"
         />
-
-        <!-- ASSETS -->
-        <TheSidebarSection
-          icon="i-ci-file-document"
-          :model-value="activeSection === 'assets'"
-          title="Assets"
-          @update:model-value="toggleSection('assets')"
-        >
-          <TheSidebarButton label="All assets" route="/assets/all-assets" />
-          <TheSidebarButton label="Groups" route="/assets/groups" />
-        </TheSidebarSection>
 
         <!-- DEBUG -->
         <TheSidebarButton

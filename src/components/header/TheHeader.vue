@@ -45,9 +45,14 @@ onUnmounted(() => {
 
         <div class="flex gap-2 md:gap-4">
           <Button
-            label="Chatte"
+            label="Exporter un rapport"
             outlined
             severity="secondary"
+            size="small"
+          />
+
+          <Button
+            label="Ajouter une tâche"
             size="small"
           />
 

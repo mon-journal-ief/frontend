@@ -43,7 +43,7 @@ const borderClass = computed(() => {
 
 <style scoped>
 .router-link-active {
-  @apply bg-primary-50 dark:bg-primary-950 text-primary-500 font-semibold;
+  @apply bg-slate-100 dark:bg-slate-900 text-primary-500 font-semibold;
 }
 
 .router-link-active :deep(.p-button-label) {
