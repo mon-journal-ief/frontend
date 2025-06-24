@@ -56,15 +56,22 @@ declare global {
   interface IChild {
     id: string
     name: string
-    firstName: string
+    lastName?: string
     image?: string
-    age: number
-    gender: string
-    birthDate: Date
-    program: IProgram
+    age?: number
+    gender?: EGender
+    program?: IProgram
     journalEntries: IJournalEntry[]
     createdAt: Date
     updatedAt: Date
+  }
+
+  interface IChildCreation {
+    name: string
+    lastName?: string
+    age?: number
+    gender?: EGender
+    programId?: string
   }
 
   interface IJournalEntry {
