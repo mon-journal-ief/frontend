@@ -10,6 +10,7 @@ export const useApiFetch = createFetch({
 
       if (token.value) {
         ctx.options.headers = {
+          ...ctx.options.headers,
           'x-auth-token': token.value,
         }
       }
