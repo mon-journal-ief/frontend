@@ -3,9 +3,9 @@ const showAddChildDialog = ref(false)
 </script>
 
 <template>
-  <DialogAddChild v-model:visible="showAddChildDialog" />
-
   <div>
+    <DialogAddChild v-model:visible="showAddChildDialog" />
+
     <h1>Bienvenue sur l'application Ief</h1>
 
     <Button
