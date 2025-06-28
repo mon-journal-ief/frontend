@@ -5,18 +5,23 @@ export const useUserStore = defineStore('user', () => {
   const accessToken = ref('')
   const user = ref<IUser | null>(null)
 
+  async function fetchUser() {
+    const response = await api.auth.me()
+    user.value = response.data.value
+  }
+
   watch(accessToken, async (newToken) => {
     if (newToken) {
-      const response = await api.auth.me(newToken)
-
-      user.value = response.data.value
+      fetchUser()
     }
-
-    user.value = null
+    else {
+      user.value = null
+    }
   })
 
   return {
     accessToken,
+    fetchUser,
     user,
   }
 }, { persist: true })

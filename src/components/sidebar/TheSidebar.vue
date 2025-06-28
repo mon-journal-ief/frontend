@@ -1,52 +1,41 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-type Section = 'assets' | 'enfant'
-
-// Responsive
+// Responsive behavior
 const isSidebarOpen = defineModel<boolean>()
 const breakpoints = useBreakpoints(breakpointsTailwind)
-watch(breakpoints.md, (value: boolean) => {
-  isSidebarOpen.value = value
+const isMdScreen = computed(() => breakpoints.md.value)
+
+// Auto-open sidebar on desktop, close on mobile
+watch(isMdScreen, (isDesktop: boolean) => {
+  isSidebarOpen.value = isDesktop
 }, { immediate: true })
 
-function closeSidebarOnMobile() {
-  if (breakpoints.md.value) return
-
-  isSidebarOpen.value = false
-}
-
-// Sections related
+// Auto-close sidebar on mobile when navigating
 const route = useRoute()
-const activeSection = ref<Section | null>(null)
+watch(() => route.path, () => {
+  if (!isMdScreen.value) {
+    isSidebarOpen.value = false
+  }
+})
 
-function getSectionFromPath(path: string): Section | undefined {
-  return ['assets', 'enfant'].find(
-    section => path.includes(`/${section}`),
-  ) as Section | undefined
-}
-
-function toggleSection(section: Section) {
-  activeSection.value = activeSection.value === section ? null : section
-}
-
-// Development mode check
 const isDevelopmentMode = ref(import.meta.env.VITE_MODE === 'development')
 
-watch(() => route.path, () => {
-  closeSidebarOnMobile()
-})
+function getChildBorderColor(child: IChild) {
+  if (child.gender === 'MALE') return 'blue'
+  if (child.gender === 'FEMALE') return 'pink'
 
-onMounted(() => {
-  // Open the correct section when the page is loaded
-  const section = getSectionFromPath(route.path)
+  return 'gray'
+}
 
-  if (section) toggleSection(section)
-})
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+const children = computed(() => user.value?.children)
+const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg'
 </script>
 
 <template>
-  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-64 flex-col">
+  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-full flex-col md:w-64">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
       <a class="m-4" href="/">
         <!-- <img alt="IEF" class="h-12" src="@/assets/ief-logo.svg"> -->
@@ -55,21 +44,32 @@ onMounted(() => {
       <!-- NAVIGATION -->
       <nav class="mb-4 flex flex-col gap-2">
 
-        <!-- OVERVIEW -->
+        <!-- HOME -->
         <TheSidebarButton
           icon="i-ci-house-01"
-          label="Overview"
+          label="Accueil"
           route="/"
         />
 
-        <TheSidebarSection
-          icon="i-ci-users-group"
-          :model-value="activeSection === 'enfant'"
-          title="Enfants"
-          @update:model-value="toggleSection('enfant')"
-        >
-          <TheSidebarButtonChild :child="mockedChild" />
-        </TheSidebarSection>
+        <!-- ENFANTS SECTION -->
+        <div class="flex items-center justify-between rounded-xl bg-slate-100 dark:bg-slate-900">
+          <div class="flex justify-center gap-2 p-4">
+            <i class="i-ci-users-group text-2xl" />
+            <span>Enfants</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1 pl-4">
+          <TheSidebarButton
+            v-for="child in children"
+            :key="child.id"
+            class="h-12"
+            :image="child.image || placeholderPic"
+            :image-border="getChildBorderColor(child)"
+            :label="child.name"
+            :route="`/enfant/${child.id}`"
+          />
+        </div>
 
         <!-- LOGIN -->
         <TheSidebarButton

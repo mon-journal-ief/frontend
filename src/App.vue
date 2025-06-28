@@ -15,32 +15,28 @@ const { footerHeight } = useFooterHeight()
 
 useHead({
   title: () => {
-    switch (import.meta.env.VITE_MODE) {
-      case 'development':
-        return 'DEV IEF'
-      case 'int':
-        return 'INT IEF'
-      default:
-        return 'IEF'
-    }
+    const mode = import.meta.env.VITE_MODE
+    if (mode === 'development') return 'DEV IEF'
+    if (mode === 'int') return 'INT IEF'
+
+    return 'IEF'
   },
   link: [
     {
       rel: 'icon',
       type: 'image/png',
       href: () => {
-        switch (import.meta.env.VITE_MODE) {
-          case 'development':
-            return '/favicon_green.ico'
-          case 'int':
-            return 'static/favicon_red.ico'
-          default:
-            return 'static/favicon.ico'
-        }
+        const mode = import.meta.env.VITE_MODE
+        if (mode === 'development') return '/favicon_green.ico'
+        if (mode === 'int') return 'static/favicon_red.ico'
+
+        return 'static/favicon.ico'
       },
     },
   ],
 })
+
+useUserStore().fetchUser()
 </script>
 
 <template>

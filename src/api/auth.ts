@@ -69,25 +69,8 @@ export function authApiRepository() {
     return response.json()
   }
 
-  async function me(token: string) {
-    const response = await useApiFetch<IUser>(`/auth/me`, {
-      headers: {
-        'x-auth-token': token,
-      },
-    })
-
-    if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Me successful',
-        detail: 'You have been fetched successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
-
-      return response.json()
-    }
-
-    return response
+  async function me() {
+    return await useApiFetch<IUser>(`/auth/me`).json()
   }
 
   return {

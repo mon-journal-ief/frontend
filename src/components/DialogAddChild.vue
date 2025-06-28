@@ -16,6 +16,8 @@ async function handleAddChild() {
     gender: gender.value,
   })
 
+  await useUserStore().fetchUser()
+
   visible.value = false
 }
 </script>
