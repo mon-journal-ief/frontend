@@ -49,30 +49,34 @@ async function handleRegister() {
 <template>
   <div class="flex flex-col items-center justify-center gap-8">
     <Card>
+      <template #title>
+        <h1 class="text-center text-2xl font-bold">Content de vous revoir !</h1>
+      </template>
+
       <template #content>
         <Tabs value="0">
           <TabList class="mb-8">
-            <Tab value="0">Login</Tab>
-            <Tab value="1">Register</Tab>
+            <Tab value="0">Se connecter</Tab>
+            <Tab value="1">S'inscrire</Tab>
           </TabList>
 
           <!-- Login -->
           <TabPanel value="0">
             <form class="flex flex-col gap-4" @submit.prevent="handleLogin">
               <InputText v-model="loginForm.email" placeholder="Email" />
-              <Password v-model="loginForm.password" :feedback="false" placeholder="Password" />
-              <Button type="submit">Login</Button>
+              <Password v-model="loginForm.password" :feedback="false" placeholder="Mot de passe" />
+              <Button type="submit">Se connecter</Button>
             </form>
           </TabPanel>
 
           <!-- Register -->
           <TabPanel value="1">
             <form class="flex flex-col gap-4" @submit.prevent="handleRegister">
-              <InputText v-model="registerForm.name" placeholder="Name" />
+              <InputText v-model="registerForm.name" placeholder="Nom" />
               <InputText v-model="registerForm.email" placeholder="Email" />
-              <Password v-model="registerForm.password" :feedback="false" placeholder="Password" />
-              <Password v-model="registerForm.confirmPassword" :feedback="false" placeholder="Confirm Password" />
-              <Button type="submit">Register</Button>
+              <Password v-model="registerForm.password" :feedback="false" placeholder="Mot de passe" />
+              <Password v-model="registerForm.confirmPassword" :feedback="false" placeholder="Confirmation du mot de passe" />
+              <Button type="submit">Créer un compte</Button>
             </form>
           </TabPanel>
         </Tabs>

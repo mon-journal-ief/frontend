@@ -46,7 +46,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen min-w-[260px] flex-col">
+  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-64 flex-col">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
       <a class="m-4" href="/">
         <!-- <img alt="IEF" class="h-12" src="@/assets/ief-logo.svg"> -->

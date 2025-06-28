@@ -6,7 +6,7 @@ import { useFooterHeight } from '@/composables/useFooterHeight'
 const route = useRoute()
 
 const pageWithNavigation = computed(() =>
-  route.name && !['/maintenance', '/[...404]'].includes(route.name),
+  route.name && !['/login', '/[...404]'].includes(route.name),
 )
 
 const isSidebarOpen = ref(false)
@@ -44,17 +44,21 @@ useHead({
 </script>
 
 <template>
-  <div class="flex bg-surface-50 dark:bg-surface-950">
+  <div v-if="pageWithNavigation" class="flex bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
 
-    <TheSidebar v-if="pageWithNavigation" v-model="isSidebarOpen" />
+    <TheSidebar v-model="isSidebarOpen" />
     <div class="flex grow flex-col overflow-hidden">
       <BaseToast />
-      <TheHeader v-if="pageWithNavigation" @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
+      <TheHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
       <RouterView
         class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mr-4 md:rounded-xl md:px-6 md:py-8"
         :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
       />
     </div>
+  </div>
+
+  <div v-else class="flex h-screen w-full bg-surface-50 p-4 dark:bg-surface-950">
+    <RouterView class="w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl" />
   </div>
 </template>
