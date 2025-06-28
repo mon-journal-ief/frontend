@@ -2,10 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   const api = useApi()
-  const token = ref('')
+  const accessToken = ref('')
   const user = ref<IUser | null>(null)
 
-  watch(token, async (newToken) => {
+  watch(accessToken, async (newToken) => {
     if (newToken) {
       const response = await api.auth.me(newToken)
 
@@ -15,5 +15,8 @@ export const useUserStore = defineStore('user', () => {
     user.value = null
   })
 
-  return { token, user }
+  return {
+    accessToken,
+    user,
+  }
 }, { persist: true })

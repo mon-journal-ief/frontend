@@ -1,4 +1,5 @@
 import { createFetch } from '@vueuse/core'
+import { handleTokenRefresh } from './tokenRefresh'
 import { useUserStore } from '@/stores/user'
 
 export const useApiFetch = createFetch({
@@ -6,18 +7,42 @@ export const useApiFetch = createFetch({
   options: {
     beforeFetch(ctx) {
       const userStore = useUserStore()
-      const { token } = storeToRefs(userStore)
+      const { accessToken } = storeToRefs(userStore)
 
-      if (token.value) {
+      if (accessToken.value) {
         ctx.options.headers = {
           ...ctx.options.headers,
-          'x-auth-token': token.value,
+          'x-auth-token': accessToken.value,
         }
       }
     },
 
-    onFetchError(ctx) {
+    async onFetchError(ctx) {
       console.error('❌ API Error:', ctx.error)
+
+      // Handle token refresh
+      if (ctx.response?.status === 401 && !ctx.context.url?.includes('/auth/refresh')) {
+        // Get and store access and refresh tokens
+        await handleTokenRefresh()
+
+        // Retry the original request with new token
+        const userStore = useUserStore()
+        const { accessToken } = storeToRefs(userStore)
+
+        ctx.context.options.headers = {
+          ...ctx.context.options.headers,
+          'x-auth-token': accessToken.value,
+        }
+
+        // Return a new fetch with updated token
+        const retryResponse = await fetch(ctx.context.url, ctx.context.options)
+        if (retryResponse.ok) {
+          ctx.data = await retryResponse.json()
+          ctx.response = retryResponse
+
+          return ctx
+        }
+      }
 
       return ctx
     },

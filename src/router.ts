@@ -29,8 +29,8 @@ declare module 'vue-router/auto-routes' {
 
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
-  const { token } = storeToRefs(userStore)
-  const isAuthenticated = !!token.value
+  const { accessToken } = storeToRefs(userStore)
+  const isAuthenticated = !!accessToken.value
 
   const publicPages = ['/login', '/register']
   const isPublic = publicPages.includes(to.path)

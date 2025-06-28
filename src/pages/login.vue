@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 const userStore = useUserStore()
-const { token } = storeToRefs(userStore)
+const { accessToken } = storeToRefs(userStore)
 
 const router = useRouter()
 
@@ -18,10 +18,16 @@ const registerForm = ref({
 
 const api = useApi()
 
+function storeTokens(responseData: { accessToken: string, refreshToken: string }) {
+  accessToken.value = responseData.accessToken
+  document.cookie = `iefRefreshToken=${responseData.refreshToken}; path=/; max-age=${60 * 60 * 24 * 30}; secure; samesite=strict`
+}
+
 async function handleLogin() {
   const response = await api.auth.login(loginForm.value)
+  const responseData = JSON.parse(response?.data.value)
 
-  token.value = JSON.parse(response.data.value).token
+  storeTokens(responseData)
 
   router.push('/')
 }
@@ -32,7 +38,11 @@ async function handleRegister() {
   if (password !== confirmPassword) return
 
   const response = await api.auth.register(registerForm.value)
-  token.value = response.data.value.token
+  const responseData = JSON.parse(response?.data.value)
+
+  storeTokens(responseData)
+
+  router.push('/')
 }
 </script>
 
