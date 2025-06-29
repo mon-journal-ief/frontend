@@ -21,13 +21,6 @@ watch(() => route.path, () => {
 
 const isDevelopmentMode = ref(import.meta.env.VITE_MODE === 'development')
 
-function getChildBorderColor(child: IChild) {
-  if (child.gender === 'MALE') return 'blue'
-  if (child.gender === 'FEMALE') return 'pink'
-
-  return 'gray'
-}
-
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 const children = computed(() => user.value?.children)
@@ -52,12 +45,11 @@ const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-co
         />
 
         <!-- ENFANTS SECTION -->
-        <div class="flex items-center justify-between rounded-xl bg-slate-100 dark:bg-slate-900">
-          <div class="flex justify-center gap-2 p-4">
-            <i class="i-ci-users-group text-2xl" />
-            <span>Enfants</span>
-          </div>
-        </div>
+        <TheSidebarButton
+          icon="i-ci-users-group"
+          label="Enfants"
+          route="/enfants"
+        />
 
         <div class="flex flex-col gap-1 pl-4">
           <TheSidebarButton
@@ -65,25 +57,10 @@ const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-co
             :key="child.id"
             class="h-12"
             :image="child.image || placeholderPic"
-            :image-border="getChildBorderColor(child)"
             :label="child.name"
             :route="`/enfant/${child.id}`"
           />
         </div>
-
-        <!-- LOGIN -->
-        <TheSidebarButton
-          icon="i-ci-log-out"
-          label="Login"
-          route="/login"
-        />
-
-        <!-- DEBUG -->
-        <TheSidebarButton
-          icon="i-ci-cookie"
-          label="Debug"
-          route="/debug"
-        />
 
         <!-- DEBUG -->
         <TheSidebarButton

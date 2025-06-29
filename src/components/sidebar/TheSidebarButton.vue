@@ -6,15 +6,7 @@ const props = defineProps<{
   icon?: string
   label?: string
   image?: string
-  imageBorder?: 'gray' | 'blue' | 'pink'
 }>()
-
-const borderClass = computed(() => {
-  if (props.imageBorder === 'blue') return 'border-2 border-blue-800 dark:border-blue-200'
-  if (props.imageBorder === 'pink') return 'border-2 border-pink-800 dark:border-pink-200'
-
-  return ''
-})
 </script>
 
 <template>
@@ -31,8 +23,7 @@ const borderClass = computed(() => {
         <img
           v-if="props.image"
           alt="icon"
-          class="size-10 rounded-full object-cover"
-          :class="borderClass"
+          class="size-10 rounded-full border-2 border-slate-400 object-cover dark:border-slate-600"
           :src="props.image"
         >
         <i v-if="props.icon" class="text-2xl" :class="props.icon" />
