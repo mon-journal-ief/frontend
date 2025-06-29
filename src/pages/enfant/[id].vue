@@ -3,10 +3,14 @@ const api = useApi()
 const route = useRoute()
 const child = ref<IChild>()
 
-onMounted(async () => {
-  const { id } = route.params as { id: string }
-  child.value = await api.children.get(id)
-})
+watch(
+  () => (route.params as { id?: string }).id,
+  async (id) => {
+    if (!id) return
+    child.value = await api.children.get(id)
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -24,20 +28,21 @@ onMounted(async () => {
           <!-- Journal de bord -->
           <TabPanel value="0">
             <div class="flex flex-col gap-4">
-              <JournalEntry
-                v-for="entry in child.journalEntries"
-                :key="entry.id"
-                :model-value="entry"
+              <Button
+                icon="i-ci-plus"
+                label="Ajouter une entrée"
+                rounded
+                severity="secondary"
+                variant="outlined"
               />
 
-              <div class="flex justify-center">
-                <Button
-                  class="rounded-lg text-white"
-                  icon="i-ci-plus"
-                  severity="secondary"
-                  variant="outlined"
+              <Accordion multiple>
+                <JournalEntry
+                  v-for="entry in child.journalEntries"
+                  :key="entry.id"
+                  :entry
                 />
-              </div>
+              </Accordion>
             </div>
           </TabPanel>
 
