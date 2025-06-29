@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
 import { useHeaderHeight } from '@/composables/useHeaderHeight'
-import { useFooterHeight } from '@/composables/useFooterHeight'
 
 const route = useRoute()
 
@@ -11,7 +10,6 @@ const pageWithNavigation = computed(() =>
 
 const isSidebarOpen = ref(false)
 const { headerHeight } = useHeaderHeight()
-const { footerHeight } = useFooterHeight()
 
 useHead({
   title: () => {
@@ -48,8 +46,8 @@ useUserStore().fetchUser()
       <BaseToast />
       <TheHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
       <RouterView
-        class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mr-4 md:rounded-xl md:px-6 md:py-8"
-        :style="{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }"
+        class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mb-4 md:mr-4 md:rounded-xl md:px-6 md:py-8"
+        :style="{ minHeight: `calc(100vh - ${headerHeight}px` }"
       />
     </div>
   </div>
