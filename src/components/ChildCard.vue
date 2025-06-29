@@ -10,7 +10,7 @@ const placeholderImage = computed(() => {
 </script>
 
 <template>
-  <Card>
+  <Card class="group">
     <template #content>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-8">
@@ -26,7 +26,7 @@ const placeholderImage = computed(() => {
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <Button
             icon="i-ci-edit-pencil-01"
             rounded
