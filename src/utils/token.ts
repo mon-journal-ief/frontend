@@ -67,3 +67,7 @@ export async function handleTokenRefresh(): Promise<void> {
     refreshPromise = null
   }
 }
+
+export function deleteCookieRefreshToken() {
+  document.cookie = 'iefRefreshToken=; path=/; max-age=0; secure; samesite=strict'
+}

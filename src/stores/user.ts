@@ -10,6 +10,13 @@ export const useUserStore = defineStore('user', () => {
     user.value = response.data.value
   }
 
+  async function logout() {
+    await api.auth.logout()
+    deleteCookieRefreshToken()
+    accessToken.value = ''
+    user.value = null
+  }
+
   watch(accessToken, async (newToken) => {
     if (newToken) {
       fetchUser()
@@ -23,5 +30,6 @@ export const useUserStore = defineStore('user', () => {
     accessToken,
     fetchUser,
     user,
+    logout,
   }
 }, { persist: true })

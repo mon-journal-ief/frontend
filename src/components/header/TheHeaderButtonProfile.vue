@@ -1,25 +1,32 @@
 <script setup>
 const menu = ref()
+const router = useRouter()
 const items = ref([
   {
-    label: 'Account',
+    label: 'Compte',
     icon: 'i-ci-user',
     route: '/account',
   },
   {
-    label: 'Privacy',
+    label: 'Confidentialité',
     icon: 'i-ci-book-open',
     route: '/privacy',
+  },
+  {
+    label: 'À propos',
+    icon: 'i-ci-info',
+    route: '/about',
   },
   {
     separator: true,
   },
   {
-    label: 'Logout',
+    label: 'Déconnexion',
     icon: 'i-ci-log-out',
     class: 'text-red-600 dark:text-red-500',
     async command() {
-      localStorage.clear()
+      useUserStore().logout()
+      router.push('/login')
     },
   },
 ])

@@ -1,5 +1,5 @@
 import { createFetch } from '@vueuse/core'
-import { handleTokenRefresh } from './tokenRefresh'
+import { handleTokenRefresh } from './token'
 import { useUserStore } from '@/stores/user'
 
 export const useApiFetch = createFetch({
