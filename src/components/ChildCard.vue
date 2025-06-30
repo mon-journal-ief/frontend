@@ -21,7 +21,7 @@ const placeholderImage = computed(() => {
           >
 
           <div class="flex flex-col gap-1">
-            <h1>{{ child.name }} {{ child.lastName }}</h1>
+            <h2>{{ child.name }} {{ child.lastName }}</h2>
             <p class="text-lg text-slate-500 dark:text-slate-400">{{ child.program?.grade }} - {{ child.age }} ans</p>
           </div>
         </div>
