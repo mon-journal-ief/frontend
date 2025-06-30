@@ -11,11 +11,11 @@ const pageWithNavigation = computed(() =>
 const isSidebarOpen = ref(false)
 const { headerHeight } = useHeaderHeight()
 
+const env = import.meta.env.VITE_MODE
 useHead({
   title: () => {
-    const mode = import.meta.env.VITE_MODE
-    if (mode === 'development') return 'DEV IEF'
-    if (mode === 'int') return 'INT IEF'
+    if (env === 'development') return 'DEV IEF'
+    if (env === 'int') return 'INT IEF'
 
     return 'IEF'
   },
@@ -24,9 +24,8 @@ useHead({
       rel: 'icon',
       type: 'image/png',
       href: () => {
-        const mode = import.meta.env.VITE_MODE
-        if (mode === 'development') return '/favicon_green.ico'
-        if (mode === 'int') return 'static/favicon_red.ico'
+        if (env === 'development') return '/favicon_green.ico'
+        if (env === 'int') return 'static/favicon_red.ico'
 
         return 'static/favicon.ico'
       },
