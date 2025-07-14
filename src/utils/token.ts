@@ -1,5 +1,5 @@
-import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { router } from '@/router'
 import { useUserStore } from '@/stores/user'
 
 let isRefreshing = false
@@ -57,10 +57,7 @@ export async function handleTokenRefresh(): Promise<void> {
   catch (error) {
     console.error('Failed to refresh token:', error)
 
-    const router = useRouter()
     router.push('/login')
-
-    throw error
   }
   finally {
     isRefreshing = false
