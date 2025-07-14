@@ -1,8 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function authApiRepository() {
-  const toast = useToast()
-
   async function login(credentials: { email: string, password: string }) {
     const response = await useApiFetch<IUser>(`/auth/login`, {
       method: 'POST',
@@ -13,23 +11,13 @@ export function authApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Login successful',
-        detail: 'You have been logged in successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Login successful', 'You have been logged in successfully')
 
       return response.json()
     }
 
-    console.error('Login error:', response.error)
-    toast.add({
-      summary: 'Login failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Login error:', response.error.value)
+    toast.error('Login failed', response.error.value)
   }
 
   async function register(credentials: { email: string, password: string }) {
@@ -42,23 +30,13 @@ export function authApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Registration successful',
-        detail: 'You have been registered successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Registration successful', 'You have been registered successfully')
 
       return response.json()
     }
 
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Registration failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Registration error:', response.error.value)
+    toast.error('Registration failed', response.error.value)
   }
 
   async function logout() {

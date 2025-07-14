@@ -1,8 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function programTemplateApiRepository() {
-  const toast = useToast()
-
   async function getAll() {
     const response = await useApiFetch<IProgramTemplate[]>(`/program/template`, {
       method: 'GET',
@@ -15,13 +13,8 @@ export function programTemplateApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program templates fetch error:', response.error)
-    toast.add({
-      summary: 'Program templates fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program templates fetch error:', response.error.value)
+    toast.error('Program templates fetch failed', response.error.value)
   }
 
   async function get(id: string) {
@@ -36,13 +29,8 @@ export function programTemplateApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Program template fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Registration error:', response.error.value)
+    toast.error('Program template fetch failed', response.error.value)
   }
 
   async function create(programTemplate: IProgramTemplate) {
@@ -55,23 +43,13 @@ export function programTemplateApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program template created successfully',
-        detail: 'You have been created successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program template created successfully', 'You have been created successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program template creation error:', response.error)
-    toast.add({
-      summary: 'Program template creation failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program template creation error:', response.error.value)
+    toast.error('Program template creation failed', response.error.value)
   }
 
   async function update(id: string, programElement: IProgramTemplate) {
@@ -84,23 +62,13 @@ export function programTemplateApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program template updated successfully',
-        detail: 'You have been updated successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program template updated successfully', 'You have been updated successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program template update error:', response.error)
-    toast.add({
-      summary: 'Program template update failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program template update error:', response.error.value)
+    toast.error('Program template update failed', response.error.value)
   }
 
   async function remove(id: string) {
@@ -112,23 +80,13 @@ export function programTemplateApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program template deleted successfully',
-        detail: 'You have been deleted successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program template deleted successfully', 'You have been deleted successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program template deletion error:', response.error)
-    toast.add({
-      summary: 'Program template deletion failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program template deletion error:', response.error.value)
+    toast.error('Program template deletion failed', response.error.value)
   }
 
   return {

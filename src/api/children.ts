@@ -1,8 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function childrenApiRepository() {
-  const toast = useToast()
-
   async function get(id: string) {
     const response = await useApiFetch<IChild>(`/children/${id}`, {
       method: 'GET',
@@ -15,13 +13,8 @@ export function childrenApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Enfant',
-      detail: 'Erreur lors de la récupération de l\'enfant',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Registration error:', response.error.value)
+    toast.error('Enfant', 'Erreur lors de la récupération de l\'enfant')
   }
 
   async function getAll() {
@@ -36,7 +29,7 @@ export function childrenApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Children retrieval error:', response.error)
+    console.error('Children retrieval error:', response.error.value)
   }
 
   async function create(child: IChildCreation) {
@@ -49,23 +42,13 @@ export function childrenApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Enfant',
-        detail: 'Enfant enregistré avec succès',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Enfant', 'Enfant enregistré avec succès')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Child creation error:', response.error)
-    toast.add({
-      summary: 'Enfant',
-      detail: 'Erreur lors de l\'enregistrement de l\'enfant',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Child creation error:', response.error.value)
+    toast.error('Enfant', 'Erreur lors de l\'enregistrement de l\'enfant')
   }
 
   async function update(id: string, program: IChild) {
@@ -78,23 +61,13 @@ export function childrenApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Enfant',
-        detail: 'Modification enregistrée',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Enfant', 'Modification enregistrée')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Enfant update error:', response.error)
-    toast.add({
-      summary: 'Enfant',
-      detail: 'Erreur lors de la modification',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Enfant update error:', response.error.value)
+    toast.error('Enfant', 'Erreur lors de la modification')
   }
 
   async function remove(id: string) {
@@ -106,23 +79,13 @@ export function childrenApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Enfant',
-        detail: 'Suppression enregistrée',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Enfant', 'Suppression enregistrée')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Enfant deletion error:', response.error)
-    toast.add({
-      summary: 'Enfant',
-      detail: 'Erreur lors de la suppression',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Enfant deletion error:', response.error.value)
+    toast.error('Enfant', 'Erreur lors de la suppression')
   }
 
   return {

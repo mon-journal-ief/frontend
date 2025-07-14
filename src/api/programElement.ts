@@ -1,8 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function programElementApiRepository() {
-  const toast = useToast()
-
   async function getAll() {
     const response = await useApiFetch<IProgramElement[]>(`/program/element`, {
       method: 'GET',
@@ -15,13 +13,8 @@ export function programElementApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program Elements fetch error:', response.error)
-    toast.add({
-      summary: 'Program Elements fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program Elements fetch error:', response.error.value)
+    toast.error('Program Elements fetch failed', response.error.value)
   }
 
   async function get(id: string) {
@@ -36,13 +29,8 @@ export function programElementApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Program Element fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Registration error:', response.error.value)
+    toast.error('Program Element fetch failed', response.error.value)
   }
 
   async function create(programElement: IProgramElement) {
@@ -55,23 +43,13 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element created successfully',
-        detail: 'You have been created successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program Element created successfully', 'You have been created successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program Element creation error:', response.error)
-    toast.add({
-      summary: 'Program Element creation failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program Element creation error:', response.error.value)
+    toast.error('Program Element creation failed', response.error.value)
   }
 
   async function update(id: string, programElement: IProgramElement) {
@@ -84,23 +62,13 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element updated successfully',
-        detail: 'You have been updated successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program Element updated successfully', 'You have been updated successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program Element update error:', response.error)
-    toast.add({
-      summary: 'Program Element update failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program Element update error:', response.error.value)
+    toast.error('Program Element update failed', response.error.value)
   }
 
   async function remove(id: string) {
@@ -112,23 +80,13 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program Element deleted successfully',
-        detail: 'You have been deleted successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program Element deleted successfully', 'You have been deleted successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program Element deletion error:', response.error)
-    toast.add({
-      summary: 'Program Element deletion failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program Element deletion error:', response.error.value)
+    toast.error('Program Element deletion failed', response.error.value)
   }
 
   return {

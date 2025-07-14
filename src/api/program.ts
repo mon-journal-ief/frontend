@@ -1,8 +1,6 @@
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function programApiRepository() {
-  const toast = useToast()
-
   async function getAll() {
     const response = await useApiFetch<IProgram[]>(`/program`, {
       method: 'GET',
@@ -15,13 +13,8 @@ export function programApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Programs fetch error:', response.error)
-    toast.add({
-      summary: 'Programs fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Programs fetch error:', response.error.value)
+    toast.error('Programs fetch failed', response.error.value)
   }
 
   async function get(id: string) {
@@ -36,13 +29,8 @@ export function programApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Registration error:', response.error)
-    toast.add({
-      summary: 'Program fetch failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Registration error:', response.error.value)
+    toast.error('Program fetch failed', response.error.value)
   }
 
   async function create(program: IProgram) {
@@ -55,23 +43,13 @@ export function programApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program created successfully',
-        detail: 'You have been created successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program created successfully', 'You have been created successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program creation error:', response.error)
-    toast.add({
-      summary: 'Program creation failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program creation error:', response.error.value)
+    toast.error('Program creation failed', response.error.value)
   }
 
   async function update(id: string, program: IProgram) {
@@ -84,23 +62,13 @@ export function programApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program updated successfully',
-        detail: 'You have been updated successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program updated successfully', 'You have been updated successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program update error:', response.error)
-    toast.add({
-      summary: 'Program update failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program update error:', response.error.value)
+    toast.error('Program update failed', response.error.value)
   }
 
   async function remove(id: string) {
@@ -112,23 +80,13 @@ export function programApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Program deleted successfully',
-        detail: 'You have been deleted successfully',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Program deleted successfully', 'You have been deleted successfully')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Program deletion error:', response.error)
-    toast.add({
-      summary: 'Program deletion failed',
-      detail: response.error,
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Program deletion error:', response.error.value)
+    toast.error('Program deletion failed', response.error.value)
   }
 
   return {

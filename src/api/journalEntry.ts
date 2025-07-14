@@ -1,9 +1,6 @@
-import { _ } from '@/utils/constants'
 import { useApiFetch } from '@/utils/apiRepository'
 
 export function journalEntryApiRepository() {
-  const toast = useToast()
-
   async function getAll() {
     const response = await useApiFetch<IJournalEntry[]>(`/journal-entries`, {
       method: 'GET',
@@ -16,13 +13,8 @@ export function journalEntryApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Journal entries fetch error:', response.error)
-    toast.add({
-      summary: 'Entrée de journal',
-      detail: 'Erreur lors de la récupération des entrées de journal',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Journal entries fetch error:', response.error.value)
+    toast.error('Entrée de journal', 'Erreur lors de la récupération des entrées de journal')
   }
 
   async function get(id: string) {
@@ -37,13 +29,8 @@ export function journalEntryApiRepository() {
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Journal entry fetch error:', response.error)
-    toast.add({
-      summary: 'Entrée de journal',
-      detail: 'Erreur lors de la récupération de l\'entrée de journal',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Journal entry fetch error:', response.error.value)
+    toast.error('Entrée de journal', 'Erreur lors de la récupération de l\'entrée de journal')
   }
 
   async function create(entry: IJournalEntryCreation) {
@@ -56,23 +43,13 @@ export function journalEntryApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Entrée de journal',
-        detail: 'Entrée enregistrée avec succès',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Entrée de journal', 'Entrée enregistrée avec succès')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Journal entry creation error:', response.error)
-    toast.add({
-      summary: 'Entrée de journal',
-      detail: 'Erreur lors de l\'enregistrement de l\'entrée de journal',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Journal entry creation error:', response.error.value)
+    toast.error('Entrée de journal', 'Erreur lors de l\'enregistrement de l\'entrée de journal')
   }
 
   async function update(id: string, entry: IJournalEntry) {
@@ -85,23 +62,13 @@ export function journalEntryApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Entrée de journal',
-        detail: 'Modification enregistrée avec succès',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Entrée de journal', 'Modification enregistrée avec succès')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Journal entry update error:', response.error)
-    toast.add({
-      summary: 'Entrée de journal',
-      detail: 'Erreur lors de la modification de l\'entrée de journal',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Journal entry update error:', response.error.value)
+    toast.error('Entrée de journal', 'Erreur lors de la modification de l\'entrée de journal')
   }
 
   async function remove(id: string) {
@@ -113,23 +80,13 @@ export function journalEntryApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.add({
-        summary: 'Entrée de journal',
-        detail: 'Suppression enregistrée avec succès',
-        severity: 'success',
-        life: _.TOAST_LIFE,
-      })
+      toast.success('Entrée de journal', 'Suppression enregistrée avec succès')
 
       return JSON.parse(response.json().data.value)
     }
 
-    console.error('Journal entry deletion error:', response.error)
-    toast.add({
-      summary: 'Entrée de journal',
-      detail: 'Erreur lors de la suppression de l\'entrée de journal',
-      severity: 'error',
-      life: _.TOAST_LIFE,
-    })
+    console.error('Journal entry deletion error:', response.error.value)
+    toast.error('Entrée de journal', 'Erreur lors de la suppression de l\'entrée de journal')
   }
 
   return {

@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { setToastInstance } from '@/services/toastService'
+
 type ISeverity = 'success' | 'error' | 'info' | 'warn'
+
+const toast = useToast()
+setToastInstance(toast)
 
 function getToastClasses(severity: ISeverity) {
   if (severity === 'warn') {
