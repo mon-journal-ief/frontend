@@ -3,6 +3,9 @@ const api = useApi()
 const route = useRoute()
 const child = ref<IChild>()
 
+const showDialogAddEntry = ref(false)
+
+// refresh child when route changes
 watch(
   () => (route.params as { id?: string }).id,
   async (id) => {
@@ -15,6 +18,8 @@ watch(
 
 <template>
   <div v-if="child" class="flex flex-col gap-4">
+    <DialogAddEntry v-model="showDialogAddEntry" />
+
     <ChildCard :child />
 
     <Card>
@@ -34,6 +39,7 @@ watch(
                 rounded
                 severity="secondary"
                 variant="outlined"
+                @click="showDialogAddEntry = true"
               />
 
               <Accordion multiple>

@@ -3,6 +3,7 @@ import { programApiRepository } from '@/api/program'
 import { programElementApiRepository } from '@/api/programElement'
 import { programTemplateApiRepository } from '@/api/programTemplate'
 import { childrenApiRepository } from '@/api/children'
+import { journalEntryApiRepository } from '@/api/journalEntry'
 
 export function useApi() {
   return {
@@ -11,5 +12,6 @@ export function useApi() {
     programElement: programElementApiRepository(),
     programTemplate: programTemplateApiRepository(),
     children: childrenApiRepository(),
+    journalEntry: journalEntryApiRepository(),
   }
 }
