@@ -7,6 +7,16 @@ const child = computed(() => props.child)
 const placeholderImage = computed(() => {
   return child.value.gender === 'MALE' ? 'https://static.vecteezy.com/system/resources/thumbnails/056/866/270/small/child-with-curly-hair-and-blue-eyes-wearing-a-navy-jacket-against-a-dark-background-in-an-indoor-setting-photo.jpeg' : 'https://img.freepik.com/free-photo/portrait-cute-little-girl-with-long-hair-standing-park_23-2147893135.jpg?w=360'
 })
+
+const subtitle = computed(() => {
+  const grade = child.value.program?.grade
+  const age = child.value.age
+  if (grade && age) return `${grade} - ${age} ans`
+  if (grade) return grade
+  if (age) return `${age} ans`
+
+  return ''
+})
 </script>
 
 <template>
@@ -22,7 +32,7 @@ const placeholderImage = computed(() => {
 
           <div class="flex flex-col gap-1">
             <h2>{{ child.name }} {{ child.lastName }}</h2>
-            <p class="text-lg text-slate-500 dark:text-slate-400">{{ child.program?.grade }} - {{ child.age }} ans</p>
+            <p class="text-lg text-slate-500 dark:text-slate-400">{{ subtitle }}</p>
           </div>
         </div>
 
