@@ -2,6 +2,15 @@
 const props = defineProps<{
   entry: IJournalEntry
 }>()
+
+const displayedDate = computed(() => {
+  if (!props.entry.date) return ''
+
+  const date = new Date(props.entry.date)
+  if (date.toString() === 'Invalid Date') return ''
+
+  return date.toLocaleDateString()
+})
 </script>
 
 <template>
@@ -10,7 +19,7 @@ const props = defineProps<{
       <div class="flex w-full items-center justify-between gap-2">
         <div class="flex flex-col gap-1">
           <p>{{ entry.validatedElements[0]?.name }}</p>
-          <p class="text-sm font-normal text-slate-500">{{ new Date(entry.date).toLocaleDateString() }}</p>
+          <p v-if="displayedDate" class="text-sm font-normal text-slate-500">{{ displayedDate }}</p>
         </div>
 
         <div class="mr-8 flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
