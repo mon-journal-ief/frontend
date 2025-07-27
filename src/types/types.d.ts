@@ -25,6 +25,7 @@ declare global {
   interface IProgram {
     id: string
     name: string
+    description?: string
     grade: string
     elements: IProgramElement[]
     children: IChild[]

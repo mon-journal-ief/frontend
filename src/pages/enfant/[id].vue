@@ -54,18 +54,7 @@ watch(
 
           <!-- Programme -->
           <TabPanel value="1">
-            <ProgramViewer />
-
-            <div class="flex flex-col gap-4">
-              <div class="flex justify-center">
-                <Button
-                  class="rounded-lg text-white"
-                  icon="i-ci-plus"
-                  severity="secondary"
-                  variant="outlined"
-                />
-              </div>
-            </div>
+            <ProgramViewer :program="child.program" />
           </TabPanel>
         </Tabs>
       </template>
