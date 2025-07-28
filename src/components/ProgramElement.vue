@@ -9,6 +9,14 @@ const emit = defineEmits<{
 
 const element = defineModel<IProgramElement>({ required: true })
 
+// Ensure children is always an array. This fixes a bug where newly created elements
+// would not be draggable. I'd like to find a better solution.
+watchEffect(() => {
+  if (!element.value.children) {
+    element.value.children = []
+  }
+})
+
 // Check if this is an element being created
 const isNewElement = computed(() => element.value.id.startsWith('temp-'))
 
@@ -50,7 +58,7 @@ async function saveEdit() {
     })
 
     if (newElement) {
-      Object.assign(element.value, newElement)
+      element.value = newElement
     }
   }
   else {
@@ -58,6 +66,12 @@ async function saveEdit() {
   }
 
   editMode.value = false
+}
+
+async function deleteElement() {
+  await api.programElement.remove(element.value.id)
+
+  emit('remove')
 }
 </script>
 
@@ -85,11 +99,19 @@ async function saveEdit() {
             variant="outlined"
             @click="startEdit(element.name, element.description)"
           />
+          <Button
+            class="opacity-0 transition-opacity group-hover:opacity-100"
+            icon="i-ci-trash-full"
+            rounded
+            severity="danger"
+            variant="outlined"
+            @click="deleteElement"
+          />
         </div>
       </div>
 
       <DraggableProgramElements
-        v-if="element.children.length > 0 || reorderMode"
+        v-if="element.children?.length > 0 || reorderMode"
         v-model:elements="element.children"
         class="ml-8 mt-4"
         :parent-id="element.id"
