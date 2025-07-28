@@ -40,6 +40,7 @@ declare global {
     journalEntries: IJournalEntry[]
     program: IProgram
     children: IProgramElement[]
+    parentId: string
     createdAt: Date
     updatedAt: Date
   }

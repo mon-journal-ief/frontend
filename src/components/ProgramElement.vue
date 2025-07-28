@@ -1,4 +1,8 @@
 <script setup lang="ts">
+withDefaults(defineProps<{ reorderMode?: boolean }>(), {
+  reorderMode: false,
+})
+
 const element = defineModel<IProgramElement>({ required: true })
 
 const editMode = ref(false)
@@ -34,29 +38,36 @@ async function saveEdit() {
   <Card v-if="!editMode">
     <template #content>
       <div class="group flex justify-between gap-2">
-        <div class="flex flex-col">
-          <h3>{{ element.name }}</h3>
-          <p v-if="element.description" class="text-slate-500">
-            {{ element.description }}
-          </p>
+
+        <div class="flex items-center gap-2">
+          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 self-center text-2xl" />
+
+          <div class="flex flex-col">
+            <h3>{{ element.name }}</h3>
+            <p v-if="element.description" class="text-slate-500">
+              {{ element.description }}
+            </p>
+          </div>
         </div>
-        <Button
-          class="opacity-0 transition-opacity group-hover:opacity-100"
-          icon="i-ci-edit"
-          rounded
-          severity="secondary"
-          variant="outlined"
-          @click="startEdit(element.name, element.description)"
-        />
+        <div class="flex items-center gap-2">
+          <Button
+            class="opacity-0 transition-opacity group-hover:opacity-100"
+            icon="i-ci-edit"
+            rounded
+            severity="secondary"
+            variant="outlined"
+            @click="startEdit(element.name, element.description)"
+          />
+        </div>
       </div>
 
-      <div
-        v-for="(_child, index) in element.children"
-        :key="index"
-        class="mt-4 flex flex-col gap-2"
-      >
-        <ProgramElement v-model="element.children[index]!" />
-      </div>
+      <DraggableProgramElements
+        v-if="element.children.length > 0 || reorderMode"
+        v-model:elements="element.children"
+        class="ml-8 mt-4"
+        :parent-id="element.id"
+        :reorder-mode
+      />
     </template>
   </Card>
 
@@ -90,3 +101,13 @@ async function saveEdit() {
     </template>
   </Card>
 </template>
+
+<style scoped>
+.drag-handle {
+  cursor: grab;
+  user-select: none;
+  padding-right: 4px;
+  display: flex;
+  align-items: center;
+}
+</style>

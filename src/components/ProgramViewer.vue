@@ -6,32 +6,45 @@ const props = defineProps<{
 const programCopy = computed(() => props.program)
 
 const showDialogCreateProgram = ref(false)
+const reorderMode = ref(false)
 </script>
 
 <template>
   <DialogProgramCreate v-model="showDialogCreateProgram" />
 
   <div v-if="programCopy" class="flex flex-col gap-8">
-    <div class="flex flex-col gap-2">
-      <h2>{{ programCopy.name }}</h2>
-      <p v-if="programCopy.description" class="text-slate-600 dark:text-slate-400">
-        {{ programCopy.description }}
-      </p>
-    </div>
-
-    <div class="flex flex-col gap-4">
-      <ProgramElement
-        v-for="(_element, index) in programCopy.elements"
-        :key="index"
-        v-model="programCopy.elements[index]!"
-      />
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex flex-col gap-2">
+        <h2>{{ programCopy.name }}</h2>
+        <p v-if="programCopy.description" class="text-slate-600 dark:text-slate-400">
+          {{ programCopy.description }}
+        </p>
+      </div>
 
       <Button
-        icon="i-ci-plus"
-        label="Ajouter une compétence"
+        icon="i-ci-list-unordered"
+        label="Réorganiser"
+        pt:icon:class="text-xl"
         rounded
         severity="secondary"
         variant="outlined"
+        @click="reorderMode = !reorderMode"
+      />
+    </div>
+
+    <div class="flex flex-col gap-8">
+      <Button
+        icon="i-ci-plus"
+        label="Ajouter un élément"
+        rounded
+        severity="secondary"
+        variant="outlined"
+      />
+
+      <DraggableProgramElements
+        v-model:elements="programCopy.elements"
+        :parent-id="null"
+        :reorder-mode
       />
     </div>
   </div>

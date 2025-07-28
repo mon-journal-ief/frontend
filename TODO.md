@@ -1,0 +1,4 @@
+- Garder l'ordre des éléments dans le programme
+- Pouvoir exporter avec les deux "vues": celle chronologique et celle par compétences
+- Export Canva ?
+- changer age en date de naissance
