@@ -1,4 +1,5 @@
 - Garder l'ordre des éléments dans le programme
+- Ajouter une conf lors de la suppression d'un élément (s'il a des enfants, proposer la cascade. Si non, juste leur enlever leur parent)
 - Pouvoir exporter avec les deux "vues": celle chronologique et celle par compétences
 - Export Canva ?
 - changer age en date de naissance

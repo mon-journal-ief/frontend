@@ -14,11 +14,15 @@ watch(
   },
   { immediate: true },
 )
+
+function addEntry(entry: IJournalEntry) {
+  child.value?.journalEntries.push(entry)
+}
 </script>
 
 <template>
   <div v-if="child" class="flex flex-col gap-4">
-    <DialogAddEntry v-model="showDialogAddEntry" />
+    <DialogAddEntry v-model="showDialogAddEntry" @add-entry="addEntry" />
 
     <ChildCard :child />
 

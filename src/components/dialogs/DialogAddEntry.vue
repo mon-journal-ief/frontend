@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const visible = defineModel<boolean>({ required: true })
+const emit = defineEmits<{
+  (e: 'addEntry', entry: IJournalEntry): void
+}>()
 
+const visible = defineModel<boolean>({ required: true })
 const api = useApi()
 
 const date = ref<Date>()
@@ -20,7 +23,7 @@ onMounted(async () => {
 async function handleAddEntry() {
   if (!child.value) return
 
-  await api.journalEntry.create({
+  const entry = await api.journalEntry.create({
     date: date.value,
     comment: comment.value,
     images: images.value,
@@ -28,6 +31,7 @@ async function handleAddEntry() {
     validatedElementIds: validatedElements.value.map(element => element.id),
   })
 
+  emit('addEntry', entry)
   visible.value = false
 }
 
