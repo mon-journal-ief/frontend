@@ -38,9 +38,9 @@ declare global {
     name: string
     description: string
     journalEntries: IJournalEntry[]
-    program: IProgram
     children: IProgramElement[]
-    parentId: string
+    programId: string
+    parentId?: string
     createdAt: Date
     updatedAt: Date
   }

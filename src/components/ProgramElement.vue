@@ -3,9 +3,16 @@ withDefaults(defineProps<{ reorderMode?: boolean }>(), {
   reorderMode: false,
 })
 
+const emit = defineEmits<{
+  remove: []
+}>()
+
 const element = defineModel<IProgramElement>({ required: true })
 
-const editMode = ref(false)
+// Check if this is an element being created
+const isNewElement = computed(() => element.value.id.startsWith('temp-'))
+
+const editMode = ref(isNewElement.value) // Start in edit mode for new elements
 
 const api = useApi()
 
@@ -23,13 +30,33 @@ function startEdit(originalName: string, originalDescription: string) {
 }
 
 function cancelEdit() {
+  if (isNewElement.value) {
+    emit('remove')
+
+    return
+  }
+
   element.value.name = originalData.value.name
   element.value.description = originalData.value.description
   editMode.value = false
 }
 
 async function saveEdit() {
-  await api.programElement.update(element.value.id, element.value)
+  if (isNewElement.value) {
+    const newElement = await api.programElement.create({
+      name: element.value.name,
+      description: element.value.description,
+      programId: element.value.programId,
+    })
+
+    if (newElement) {
+      Object.assign(element.value, newElement)
+    }
+  }
+  else {
+    await api.programElement.update(element.value.id, element.value)
+  }
+
   editMode.value = false
 }
 </script>

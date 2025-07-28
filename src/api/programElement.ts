@@ -33,7 +33,7 @@ export function programElementApiRepository() {
     toast.error('Program Element fetch failed', response.error.value)
   }
 
-  async function create(programElement: IProgramElement) {
+  async function create(programElement: Partial<IProgramElement>) {
     const response = await useApiFetch<IProgramElement>(`/program/element`, {
       method: 'POST',
       body: JSON.stringify(programElement),

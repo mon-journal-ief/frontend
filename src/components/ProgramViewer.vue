@@ -7,6 +7,26 @@ const programCopy = computed(() => props.program)
 
 const showDialogCreateProgram = ref(false)
 const reorderMode = ref(false)
+
+async function addNewElement() {
+  if (!programCopy.value) return
+
+  // Create a temporary element that will be in edit mode
+  const tempElement: IProgramElement = {
+    id: `temp-${Date.now()}`,
+    name: 'Nouvel élément',
+    description: '',
+    journalEntries: [],
+    programId: programCopy.value.id,
+    children: [],
+    parentId: undefined,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+
+  // Add to the top of the elements array in edit mode
+  programCopy.value.elements.unshift(tempElement)
+}
 </script>
 
 <template>
@@ -39,6 +59,7 @@ const reorderMode = ref(false)
         rounded
         severity="secondary"
         variant="outlined"
+        @click="addNewElement"
       />
 
       <DraggableProgramElements

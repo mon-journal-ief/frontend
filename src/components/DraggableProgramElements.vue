@@ -13,6 +13,10 @@ const elements = defineModel<IProgramElement[]>('elements', { required: true })
 
 const api = useApi()
 
+function removeElement(index: number) {
+  elements.value.splice(index, 1)
+}
+
 function onReorder(evt: any) {
   if (evt.added || evt.moved) {
     const movedElement = evt.added?.element || evt.moved?.element
@@ -40,6 +44,7 @@ function onReorder(evt: any) {
       <ProgramElement
         v-model="elements[index]!"
         :reorder-mode
+        @remove="removeElement(index)"
       />
     </template>
   </draggable>
