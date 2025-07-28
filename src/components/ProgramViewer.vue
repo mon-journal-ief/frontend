@@ -33,8 +33,6 @@ async function addNewElement() {
 </script>
 
 <template>
-  <DialogProgramCreate v-model="showDialogCreateProgram" />
-
   <div v-if="programCopy" class="flex flex-col gap-8">
     <div class="flex items-center justify-between gap-2">
       <div class="flex flex-col gap-2">
