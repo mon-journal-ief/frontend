@@ -24,6 +24,9 @@ async function addNewElement() {
     updatedAt: new Date(),
   }
 
+  // Prevent some annoying bugs
+  reorderMode.value = false
+
   // Add to the top of the elements array in edit mode
   programCopy.value.elements.unshift(tempElement)
 }

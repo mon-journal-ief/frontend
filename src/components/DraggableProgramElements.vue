@@ -36,6 +36,7 @@ function onReorder(evt: any) {
       parentId && 'gap-2',
       reorderMode && elements.length === 0 && 'min-h-16 rounded-md border border-dashed border-slate-500 p-2',
     ]"
+    :disabled="!reorderMode"
     group="program-elements"
     item-key="id"
     @change="onReorder"
