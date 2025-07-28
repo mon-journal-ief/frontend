@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const props = defineProps<{
+  childId?: string
+}>()
+
 const emit = defineEmits<{
   (e: 'addEntry', entry: IJournalEntry): void
 }>()
@@ -9,7 +13,7 @@ const api = useApi()
 const date = ref<Date>()
 const comment = ref('')
 const images = ref<string[]>([])
-const child = ref<IChild>()
+const childId = ref<string | undefined>(props.childId)
 const validatedElements = ref<IProgramElement[]>([])
 
 const childrenOptions = ref<IChild[]>([])
@@ -21,13 +25,13 @@ onMounted(async () => {
 })
 
 async function handleAddEntry() {
-  if (!child.value) return
+  if (!childId.value) return
 
   const entry = await api.journalEntry.create({
     date: date.value,
     comment: comment.value,
     images: images.value,
-    childId: child.value.id,
+    childId: childId.value,
     validatedElementIds: validatedElements.value.map(element => element.id),
   })
 
@@ -66,8 +70,9 @@ function handleFileUpload(event: { files: File[] }) {
       <FormContainer input-id="child" title="Enfant *">
         <Dropdown
           id="child"
-          v-model="child"
+          v-model="childId"
           option-label="name"
+          option-value="id"
           :options="childrenOptions"
           placeholder="Sélectionner un enfant"
         />
@@ -108,7 +113,11 @@ function handleFileUpload(event: { files: File[] }) {
 
     <template #footer>
       <Button label="Annuler" severity="secondary" @click="visible = false" />
-      <Button label="Ajouter" @click="handleAddEntry" />
+      <Button
+        :disabled="!childId || (!validatedElements.length && !comment)"
+        label="Ajouter"
+        @click="handleAddEntry"
+      />
     </template>
   </BaseDialog>
 </template>

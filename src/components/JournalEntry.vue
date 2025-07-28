@@ -40,7 +40,10 @@ const displayedDate = computed(() => {
     </AccordionHeader>
 
     <AccordionContent>
-      <p>{{ entry.comment }}</p>
+      <div class="text-sm text-slate-600 dark:text-slate-400">
+        <p v-if="entry.comment">{{ entry.comment }}</p>
+        <p v-else>Aucun commentaire</p>
+      </div>
     </AccordionContent>
   </AccordionPanel>
 </template>
