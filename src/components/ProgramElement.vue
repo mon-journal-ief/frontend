@@ -84,7 +84,15 @@ async function deleteElement() {
           <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 self-center text-2xl" />
 
           <div class="flex flex-col">
-            <h3>{{ element.name }}</h3>
+            <div class="flex gap-2">
+              <h3>{{ element.name }}</h3>
+              <Badge
+                v-if="element.journalEntries?.length > 0"
+                v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
+                severity="info"
+                :value="element.journalEntries?.length"
+              />
+            </div>
             <p v-if="element.description" class="text-slate-500">
               {{ element.description }}
             </p>
