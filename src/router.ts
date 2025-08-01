@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
   const { accessToken } = storeToRefs(userStore)
   const isAuthenticated = !!accessToken.value
 
-  const publicPages = ['/login', '/register']
+  const publicPages = ['/login', '/register', '/export/pdf']
   const isPublic = publicPages.includes(to.path)
 
   if (!isPublic && !isAuthenticated) {

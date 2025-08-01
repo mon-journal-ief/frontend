@@ -4,9 +4,14 @@ import { useHeaderHeight } from '@/composables/useHeaderHeight'
 
 const route = useRoute()
 
-const pageWithNavigation = computed(() =>
-  route.name && !['/login', '/[...404]'].includes(route.name),
+const isPageWithNavigation = computed(() =>
+  route.name && !['/login', '/[...404]', '/export/pdf/'].includes(route.name),
 )
+
+const userStore = useUserStore()
+if (isPageWithNavigation.value) {
+  userStore.fetchUser()
+}
 
 const isSidebarOpen = ref(false)
 const { headerHeight } = useHeaderHeight()
@@ -32,12 +37,10 @@ useHead({
     },
   ],
 })
-
-useUserStore().fetchUser()
 </script>
 
 <template>
-  <div v-if="pageWithNavigation" class="flex bg-surface-50 dark:bg-surface-950">
+  <div v-if="isPageWithNavigation" class="flex bg-surface-50 dark:bg-surface-950">
     <ConfirmDialog dismissable-mask />
 
     <TheSidebar v-model="isSidebarOpen" />

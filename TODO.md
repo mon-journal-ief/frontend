@@ -8,6 +8,7 @@
 ## Enfant
 - changer age en date de naissance
 - Supprimer/Archiver un enfant
+- Add default gendered pic on child creation
 
 ## Export
 - Pouvoir exporter avec les deux "vues": celle chronologique et celle par compétences

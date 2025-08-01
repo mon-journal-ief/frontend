@@ -4,6 +4,7 @@ import { programElementApiRepository } from '@/api/programElement'
 import { programTemplateApiRepository } from '@/api/programTemplate'
 import { childrenApiRepository } from '@/api/children'
 import { journalEntryApiRepository } from '@/api/journalEntry'
+import { exportApiRepository } from '@/api/export'
 
 export function useApi() {
   return {
@@ -13,5 +14,6 @@ export function useApi() {
     programTemplate: programTemplateApiRepository(),
     children: childrenApiRepository(),
     journalEntry: journalEntryApiRepository(),
+    export: exportApiRepository(),
   }
 }

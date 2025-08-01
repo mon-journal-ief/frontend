@@ -30,6 +30,14 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
+
+const api = useApi()
+const userStore = useUserStore()
+
+async function exportToPDF() {
+  const child = userStore.user!.children[1]!
+  await api.export.exportToPDF(child.id, child.name)
+}
 </script>
 
 <template>
@@ -45,10 +53,11 @@ onUnmounted(() => {
 
         <div class="flex gap-2 md:gap-4">
           <Button
-            label="Exporter un rapport"
-            outlined
-            severity="secondary"
-            size="small"
+            icon="i-ci-file-pdf"
+            label="Exporter en PDF"
+            severity="success"
+            variant="outlined"
+            @click="exportToPDF"
           />
 
           <Button
