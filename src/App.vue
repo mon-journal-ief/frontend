@@ -40,12 +40,12 @@ useHead({
 </script>
 
 <template>
-  <div v-if="isPageWithNavigation" class="flex bg-surface-50 dark:bg-surface-950">
-    <ConfirmDialog dismissable-mask />
+  <BaseToast />
+  <ConfirmDialog dismissable-mask />
 
+  <div v-if="isPageWithNavigation" class="flex bg-surface-50 dark:bg-surface-950">
     <TheSidebar v-model="isSidebarOpen" />
     <div class="flex grow flex-col overflow-hidden">
-      <BaseToast />
       <TheHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
       <RouterView
         class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mb-4 md:mr-4 md:rounded-xl md:px-6 md:py-8"
