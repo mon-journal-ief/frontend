@@ -1,13 +1,8 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
     "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "paths": {
       "~/*": [
         "src/*"
@@ -16,23 +11,27 @@
         "./src/*"
       ]
     },
-    "resolveJsonModule": true,
     "types": [
       "vitest",
       "vite/client",
       "unplugin-vue-router/client",
       "unplugin-fonts/client"
     ],
+    "allowImportingTsExtensions": true,
+
+    /* Linting */
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "noUncheckedSideEffectImports": true
   },
   "files": [
     "src/typed-router.d.ts",
@@ -43,11 +42,12 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
-    "src/types/*.d.ts"
+    "src/types/*.d.ts",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js",
+    "tailwind.config.ts",
+    "postcss.config.js"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "e2e"
-  ]
+  "exclude": ["node_modules", "dist", "e2e"]
 }

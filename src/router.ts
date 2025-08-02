@@ -27,7 +27,7 @@ declare module 'vue-router/auto-routes' {
   }
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const userStore = useUserStore()
   const { accessToken } = storeToRefs(userStore)
   const isAuthenticated = !!accessToken.value
