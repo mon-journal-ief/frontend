@@ -21,7 +21,7 @@ import type {
   ToastPassThroughOptions,
 } from 'primevue'
 import type { ToggleSwitchPassThroughOptions } from 'primevue/toggleswitch'
-import { palette } from '~/palette.cjs'
+import { palette } from '~/palette.ts'
 
 export const customizedAuraPreset = definePreset(Aura, {
   // We will apply border radius/ padding / etc on a component basis, via Design Tokens.

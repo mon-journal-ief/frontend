@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons'
-import { palette } from './src/palette.cjs'
+import { palette } from './src/palette.ts'
 
 export default <Partial<Config>>{
   content: [
