@@ -55,7 +55,6 @@ const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-co
           <TheSidebarButton
             v-for="child in children"
             :key="child.id"
-            class="h-12"
             :image="child.image || placeholderPic"
             :label="child.name"
             :route="`/enfant/${child.id}`"
