@@ -30,9 +30,9 @@ useHead({
       type: 'image/png',
       href: () => {
         if (env === 'development') return '/favicon_green.ico'
-        if (env === 'int') return 'static/favicon_red.ico'
+        if (env === 'int') return '/favicon_red.ico'
 
-        return 'static/favicon.ico'
+        return '/favicon.ico'
       },
     },
   ],

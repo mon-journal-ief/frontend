@@ -24,8 +24,8 @@ const isDevelopmentMode = ref(import.meta.env.VITE_MODE === 'development')
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 const children = computed(() => user.value?.children)
-const placeholderBoy = '/src/assets/placeholder-boy.png'
-const placeholderGirl = '/src/assets/placeholder-girl.png'
+const placeholderBoy = '/placeholder-boy.png'
+const placeholderGirl = '/placeholder-girl.png'
 </script>
 
 <template>

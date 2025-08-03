@@ -14,7 +14,7 @@ const child = computed(() => props.child)
 const showEditDialog = ref(false)
 
 const placeholderImage = computed(() => {
-  return child.value.gender === 'MALE' ? '/src/assets/placeholder-boy.png' : '/src/assets/placeholder-girl.png'
+  return child.value.gender === 'MALE' ? '/placeholder-boy.png' : '/placeholder-girl.png'
 })
 
 const subtitle = computed(() => {
