@@ -1,8 +1,8 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import { useApi } from '@/utils/apiRepository'
 
 export function programElementApiRepository() {
   async function getAll() {
-    const response = await useApiFetch<IProgramElement[]>(`/program/element`, {
+    const response = await useApi<IProgramElement[]>(`/program/element`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export function programElementApiRepository() {
   }
 
   async function get(id: string) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
+    const response = await useApi<IProgramElement>(`/program/element/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export function programElementApiRepository() {
   }
 
   async function create(programElement: Partial<IProgramElement>) {
-    const response = await useApiFetch<IProgramElement>(`/program/element`, {
+    const response = await useApi<IProgramElement>(`/program/element`, {
       method: 'POST',
       body: JSON.stringify(programElement),
       headers: {
@@ -53,7 +53,7 @@ export function programElementApiRepository() {
   }
 
   async function update(id: string, programElement: IProgramElement) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
+    const response = await useApi<IProgramElement>(`/program/element/${id}`, {
       method: 'PUT',
       body: JSON.stringify(programElement),
       headers: {
@@ -72,7 +72,7 @@ export function programElementApiRepository() {
   }
 
   async function remove(id: string) {
-    const response = await useApiFetch<IProgramElement>(`/program/element/${id}`, {
+    const response = await useApi<IProgramElement>(`/program/element/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
-  const api = useApi()
   const accessToken = ref('')
   const user = ref<IUser | null>(null)
 

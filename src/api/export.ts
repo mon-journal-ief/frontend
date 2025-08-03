@@ -1,11 +1,11 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import { useApi } from '@/utils/apiRepository'
 import downloadFile from '@/utils/downloadFile'
 
 export function exportApiRepository() {
   async function exportToPDF(childId: string, childName: string) {
     try {
       const userStore = useUserStore()
-      const { response } = await useApiFetch(`${import.meta.env.VITE_API_URL}/export/pdf/${childId}`, {
+      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/pdf/${childId}`, {
         method: 'GET',
         headers: {
           'x-auth-token': userStore.accessToken || '',

@@ -8,8 +8,6 @@ const emits = defineEmits<{
   refresh: []
 }>()
 
-const api = useApi()
-
 const child = computed(() => props.child)
 const showEditDialog = ref(false)
 

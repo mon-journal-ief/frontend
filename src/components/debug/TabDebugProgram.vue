@@ -1,6 +1,4 @@
 <script setup>
-import { useApi } from '@/api'
-
 // Program CRUD forms
 const newProgramForm = ref({
   name: '',
@@ -14,8 +12,6 @@ const updateProgramForm = ref({
 })
 
 const selectedProgramId = ref('')
-
-const api = useApi()
 
 const program = ref()
 const programs = ref([])

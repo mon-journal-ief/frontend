@@ -7,8 +7,6 @@ const emit = defineEmits<{
   refetch: []
 }>()
 
-const api = useApi()
-
 async function handleDeleteProgramElement(id: string) {
   await api.programElement.remove(id)
   emit('refetch')

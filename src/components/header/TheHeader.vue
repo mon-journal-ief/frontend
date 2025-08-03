@@ -31,7 +31,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
 
-const api = useApi()
 const userStore = useUserStore()
 
 async function exportToPDF() {

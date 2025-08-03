@@ -8,7 +8,6 @@ const emit = defineEmits<{
 }>()
 
 const visible = defineModel<boolean>({ required: true })
-const api = useApi()
 
 const date = ref<Date>()
 const comment = ref('')

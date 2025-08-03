@@ -22,8 +22,6 @@ const isNewElement = computed(() => element.value.id.startsWith('temp-'))
 
 const editMode = ref(isNewElement.value) // Start in edit mode for new elements
 
-const api = useApi()
-
 const originalData = ref({
   name: element.value.name,
   description: element.value.description,

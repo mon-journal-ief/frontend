@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const api = useApi()
 const child = ref<IChild>()
 const route = useRoute('/enfant/[id]')
 

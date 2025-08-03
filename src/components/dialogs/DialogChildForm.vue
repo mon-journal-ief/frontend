@@ -9,8 +9,6 @@ const emits = defineEmits<{
 
 const visible = defineModel<boolean>('visible', { required: true })
 
-const api = useApi()
-
 const isEditing = computed(() => !!props.child)
 
 // Initialize with existing child data if editing

@@ -16,8 +16,6 @@ const registerForm = ref({
   confirmPassword: '',
 })
 
-const api = useApi()
-
 function storeTokens(responseData: { accessToken: string, refreshToken: string }) {
   accessToken.value = responseData.accessToken
   document.cookie = `iefRefreshToken=${responseData.refreshToken}; path=/; max-age=${60 * 60 * 24 * 30}; secure; samesite=strict`

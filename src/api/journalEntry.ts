@@ -1,8 +1,8 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import { useApi } from '@/utils/apiRepository'
 
 export function journalEntryApiRepository() {
   async function getAll() {
-    const response = await useApiFetch<IJournalEntry[]>(`/journal-entries`, {
+    const response = await useApi<IJournalEntry[]>(`/journal-entries`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export function journalEntryApiRepository() {
   }
 
   async function get(id: string) {
-    const response = await useApiFetch<IJournalEntry>(`/journal-entries/${id}`, {
+    const response = await useApi<IJournalEntry>(`/journal-entries/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export function journalEntryApiRepository() {
   }
 
   async function create(entry: IJournalEntryCreation) {
-    const response = await useApiFetch<IJournalEntryCreation>(`/journal-entries`, {
+    const response = await useApi<IJournalEntryCreation>(`/journal-entries`, {
       method: 'POST',
       body: JSON.stringify(entry),
       headers: {
@@ -53,7 +53,7 @@ export function journalEntryApiRepository() {
   }
 
   async function update(id: string, entry: IJournalEntry) {
-    const response = await useApiFetch<IJournalEntry>(`/journal-entries/${id}`, {
+    const response = await useApi<IJournalEntry>(`/journal-entries/${id}`, {
       method: 'PUT',
       body: JSON.stringify(entry),
       headers: {
@@ -72,7 +72,7 @@ export function journalEntryApiRepository() {
   }
 
   async function remove(id: string) {
-    const response = await useApiFetch<IJournalEntry>(`/journal-entries/${id}`, {
+    const response = await useApi<IJournalEntry>(`/journal-entries/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

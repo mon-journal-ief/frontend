@@ -1,8 +1,8 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import { useApi } from '@/utils/apiRepository'
 
 export function authApiRepository() {
   async function login(credentials: { email: string, password: string }) {
-    const response = await useApiFetch<IUser>(`/auth/login`, {
+    const response = await useApi<IUser>(`/auth/login`, {
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: {
@@ -21,7 +21,7 @@ export function authApiRepository() {
   }
 
   async function register(credentials: { email: string, password: string }) {
-    const response = await useApiFetch<IUser>(`/auth/register`, {
+    const response = await useApi<IUser>(`/auth/register`, {
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: {
@@ -40,7 +40,7 @@ export function authApiRepository() {
   }
 
   async function logout() {
-    const response = await useApiFetch<void>(`/auth/logout`, {
+    const response = await useApi<void>(`/auth/logout`, {
       method: 'POST',
     })
 
@@ -48,7 +48,7 @@ export function authApiRepository() {
   }
 
   async function me() {
-    return await useApiFetch<IUser>(`/auth/me`).json()
+    return await useApi<IUser>(`/auth/me`).json()
   }
 
   return {

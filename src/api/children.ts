@@ -1,8 +1,8 @@
-import { useApiFetch } from '@/utils/apiRepository'
+import { useApi } from '@/utils/apiRepository'
 
 export function childrenApiRepository() {
   async function get(id: string) {
-    const response = await useApiFetch<IChild>(`/children/${id}`, {
+    const response = await useApi<IChild>(`/children/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export function childrenApiRepository() {
   }
 
   async function getAll() {
-    const response = await useApiFetch<IChild[]>(`/children`, {
+    const response = await useApi<IChild[]>(`/children`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export function childrenApiRepository() {
   }
 
   async function create(child: IChildCreation) {
-    const response = await useApiFetch<IChild>(`/children`, {
+    const response = await useApi<IChild>(`/children`, {
       method: 'POST',
       body: JSON.stringify(child),
       headers: {
@@ -52,7 +52,7 @@ export function childrenApiRepository() {
   }
 
   async function update(id: string, program: IChild) {
-    const response = await useApiFetch<IChild>(`/children/${id}`, {
+    const response = await useApi<IChild>(`/children/${id}`, {
       method: 'PUT',
       body: JSON.stringify(program),
       headers: {
@@ -71,7 +71,7 @@ export function childrenApiRepository() {
   }
 
   async function remove(id: string) {
-    const response = await useApiFetch<IChild>(`/children/${id}`, {
+    const response = await useApi<IChild>(`/children/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

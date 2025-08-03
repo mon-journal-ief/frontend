@@ -47,7 +47,7 @@ export default defineConfig({
         { 'primevue/usetoast': ['useToast'] },
         { 'primevue/useconfirm': ['useConfirm'] },
         { '@/services/toastService': ['toast'] },
-        { '@/api': ['useApi'] },
+        { '@/services/apiService': ['api'] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [

@@ -11,8 +11,6 @@ const props = withDefaults(defineProps<{
 
 const elements = defineModel<IProgramElement[]>('elements', { required: true })
 
-const api = useApi()
-
 function removeElement(index: number) {
   elements.value.splice(index, 1)
 }
