@@ -56,7 +56,7 @@ async function addNewElement() {
     <div class="flex flex-col gap-8">
       <Button
         icon="i-ci-plus"
-        label="Ajouter un élément"
+        label="Ajouter un élément de programme"
         rounded
         severity="secondary"
         variant="outlined"
