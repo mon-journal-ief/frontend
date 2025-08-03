@@ -1,17 +1,11 @@
 <script setup lang="ts">
-const showAddChildDialog = ref(false)
+//
 </script>
 
 <template>
-  <div>
-    <DialogAddChild v-model:visible="showAddChildDialog" />
+  <div class="flex flex-col gap-6">
+    <h1>Bienvenue sur votre journal IEF</h1>
 
-    <h1>Bienvenue sur l'application Ief</h1>
-
-    <Button
-      class="mt-4"
-      label="Ajouter un enfant"
-      @click="showAddChildDialog = true"
-    />
+    <ChildrenList />
   </div>
 </template>
