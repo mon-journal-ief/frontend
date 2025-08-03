@@ -76,7 +76,7 @@ function formatDateTime(date: Date | string) {
     </div>
 
     <!-- Child Information -->
-    <div class="mb-8 rounded-lg border-l-4 border-emerald-500 bg-slate-50 p-5">
+    <div class="mb-8 rounded-lg border-l-4 border-emerald-500 bg-surface-50 p-5">
       <h2 class="mb-3 text-lg font-semibold text-gray-800">Informations de l'enfant</h2>
       <div class="grid grid-cols-2 gap-3">
         <div class="text-sm">

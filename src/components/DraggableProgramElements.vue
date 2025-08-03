@@ -32,7 +32,7 @@ function onReorder(evt: any) {
     class="flex flex-col gap-4"
     :class="[
       parentId && 'gap-2',
-      reorderMode && elements.length === 0 && 'min-h-16 rounded-md border border-dashed border-slate-500 p-2',
+      reorderMode && elements.length === 0 && 'min-h-16 rounded-md border border-dashed border-surface-500 p-2',
     ]"
     :disabled="!reorderMode"
     group="program-elements"

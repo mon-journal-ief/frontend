@@ -63,7 +63,7 @@ const shouldShowShadow = computed(() => isContentElementScrollable.value && !isS
     modal
     :pt:footer:class="[
       'transition-shadow shadow-[0px_-4px_16px_0px]',
-      shouldShowShadow ? 'shadow-slate-950/[.06] dark:shadow-slate-950' : 'shadow-slate-950/[0] dark:shadow-slate-950/[0]',
+      shouldShowShadow ? 'shadow-surface-950/[.06] dark:shadow-surface-950' : 'shadow-surface-950/[0] dark:shadow-surface-950/[0]',
     ]"
   >
     <template #header>

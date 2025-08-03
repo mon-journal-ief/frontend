@@ -83,13 +83,13 @@ function handleClick() {
           <div class="flex items-center gap-8">
             <img
               alt="Avatar enfant"
-              class="size-16 rounded-full border-2 border-slate-100 object-cover dark:border-slate-800 md:size-24 lg:size-32"
+              class="size-16 rounded-full border-2 border-surface-100 object-cover dark:border-surface-800 md:size-24 lg:size-32"
               :src="child.image || placeholderImage"
             >
 
             <div class="flex flex-col gap-1">
               <h2>{{ child.name }} {{ child.lastName }}</h2>
-              <p class="text-lg text-slate-500 dark:text-slate-400">{{ subtitle }}</p>
+              <p class="text-lg text-surface-500 dark:text-surface-400">{{ subtitle }}</p>
             </div>
           </div>
 

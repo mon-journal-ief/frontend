@@ -132,7 +132,7 @@ async function deleteElement() {
 
     <div class="flex justify-between gap-2">
 
-      <p v-if="element.description" class="text-slate-500">
+      <p v-if="element.description" class="text-surface-500">
         {{ element.description }}
       </p>
 

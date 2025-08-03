@@ -10,13 +10,13 @@ function handleClick() {
 
 <template>
   <Card
-    class="border-color-class bg-color-class group cursor-pointer hover:border-slate-400 dark:border-slate-600"
+    class="border-color-class bg-color-class group cursor-pointer hover:border-surface-400 dark:border-surface-600"
     @click="handleClick"
   >
     <template #content>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-8">
-          <div class="border-color-class flex size-16 items-center justify-center rounded-full group-hover:border-slate-400 md:size-24 lg:size-32">
+          <div class="border-color-class flex size-16 items-center justify-center rounded-full group-hover:border-surface-400 md:size-24 lg:size-32">
             <i class="text-color-class i-ci-plus text-2xl md:text-3xl lg:text-4xl" />
           </div>
 
@@ -29,14 +29,14 @@ function handleClick() {
 
 <style scoped>
 .bg-color-class {
-  @apply bg-slate-100 dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-950;
+  @apply bg-surface-100 dark:bg-surface-900 hover:bg-surface-50 dark:hover:bg-surface-950;
 }
 
 .text-color-class {
-  @apply text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400 transition-colors duration-300;
+  @apply text-surface-400 group-hover:text-surface-500 dark:text-surface-500 dark:group-hover:text-surface-400 transition-colors duration-300;
 }
 
 .border-color-class {
-  @apply border-2 border-dashed border-slate-300 hover:border-slate-400 dark:border-slate-600 transition-all duration-300;
+  @apply border-2 border-dashed border-surface-300 hover:border-surface-400 dark:border-surface-600 transition-all duration-300;
 }
 </style>

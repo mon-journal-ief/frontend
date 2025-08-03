@@ -19,7 +19,7 @@ const displayedDate = computed(() => {
       <div class="flex w-full items-center justify-between gap-2">
         <div class="flex flex-col gap-1">
           <p>{{ entry.validatedElements[0]?.name }}</p>
-          <p v-if="displayedDate" class="text-sm font-normal text-slate-500">{{ displayedDate }}</p>
+          <p v-if="displayedDate" class="text-sm font-normal text-surface-500">{{ displayedDate }}</p>
         </div>
 
         <div class="mr-8 flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -40,7 +40,7 @@ const displayedDate = computed(() => {
     </AccordionHeader>
 
     <AccordionContent>
-      <div class="text-sm text-slate-600 dark:text-slate-400">
+      <div class="text-sm text-surface-600 dark:text-surface-400">
         <p v-if="entry.comment">{{ entry.comment }}</p>
         <p v-else>Aucun commentaire</p>
       </div>
