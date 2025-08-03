@@ -28,7 +28,12 @@ watch(
 
 <template>
   <div v-if="child && !loading" class="flex flex-col gap-4">
-    <DialogAddEntry v-model="showDialogAddEntry" @add-entry="addEntry" />
+    <DialogAddEntry
+      v-if="showDialogAddEntry"
+      v-model="showDialogAddEntry"
+      :child-id="child.id"
+      @add-entry="addEntry"
+    />
 
     <ChildCard :child @refresh="fetchChild" />
 

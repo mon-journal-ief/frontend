@@ -9,7 +9,7 @@ const emit = defineEmits<{
 
 const visible = defineModel<boolean>({ required: true })
 
-const date = ref<Date>()
+const date = ref<Date>(new Date())
 const comment = ref('')
 const images = ref<string[]>([])
 const childId = ref<string | undefined>(props.childId)
@@ -17,10 +17,12 @@ const validatedElements = ref<IProgramElement[]>([])
 
 const childrenOptions = ref<IChild[]>([])
 const programElementsOptions = ref<IProgramElement[]>([])
+const filteredProgramElements = ref<IProgramElement[]>([])
 
 onMounted(async () => {
   childrenOptions.value = await api.children.getAll()
   programElementsOptions.value = await api.programElement.getAll()
+  filteredProgramElements.value = programElementsOptions.value
 })
 
 async function handleAddEntry() {
@@ -45,6 +47,12 @@ function handleFileUpload(event: { files: File[] }) {
     images.value.push(file.name)
   }
 }
+
+function search(event: any) {
+  filteredProgramElements.value = programElementsOptions.value.filter(element =>
+    element.name.toLowerCase().includes(event.query.toLowerCase()),
+  )
+}
 </script>
 
 <template>
@@ -57,7 +65,7 @@ function handleFileUpload(event: { files: File[] }) {
 
     <div class="flex flex-col gap-4">
       <FormContainer input-id="date" title="Date">
-        <Calendar
+        <DatePicker
           id="date"
           v-model="date"
           date-format="dd/mm/yy"
@@ -67,7 +75,7 @@ function handleFileUpload(event: { files: File[] }) {
       </FormContainer>
 
       <FormContainer input-id="child" title="Enfant *">
-        <Dropdown
+        <Select
           id="child"
           v-model="childId"
           option-label="name"
@@ -77,14 +85,18 @@ function handleFileUpload(event: { files: File[] }) {
         />
       </FormContainer>
 
-      <FormContainer input-id="validatedElements" title="Éléments validés">
-        <MultiSelect
+      <FormContainer input-id="validatedElements" title="Éléments du programme travaillés">
+        <AutoComplete
           id="validatedElements"
           v-model="validatedElements"
-          display="chip"
+          dropdown
+          empty-search-message="Aucun élément du programme trouvé"
+          force-selection
+          multiple
           option-label="name"
-          :options="programElementsOptions"
-          placeholder="Sélectionner des éléments"
+          placeholder="Rechercher dans le programme"
+          :suggestions="filteredProgramElements"
+          @complete="search"
         />
       </FormContainer>
 
@@ -102,6 +114,7 @@ function handleFileUpload(event: { files: File[] }) {
           id="images"
           accept="image/*"
           choose-label="Ajouter des images"
+          class="my-4"
           custom-upload
           mode="basic"
           multiple
