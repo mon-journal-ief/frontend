@@ -27,12 +27,12 @@ useHead({
   link: [
     {
       rel: 'icon',
-      type: 'image/png',
+      type: 'image/x-icon',
       href: () => {
-        if (env === 'development') return '/favicon_green.ico'
-        if (env === 'int') return '/favicon_red.ico'
+        if (env === 'development') return '/logo6.ico'
+        if (env === 'int') return '/logo5.ico'
 
-        return '/favicon.ico'
+        return '/logo6.ico'
       },
     },
   ],
