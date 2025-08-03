@@ -1,33 +1,37 @@
 <script setup lang="ts">
 const api = useApi()
-const route = useRoute()
 const child = ref<IChild>()
+const route = useRoute('/enfant/[id]')
 
 const showDialogAddEntry = ref(false)
 const loading = ref(true)
 
+function addEntry(entry: IJournalEntry) {
+  child.value?.journalEntries.push(entry)
+}
+
+async function fetchChild() {
+  child.value = await api.children.get(route.params.id)
+}
+
 // refresh child when route changes
 watch(
-  () => (route.params as { id?: string }).id,
+  () => route.params.id,
   async (id) => {
     if (!id) return
     loading.value = true
-    child.value = await api.children.get(id)
+    await fetchChild()
     loading.value = false
   },
   { immediate: true },
 )
-
-function addEntry(entry: IJournalEntry) {
-  child.value?.journalEntries.push(entry)
-}
 </script>
 
 <template>
   <div v-if="child && !loading" class="flex flex-col gap-4">
     <DialogAddEntry v-model="showDialogAddEntry" @add-entry="addEntry" />
 
-    <ChildCard :child />
+    <ChildCard :child @refresh="fetchChild" />
 
     <Card>
       <template #content>
