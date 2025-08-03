@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const child = computed(() => props.child)
 const placeholderImage = computed(() => {
-  return child.value.gender === 'MALE' ? 'https://static.vecteezy.com/system/resources/thumbnails/056/866/270/small/child-with-curly-hair-and-blue-eyes-wearing-a-navy-jacket-against-a-dark-background-in-an-indoor-setting-photo.jpeg' : 'https://img.freepik.com/free-photo/portrait-cute-little-girl-with-long-hair-standing-park_23-2147893135.jpg?w=360'
+  return child.value.gender === 'MALE' ? '/src/assets/placeholder-boy.png' : '/src/assets/placeholder-girl.png'
 })
 
 const subtitle = computed(() => {

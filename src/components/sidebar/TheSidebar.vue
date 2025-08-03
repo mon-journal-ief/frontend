@@ -24,7 +24,8 @@ const isDevelopmentMode = ref(import.meta.env.VITE_MODE === 'development')
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 const children = computed(() => user.value?.children)
-const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-cookies-forme_23-2148738665.jpg'
+const placeholderBoy = '/src/assets/placeholder-boy.png'
+const placeholderGirl = '/src/assets/placeholder-girl.png'
 </script>
 
 <template>
@@ -55,7 +56,7 @@ const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-co
           <TheSidebarButton
             v-for="child in children"
             :key="child.id"
-            :image="child.image || placeholderPic"
+            :image="child.image || (child.gender === 'MALE' ? placeholderBoy : placeholderGirl)"
             :label="child.name"
             :route="`/enfant/${child.id}`"
           />
