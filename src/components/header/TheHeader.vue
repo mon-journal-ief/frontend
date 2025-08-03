@@ -12,6 +12,7 @@ const isDesktopView = ref(breakpoints.md.value)
 watch(breakpoints.md, (value: boolean) => {
   isDesktopView.value = value
 })
+const isDialogVisible = ref(false)
 
 const headerRef = ref<HTMLElement>()
 const { setHeaderHeight } = useHeaderHeight()
@@ -41,6 +42,7 @@ async function exportToPDF() {
 
 <template>
   <div ref="headerRef" class="sticky top-0 z-20 flex w-full justify-between bg-surface-50 dark:bg-surface-950">
+    <DialogAddEntry v-model="isDialogVisible" />
 
     <div class="flex w-full flex-col">
       <div class="flex flex-row justify-between gap-2 p-4 md:gap-4">
@@ -52,16 +54,19 @@ async function exportToPDF() {
 
         <div class="flex gap-2 md:gap-4">
           <Button
-            icon="i-ci-file-pdf"
-            label="Exporter en PDF"
-            severity="success"
+            icon="i-ci-plus"
+            label="Ajouter une entrée"
+            severity="secondary"
             variant="outlined"
-            @click="exportToPDF"
+            @click="isDialogVisible = true"
           />
 
           <Button
-            label="Ajouter une tâche"
-            size="small"
+            icon="i-ci-file-pdf"
+            label="Exporter en PDF"
+            severity="success"
+            variant=""
+            @click="exportToPDF"
           />
 
           <div class="flex items-center gap-2 md:gap-4">
