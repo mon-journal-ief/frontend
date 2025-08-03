@@ -12,7 +12,7 @@ const props = defineProps<{
 <template>
   <Button
     as="router-link"
-    class="h-12 justify-start whitespace-nowrap rounded-xl p-4 transition-colors duration-200 hover:bg-surface-100 dark:hover:bg-surface-900"
+    class="hover:bg-theme-surface-100 h-12 justify-start whitespace-nowrap rounded-xl p-4 transition-colors duration-200"
     :label="props.label"
     severity="contrast"
     text

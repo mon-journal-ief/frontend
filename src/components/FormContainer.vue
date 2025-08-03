@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
   <div class="flex flex-col gap-1">
-    <div class="flex gap-1 font-semibold text-surface-950 dark:text-surface-50">
+    <div class="text-theme-surface-950 flex gap-1 font-semibold">
       <label v-if="inputId" :for="inputId">{{ props.title }}</label>
       <span v-else>{{ props.title }}</span>
     </div>

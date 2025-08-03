@@ -8,39 +8,39 @@ const colorClasses = computed(() => {
   switch (props.color) {
     case 'blue':
       return {
-        background: 'bg-blue-50 dark:bg-surface-900',
-        text: 'text-blue-600 dark:text-blue-400',
+        background: 'bg-theme-blue-50',
+        text: 'text-theme-blue-600',
       }
     case 'yellow':
       return {
-        background: 'bg-yellow-50 dark:bg-surface-900',
-        text: 'text-yellow-600 dark:text-yellow-400',
+        background: 'bg-theme-yellow-50',
+        text: 'text-theme-yellow-600',
       }
     case 'orange':
       return {
-        background: 'bg-orange-50 dark:bg-surface-900',
-        text: 'text-orange-600 dark:text-orange-400',
+        background: 'bg-theme-orange-50',
+        text: 'text-theme-orange-600',
       }
     case 'red':
       return {
-        background: 'bg-red-50 dark:bg-surface-900',
-        text: 'text-red-600 dark:text-red-400',
+        background: 'bg-theme-red-50',
+        text: 'text-theme-red-600',
       }
     case 'green':
       return {
-        background: 'bg-green-50 dark:bg-surface-900',
-        text: 'text-green-600 dark:text-green-400',
+        background: 'bg-theme-green-50',
+        text: 'text-theme-green-600',
       }
     case 'fuchsia':
       return {
-        background: 'bg-fuchsia-50 dark:bg-surface-900',
-        text: 'text-fuchsia-600 dark:text-fuchsia-400',
+        background: 'bg-theme-fuchsia-50',
+        text: 'text-theme-fuchsia-600',
       }
     case 'gray':
     default:
       return {
-        background: 'bg-gray-50 dark:bg-surface-900',
-        text: 'text-gray-600 dark:text-gray-400',
+        background: 'bg-theme-gray-50',
+        text: 'text-theme-gray-600',
       }
   }
 })

@@ -10,7 +10,7 @@ function handleClick() {
 
 <template>
   <Card
-    class="border-color-class bg-color-class group cursor-pointer hover:border-surface-400 dark:border-surface-600"
+    class="border-color-class bg-color-class group cursor-pointer"
     @click="handleClick"
   >
     <template #content>

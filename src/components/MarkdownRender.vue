@@ -16,36 +16,36 @@ const sanitizedHtml = computed(() => DOMPurify.sanitize(md.render(props.markdown
 </script>
 
 <template>
-  <div class="text-surface-900 dark:text-surface-100" v-html="sanitizedHtml" />
+  <div class="text-theme-surface-900" v-html="sanitizedHtml" />
 </template>
 
 <style scoped>
 :deep(h1) {
-  @apply text-3xl text-surface-950 dark:text-surface-50 font-semibold mt-8 mb-4
+  @apply text-3xl text-theme-surface-950 font-semibold mt-8 mb-4
 }
 
 :deep(h2) {
-  @apply text-2xl text-surface-950 dark:text-surface-50 font-semibold mt-6 mb-3
+  @apply text-2xl text-theme-surface-950 font-semibold mt-6 mb-3
 }
 
 :deep(h3) {
-  @apply text-xl text-surface-950 dark:text-surface-50 font-semibold mt-5 mb-2
+  @apply text-xl text-theme-surface-950 font-semibold mt-5 mb-2
 }
 
 :deep(h4) {
-  @apply text-lg text-surface-950 dark:text-surface-50 font-semibold mt-4 mb-2
+  @apply text-lg text-theme-surface-950 font-semibold mt-4 mb-2
 }
 
 :deep(h5) {
-  @apply text-base text-surface-950 dark:text-surface-50 font-semibold mt-4 mb-2
+  @apply text-base text-theme-surface-950 font-semibold mt-4 mb-2
 }
 
 :deep(h6) {
-  @apply text-sm text-surface-950 dark:text-surface-50 font-semibold mt-4 mb-2
+  @apply text-sm text-theme-surface-950 font-semibold mt-4 mb-2
 }
 
 :deep(blockquote) {
-  @apply pl-4 border-l-4 border-surface-300 dark:border-surface-700 my-4
+  @apply pl-4 border-l-4 border-theme-surface-300 my-4
 }
 
 :deep(blockquote > blockquote) {
@@ -53,7 +53,7 @@ const sanitizedHtml = computed(() => DOMPurify.sanitize(md.render(props.markdown
 }
 
 :deep(blockquote p) {
-  @apply text-surface-600 dark:text-surface-400
+  @apply text-theme-surface-600
 }
 
 :deep(ul) {
@@ -73,7 +73,7 @@ const sanitizedHtml = computed(() => DOMPurify.sanitize(md.render(props.markdown
 }
 
 :deep(pre) {
-  @apply bg-surface-100 dark:bg-surface-800 p-4 rounded-md
+  @apply bg-theme-surface-100 p-4 rounded-md
 }
 
 :deep(pre > code) {
@@ -89,11 +89,11 @@ const sanitizedHtml = computed(() => DOMPurify.sanitize(md.render(props.markdown
 }
 
 :deep(hr) {
-  @apply my-8 border-t border-surface-200 dark:border-surface-700
+  @apply my-8 border-t border-theme-surface-200
 }
 
 :deep(code:not(pre code)) {
-  @apply bg-surface-100 dark:bg-surface-800 px-1.5 py-0.5 rounded text-sm font-mono
+  @apply bg-theme-surface-100 px-1.5 py-0.5 rounded text-sm font-mono
 }
 
 :deep(table) {
@@ -101,11 +101,11 @@ const sanitizedHtml = computed(() => DOMPurify.sanitize(md.render(props.markdown
 }
 
 :deep(th), :deep(td) {
-  @apply border border-surface-300 dark:border-surface-700 px-4 py-2
+  @apply border border-theme-surface-300 px-4 py-2
 }
 
 :deep(th) {
-  @apply bg-surface-100 dark:bg-surface-800 font-semibold
+  @apply bg-theme-surface-100 font-semibold
 }
 
 :deep(img) {

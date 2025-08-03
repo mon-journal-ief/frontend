@@ -41,14 +41,14 @@ async function exportToPDF() {
 </script>
 
 <template>
-  <div ref="headerRef" class="sticky top-0 z-20 flex w-full justify-between bg-surface-50 dark:bg-surface-950">
+  <div ref="headerRef" class="bg-theme-surface-50 sticky top-0 z-20 flex w-full justify-between">
     <DialogAddEntry v-model="isDialogVisible" />
 
     <div class="flex w-full flex-col">
       <div class="flex flex-row justify-between gap-2 p-4 md:gap-4">
         <div class="flex items-center gap-2 md:gap-4">
           <!-- BURGER -->
-          <i class="i-ci-hamburger-md my-auto cursor-pointer text-4xl text-primary-700 dark:text-primary-200 md:hidden" @click="emit('toggleSidebar')" />
+          <i class="text-theme-primary-700 i-ci-hamburger-md my-auto cursor-pointer text-4xl md:hidden" @click="emit('toggleSidebar')" />
 
         </div>
 

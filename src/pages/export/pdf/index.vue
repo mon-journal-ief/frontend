@@ -58,42 +58,42 @@ function formatDateTime(date: Date | string) {
 </script>
 
 <template>
-  <div v-if="loading" class="mx-auto p-10 text-gray-800 print:p-5">
+  <div v-if="loading" class="text-theme-gray-800 mx-auto p-10 print:p-5">
     <ProgressSpinner />
     <p>Chargement des données du journal...</p>
   </div>
 
-  <div v-else-if="error" class="mx-auto p-10 text-gray-800 print:p-5">
-    <div class="py-10 text-center text-red-600">
+  <div v-else-if="error" class="text-theme-gray-800 mx-auto p-10 print:p-5">
+    <div class="text-theme-red-600 py-10 text-center">
       <p>{{ error }}</p>
     </div>
   </div>
 
-  <div v-else-if="child" id="pdf-container" class="mx-auto p-10 text-gray-800 print:p-5">
+  <div v-else-if="child" id="pdf-container" class="text-theme-gray-800 mx-auto p-10 print:p-5">
     <!-- Header -->
     <div class="mb-10 border-b-4 border-indigo-600 pb-5 text-center">
       <h1 class="mb-2 text-3xl font-bold text-indigo-600">Journal des apprentissages</h1>
     </div>
 
     <!-- Child Information -->
-    <div class="mb-8 rounded-lg border-l-4 border-emerald-500 bg-surface-50 p-5">
-      <h2 class="mb-3 text-lg font-semibold text-gray-800">Informations de l'enfant</h2>
+    <div class="bg-theme-surface-50 mb-8 rounded-lg border-l-4 border-emerald-500 p-5">
+      <h2 class="text-theme-gray-800 mb-3 text-lg font-semibold">Informations de l'enfant</h2>
       <div class="grid grid-cols-2 gap-3">
         <div class="text-sm">
-          <span class="font-semibold text-gray-600">Nom :</span>
+          <span class="text-theme-gray-600 font-semibold">Nom :</span>
           {{ child.name }}{{ child.lastName ? ` ${child.lastName}` : '' }}
         </div>
         <div v-if="child.age" class="text-sm">
-          <span class="font-semibold text-gray-600">Âge :</span> {{ child.age }} ans
+          <span class="text-theme-gray-600 font-semibold">Âge :</span> {{ child.age }} ans
         </div>
         <div v-if="child.gender" class="text-sm">
-          <span class="font-semibold text-gray-600">Genre :</span> {{ child.gender }}
+          <span class="text-theme-gray-600 font-semibold">Genre :</span> {{ child.gender }}
         </div>
         <div class="text-sm">
-          <span class="font-semibold text-gray-600">Date d'export :</span> {{ formatDate(new Date()) }}
+          <span class="text-theme-gray-600 font-semibold">Date d'export :</span> {{ formatDate(new Date()) }}
         </div>
         <div class="text-sm">
-          <span class="font-semibold text-gray-600">Nombre d'entrées :</span> {{ journalEntries.length }}
+          <span class="text-theme-gray-600 font-semibold">Nombre d'entrées :</span> {{ journalEntries.length }}
         </div>
       </div>
     </div>
@@ -115,13 +115,13 @@ function formatDateTime(date: Date | string) {
         <div class="mb-4">
           <!-- Comment -->
           <div v-if="entry.comment" class="mb-4">
-            <div class="mb-2 text-sm font-semibold text-gray-600">Commentaires :</div>
+            <div class="text-theme-gray-600 mb-2 text-sm font-semibold">Commentaires :</div>
             <div class="rounded border-l-4 border-amber-400 bg-amber-50 p-3 text-sm ">{{ entry.comment }}</div>
           </div>
 
           <!-- Validated Elements -->
           <div v-if="entry.validatedElements?.length > 0" class="mb-4">
-            <div class="mb-2 text-sm font-semibold text-gray-600">Éléments validés :</div>
+            <div class="text-theme-gray-600 mb-2 text-sm font-semibold">Éléments validés :</div>
             <div class="rounded border-l-4 border-emerald-400 bg-emerald-50 p-3">
               <div
                 v-for="element in entry.validatedElements"
@@ -139,7 +139,7 @@ function formatDateTime(date: Date | string) {
 
           <!-- Images -->
           <div v-if="entry.images?.length > 0" class="mb-4">
-            <div class="rounded border-l-4 border-blue-400 bg-blue-50 p-2 text-xs text-blue-800">
+            <div class="bg-theme-blue-50 rounded border-l-4 border-blue-400 p-2 text-xs text-blue-800">
               📷 Images associées : {{ entry.images.length }} fichier(s)
             </div>
 
@@ -160,7 +160,7 @@ function formatDateTime(date: Date | string) {
     </div>
   </div>
 
-  <div v-else class="mx-auto p-10 text-gray-800 print:p-5">
+  <div v-else class="text-theme-gray-800 mx-auto p-10 print:p-5">
     <div class="py-10 text-center text-gray-500">
       <p>Aucune donnée disponible</p>
     </div>

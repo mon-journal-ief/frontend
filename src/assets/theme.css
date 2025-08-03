@@ -1,0 +1,261 @@
+@layer components {
+  /* Theme-based paired color classes */
+  /* Text theme classes */
+.text-theme-surface-50 {
+  @apply text-surface-50 dark:text-surface-950;
+}
+
+.text-theme-surface-100 {
+  @apply text-surface-100 dark:text-surface-900;
+}
+
+.text-theme-surface-200 {
+  @apply text-surface-200 dark:text-surface-800;
+}
+
+.text-theme-surface-300 {
+  @apply text-surface-300 dark:text-surface-700;
+}
+
+.text-theme-surface-400 {
+  @apply text-surface-400 dark:text-surface-600;
+}
+
+.text-theme-surface-600 {
+  @apply text-surface-600 dark:text-surface-400;
+}
+
+.text-theme-surface-700 {
+  @apply text-surface-700 dark:text-surface-300;
+}
+
+.text-theme-surface-800 {
+  @apply text-surface-800 dark:text-surface-200;
+}
+
+.text-theme-surface-900 {
+  @apply text-surface-900 dark:text-surface-100;
+}
+
+.text-theme-surface-950 {
+  @apply text-surface-950 dark:text-surface-50;
+}
+
+.text-theme-primary-200 {
+  @apply text-primary-200 dark:text-primary-800;
+}
+
+.text-theme-primary-300 {
+  @apply text-primary-300 dark:text-primary-700;
+}
+
+.text-theme-primary-400 {
+  @apply text-primary-400 dark:text-primary-600;
+}
+
+.text-theme-primary-600 {
+  @apply text-primary-600 dark:text-primary-400;
+}
+
+.text-theme-primary-700 {
+  @apply text-primary-700 dark:text-primary-300;
+}
+
+.text-theme-primary-800 {
+  @apply text-primary-800 dark:text-primary-200;
+}
+
+
+
+/* Background theme classes */
+.bg-theme-surface-50 {
+  @apply bg-surface-50 dark:bg-surface-950;
+}
+
+.bg-theme-surface-100 {
+  @apply bg-surface-100 dark:bg-surface-900;
+}
+
+.bg-theme-surface-200 {
+  @apply bg-surface-200 dark:bg-surface-800;
+}
+
+.bg-theme-surface-300 {
+  @apply bg-surface-300 dark:bg-surface-700;
+}
+
+.bg-theme-surface-400 {
+  @apply bg-surface-400 dark:bg-surface-600;
+}
+
+.bg-theme-surface-600 {
+  @apply bg-surface-600 dark:bg-surface-400;
+}
+
+.bg-theme-surface-700 {
+  @apply bg-surface-700 dark:bg-surface-300;
+}
+
+.bg-theme-surface-800 {
+  @apply bg-surface-800 dark:bg-surface-200;
+}
+
+.bg-theme-surface-900 {
+  @apply bg-surface-900 dark:bg-surface-100;
+}
+
+.bg-theme-surface-950 {
+  @apply bg-surface-950 dark:bg-surface-50;
+}
+
+/* Color-specific theme classes */
+.text-theme-blue-400 {
+  @apply text-blue-400 dark:text-blue-600;
+}
+
+.text-theme-blue-600 {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.text-theme-yellow-400 {
+  @apply text-yellow-400 dark:text-yellow-600;
+}
+
+.text-theme-yellow-600 {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.text-theme-orange-400 {
+  @apply text-orange-400 dark:text-orange-600;
+}
+
+.text-theme-orange-600 {
+  @apply text-orange-600 dark:text-orange-400;
+}
+
+.text-theme-red-400 {
+  @apply text-red-400 dark:text-red-600;
+}
+
+.text-theme-red-600 {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.text-theme-green-400 {
+  @apply text-green-400 dark:text-green-600;
+}
+
+.text-theme-green-600 {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.text-theme-fuchsia-400 {
+  @apply text-fuchsia-400 dark:text-fuchsia-600;
+}
+
+.text-theme-fuchsia-600 {
+  @apply text-fuchsia-600 dark:text-fuchsia-400;
+}
+
+.text-theme-gray-400 {
+  @apply text-gray-400 dark:text-gray-600;
+}
+
+.text-theme-gray-600 {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.text-theme-gray-800 {
+  @apply text-gray-800 dark:text-gray-200;
+}
+
+.bg-theme-blue-50 {
+  @apply bg-blue-50 dark:bg-surface-900;
+}
+
+.bg-theme-yellow-50 {
+  @apply bg-yellow-50 dark:bg-surface-900;
+}
+
+.bg-theme-orange-50 {
+  @apply bg-orange-50 dark:bg-surface-900;
+}
+
+.bg-theme-red-50 {
+  @apply bg-red-50 dark:bg-surface-900;
+}
+
+.bg-theme-green-50 {
+  @apply bg-green-50 dark:bg-surface-900;
+}
+
+.bg-theme-fuchsia-50 {
+  @apply bg-fuchsia-50 dark:bg-surface-900;
+}
+
+.bg-theme-gray-50 {
+  @apply bg-gray-50 dark:bg-surface-900;
+}
+
+.bg-theme-yellow-200 {
+  @apply bg-yellow-200 dark:bg-yellow-800;
+}
+
+.bg-theme-red-200 {
+  @apply bg-red-200 dark:bg-red-800;
+}
+
+.bg-theme-green-200 {
+  @apply bg-green-200 dark:bg-green-800;
+}
+
+.bg-theme-blue-200 {
+  @apply bg-blue-200 dark:bg-blue-800;
+}
+
+/* Border theme classes */
+.border-theme-surface-200 {
+  @apply border-surface-200 dark:border-surface-800;
+}
+
+.border-theme-surface-300 {
+  @apply border-surface-300 dark:border-surface-700;
+}
+
+.border-theme-surface-400 {
+  @apply border-surface-400 dark:border-surface-600;
+}
+
+/* Hover theme classes */
+.hover\:bg-theme-surface-50:hover {
+  @apply hover:bg-surface-50 dark:hover:bg-surface-950;
+}
+
+.hover\:bg-theme-surface-100:hover {
+  @apply hover:bg-surface-100 dark:hover:bg-surface-900;
+}
+
+.hover\:text-theme-surface-400:hover {
+  @apply hover:text-surface-400 dark:hover:text-surface-600;
+}
+
+.hover\:text-theme-surface-500:hover {
+  @apply hover:text-surface-500 dark:hover:text-surface-400;
+}
+
+.hover\:border-theme-surface-400:hover {
+  @apply hover:border-surface-400 dark:hover:border-surface-600;
+}
+
+.group-hover\:text-theme-surface-400:group-hover {
+  @apply group-hover:text-surface-400 dark:group-hover:text-surface-600;
+}
+
+.group-hover\:text-theme-surface-500:group-hover {
+  @apply group-hover:text-surface-500 dark:group-hover:text-surface-400;
+}
+
+.group-hover\:border-theme-surface-400:group-hover {
+  @apply group-hover:border-surface-400 dark:group-hover:border-surface-600;
+}
+}

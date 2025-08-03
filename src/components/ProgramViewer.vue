@@ -37,7 +37,7 @@ async function addNewElement() {
     <div class="flex items-center justify-between gap-2">
       <div class="flex flex-col gap-2">
         <h2>{{ programCopy.name }}</h2>
-        <p v-if="programCopy.description" class="text-surface-600 dark:text-surface-400">
+        <p v-if="programCopy.description" class="text-theme-surface-600">
           {{ programCopy.description }}
         </p>
       </div>

@@ -43,18 +43,18 @@ useHead({
   <BaseToast />
   <ConfirmDialog dismissable-mask />
 
-  <div v-if="isPageWithNavigation" class="flex bg-surface-50 text-surface-900 dark:bg-surface-950 dark:text-surface-100">
+  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex">
     <TheSidebar v-model="isSidebarOpen" />
     <div class="flex grow flex-col overflow-hidden">
       <TheHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
       <RouterView
-        class="bg-surface-100 px-4 py-6 dark:bg-surface-900 md:mb-4 md:mr-4 md:rounded-xl md:px-6 md:py-8"
+        class="bg-theme-surface-100 px-4 py-6 md:mb-4 md:mr-4 md:rounded-xl md:px-6 md:py-8"
         :style="{ minHeight: `calc(100vh - ${headerHeight}px` }"
       />
     </div>
   </div>
 
-  <div v-else class="flex h-screen w-full bg-surface-50 p-4 dark:bg-surface-950">
-    <RouterView class="w-full bg-surface-100 px-4 py-6 dark:bg-surface-900 md:rounded-xl" />
+  <div v-else class="bg-theme-surface-50 flex h-screen w-full p-4">
+    <RouterView class="bg-theme-surface-100 w-full px-4 py-6 md:rounded-xl" />
   </div>
 </template>

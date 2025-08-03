@@ -9,30 +9,30 @@ setToastInstance(toast)
 function getToastClasses(severity: ISeverity) {
   if (severity === 'warn') {
     return {
-      background: 'bg-yellow-200 dark:bg-yellow-800',
-      text: 'text-yellow-600 dark:text-yellow-400',
+      background: 'bg-theme-yellow-200',
+      text: 'text-theme-yellow-600',
       icon: 'i-ci-triangle-warning',
     }
   }
   else if (severity === 'error') {
     return {
-      background: 'bg-red-200 dark:bg-red-800',
-      text: 'text-red-600 dark:text-red-400',
+      background: 'bg-theme-red-200',
+      text: 'text-theme-red-600',
       icon: 'i-ci-triangle-warning',
     }
   }
   else if (severity === 'success') {
     return {
-      background: 'bg-green-200 dark:bg-green-800',
-      text: 'text-green-600 dark:text-green-400',
+      background: 'bg-theme-green-200',
+      text: 'text-theme-green-600',
       icon: 'i-ci-check',
     }
   }
 
   // Defaults to info
   return {
-    background: 'bg-blue-200 dark:bg-blue-800',
-    text: 'text-blue-600 dark:text-blue-400',
+    background: 'bg-theme-blue-200',
+    text: 'text-theme-blue-600',
     icon: 'i-ci-info',
   }
 }
