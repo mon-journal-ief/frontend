@@ -30,9 +30,9 @@ const placeholderPic = 'https://img.freepik.com/photos-gratuite/enfant-jouant-co
 <template>
   <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-full flex-col md:w-64">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
-      <a class="m-4" href="/">
-        <!-- <img alt="IEF" class="h-12" src="@/assets/ief-logo.svg"> -->
-      </a>
+      <RouterLink to="/">
+        <p class="text-2xl font-bold">Mon journal IEF</p>
+      </RouterLink>
 
       <!-- NAVIGATION -->
       <nav class="mb-4 flex flex-col gap-2">
