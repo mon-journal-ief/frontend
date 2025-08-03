@@ -22,18 +22,7 @@ const showAddChildDialog = ref(false)
       </div>
     </div>
 
-    <!-- Empty State -->
-    <div v-else class="text-center text-gray-500">
-      <p>Aucun enfant enregistré pour le moment.</p>
-      <p class="text-sm">Cliquez sur "Ajouter un enfant" pour commencer.</p>
-    </div>
-
-    <!-- Add Child Button -->
-    <Button
-      icon="i-ci-plus"
-      label="Ajouter un enfant"
-      rounded
-      @click="showAddChildDialog = true"
-    />
+    <!-- Add Child Card -->
+    <ChildCardEmpty @click="showAddChildDialog = true" />
   </div>
 </template>
