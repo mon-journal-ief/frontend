@@ -4,13 +4,16 @@ const route = useRoute()
 const child = ref<IChild>()
 
 const showDialogAddEntry = ref(false)
+const loading = ref(true)
 
 // refresh child when route changes
 watch(
   () => (route.params as { id?: string }).id,
   async (id) => {
     if (!id) return
+    loading.value = true
     child.value = await api.children.get(id)
+    loading.value = false
   },
   { immediate: true },
 )
@@ -21,7 +24,7 @@ function addEntry(entry: IJournalEntry) {
 </script>
 
 <template>
-  <div v-if="child" class="flex flex-col gap-4">
+  <div v-if="child && !loading" class="flex flex-col gap-4">
     <DialogAddEntry v-model="showDialogAddEntry" @add-entry="addEntry" />
 
     <ChildCard :child />
@@ -63,5 +66,9 @@ function addEntry(entry: IJournalEntry) {
         </Tabs>
       </template>
     </Card>
+  </div>
+
+  <div v-else class="flex h-full items-center justify-center">
+    <ProgressSpinner />
   </div>
 </template>
