@@ -76,29 +76,21 @@ async function deleteElement() {
 </script>
 
 <template>
-  <Card v-if="!editMode">
-    <template #content>
-      <div class="group flex justify-between gap-2">
-
+  <Panel v-if="!editMode" toggleable>
+    <template #header>
+      <div class="group flex w-full justify-between">
         <div class="flex items-center gap-2">
-          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 self-center text-2xl" />
-
-          <div class="flex flex-col">
-            <div class="flex gap-2">
-              <h3>{{ element.name }}</h3>
-              <Badge
-                v-if="element.journalEntries?.length > 0"
-                v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
-                severity="info"
-                :value="element.journalEntries?.length"
-              />
-            </div>
-            <p v-if="element.description" class="text-slate-500">
-              {{ element.description }}
-            </p>
-          </div>
+          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex cursor-grab select-none items-center self-center pr-1 text-2xl" />
+          <h3>{{ element.name }}</h3>
+          <Badge
+            v-if="element.journalEntries?.length > 0"
+            v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
+            severity="info"
+            :value="element.journalEntries?.length"
+          />
         </div>
-        <div class="flex items-center gap-2">
+
+        <div class="mr-2 flex items-center gap-2">
           <Button
             class="opacity-0 transition-opacity group-hover:opacity-100"
             icon="i-ci-edit"
@@ -117,17 +109,26 @@ async function deleteElement() {
           />
         </div>
       </div>
-
-      <DraggableProgramElements
-        v-if="element.children?.length > 0 || reorderMode"
-        v-model:elements="element.children"
-        class="ml-8 mt-4"
-        :parent-id="element.id"
-        :reorder-mode
-      />
     </template>
-  </Card>
 
+    <div class="flex justify-between gap-2">
+
+      <p v-if="element.description" class="text-slate-500">
+        {{ element.description }}
+      </p>
+
+    </div>
+
+    <DraggableProgramElements
+      v-if="element.children?.length > 0 || reorderMode"
+      v-model:elements="element.children"
+      class="ml-8 mt-4"
+      :parent-id="element.id"
+      :reorder-mode
+    />
+  </Panel>
+
+  <!-- Edition card -->
   <Card v-else>
     <template #content>
       <div class="flex flex-col gap-4">
@@ -158,13 +159,3 @@ async function deleteElement() {
     </template>
   </Card>
 </template>
-
-<style scoped>
-.drag-handle {
-  cursor: grab;
-  user-select: none;
-  padding-right: 4px;
-  display: flex;
-  align-items: center;
-}
-</style>
