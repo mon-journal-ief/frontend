@@ -49,6 +49,27 @@ function cancelEdit() {
   editMode.value = false
 }
 
+const confirm = useConfirm()
+function confirmDelete() {
+  confirm.require({
+    header: 'Supprimer cet élément ?',
+    message: 'Cette action est irréversible.',
+    icon: 'i-ci-circle-warning',
+    acceptProps: {
+      severity: 'danger',
+      label: 'Supprimer',
+    },
+    rejectProps: {
+      severity: 'secondary',
+      label: 'Annuler',
+      outlined: true,
+    },
+    accept: () => {
+      deleteElement()
+    },
+  })
+}
+
 async function saveEdit() {
   if (isNewElement.value) {
     const newElement = await api.programElement.create({
@@ -105,7 +126,7 @@ async function deleteElement() {
             rounded
             severity="danger"
             variant="outlined"
-            @click="deleteElement"
+            @click="confirmDelete"
           />
         </div>
       </div>
