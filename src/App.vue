@@ -19,10 +19,10 @@ const { headerHeight } = useHeaderHeight()
 const env = import.meta.env.VITE_MODE
 useHead({
   title: () => {
-    if (env === 'development') return 'DEV IEF'
-    if (env === 'int') return 'INT IEF'
+    if (env === 'development') return '[dev] Mon journal IEF'
+    if (env === 'int') return '[int] Mon journal IEF'
 
-    return 'IEF'
+    return 'Mon journal IEF'
   },
   link: [
     {
