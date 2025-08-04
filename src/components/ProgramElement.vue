@@ -51,7 +51,8 @@ const confirm = useConfirm()
 function confirmDelete() {
   confirm.require({
     header: 'Supprimer cet élément ?',
-    message: 'Cette action est irréversible.',
+    // TODO: add a checkbox to allow deleting the associated journal entries
+    message: 'Cette action est irréversible. Les entrées associées à cet élément ne seront pas supprimées.',
     icon: 'i-ci-circle-warning',
     acceptProps: {
       severity: 'danger',

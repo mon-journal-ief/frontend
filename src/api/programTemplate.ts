@@ -89,11 +89,31 @@ export function programTemplateApiRepository() {
     toast.error('Program template deletion failed', response.error.value)
   }
 
+  async function copy(templateId: string, childId: string) {
+    const response = await useApi<IProgramTemplate>(`/program/template/copy`, {
+      method: 'POST',
+      body: JSON.stringify({ templateId, childId }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.response.value?.ok) {
+      toast.success('Programme importé avec succès', 'Vous pouvez désormais personnaliser le programme')
+
+      return JSON.parse(response.json().data.value)
+    }
+
+    console.error('Program template copy error:', response.error.value)
+    toast.error('Program template copy failed', response.error.value)
+  }
+
   return {
     getAll,
     get,
     create,
     update,
     remove,
+    copy,
   }
 }

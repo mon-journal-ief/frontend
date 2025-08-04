@@ -27,7 +27,11 @@ watch(
 </script>
 
 <template>
-  <div v-if="child && !loading" class="flex flex-col gap-4">
+  <div v-if="loading" class="flex h-full items-center justify-center">
+    <ProgressSpinner />
+  </div>
+
+  <div v-else-if="child" class="flex flex-col gap-4">
     <DialogAddEntry
       v-if="showDialogAddEntry"
       v-model="showDialogAddEntry"
@@ -37,7 +41,7 @@ watch(
 
     <ChildCard :child @refresh="fetchChild" />
 
-    <Card>
+    <Card v-if="child.program">
       <template #content>
         <Tabs value="0">
           <TabList class="-mt-4 mb-8">
@@ -74,9 +78,11 @@ watch(
         </Tabs>
       </template>
     </Card>
-  </div>
 
-  <div v-else class="flex h-full items-center justify-center">
-    <ProgressSpinner />
+    <Card v-else class="flex h-full">
+      <template #content>
+        <ProgramPicker :child @refresh="fetchChild" />
+      </template>
+    </Card>
   </div>
 </template>
