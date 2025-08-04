@@ -34,9 +34,30 @@ onUnmounted(() => {
 
 const userStore = useUserStore()
 
+const loading = ref({
+  pdf: false,
+  word: false,
+})
 async function exportToPDF() {
   const child = userStore.user!.children[1]!
-  await api.export.exportToPDF(child.id, child.name)
+  try {
+    loading.value.pdf = true
+    await api.export.exportToPDF(child.id, child.name)
+  }
+  finally {
+    loading.value.pdf = false
+  }
+}
+
+async function exportToWord() {
+  const child = userStore.user!.children[1]!
+  try {
+    loading.value.word = true
+    await api.export.exportToWord(child.id, child.name)
+  }
+  finally {
+    loading.value.word = false
+  }
 }
 </script>
 
@@ -64,9 +85,17 @@ async function exportToPDF() {
           <Button
             icon="i-ci-file-pdf"
             label="Exporter en PDF"
+            :loading="loading.pdf"
             severity="success"
-            variant=""
             @click="exportToPDF"
+          />
+
+          <Button
+            icon="i-ci-file-document"
+            label="Exporter en Word"
+            :loading="loading.word"
+            severity="success"
+            @click="exportToWord"
           />
 
           <div class="flex items-center gap-2 md:gap-4">
