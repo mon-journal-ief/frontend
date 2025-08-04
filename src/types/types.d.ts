@@ -78,7 +78,7 @@ declare global {
 
   interface IJournalEntry {
     id: string
-    date?: Date
+    date: Date
     comment: string
     images: string[]
     validatedElements: IProgramElement[]

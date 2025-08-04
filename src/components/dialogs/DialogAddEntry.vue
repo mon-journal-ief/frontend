@@ -26,7 +26,7 @@ onMounted(async () => {
 })
 
 async function handleAddEntry() {
-  if (!childId.value) return
+  if (!childId.value || !date.value) return
 
   const entry = await api.journalEntry.create({
     date: date.value,
@@ -64,7 +64,7 @@ function search(event: any) {
     </template>
 
     <div class="flex flex-col gap-4">
-      <FormContainer input-id="date" title="Date">
+      <FormContainer input-id="date" title="Date *">
         <DatePicker
           id="date"
           v-model="date"
@@ -126,7 +126,7 @@ function search(event: any) {
     <template #footer>
       <Button label="Annuler" severity="secondary" @click="visible = false" />
       <Button
-        :disabled="!childId || (!validatedElements.length && !comment)"
+        :disabled="!childId || !date || (!validatedElements.length && !comment)"
         label="Ajouter"
         @click="handleAddEntry"
       />
