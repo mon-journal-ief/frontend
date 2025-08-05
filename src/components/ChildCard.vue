@@ -93,20 +93,14 @@ function handleClick() {
             </div>
           </div>
 
-          <div class="flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div class="flex flex-col items-start gap-2">
+            <ChildButtonExport :child />
             <Button
               icon="i-ci-edit-pencil-01"
-              rounded
+              label="Modifier"
               severity="secondary"
               variant="outlined"
               @click.stop="handleEditChild"
-            />
-            <Button
-              icon="i-ci-trash-full"
-              rounded
-              severity="secondary"
-              variant="outlined"
-              @click.stop="confirmDeleteChild"
             />
           </div>
         </div>

@@ -2,15 +2,15 @@ import { useApi } from '@/utils/apiRepository'
 import downloadFile from '@/utils/downloadFile'
 
 export function exportApiRepository() {
-  async function exportToPDF(childId: string, childName: string) {
+  async function exportToPDF(child: IChild) {
     try {
-      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/pdf/${childId}`)
+      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/pdf/${child.id}`)
 
       if (response.value?.ok) {
         const blob = await response.value.blob()
         const contentDisposition = response.value.headers.get('Content-Disposition') || ''
         const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
-        const fileName = fileNameMatch?.[1] ?? `Journal-${childName}-${new Date().toISOString().split('T')[0]}.pdf`
+        const fileName = fileNameMatch?.[1] ?? `Journal-${child.name}-${new Date().toISOString().split('T')[0]}.pdf`
 
         downloadFile({
           data: blob,
@@ -28,15 +28,15 @@ export function exportApiRepository() {
     }
   }
 
-  async function exportToWord(childId: string, childName: string) {
+  async function exportToWord(child: IChild) {
     try {
-      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/word/${childId}`)
+      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/word/${child.id}`)
 
       if (response.value?.ok) {
         const blob = await response.value.blob()
         const contentDisposition = response.value.headers.get('Content-Disposition') || ''
         const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
-        const fileName = fileNameMatch?.[1] ?? `Journal-${childName}-${new Date().toISOString().split('T')[0]}.docx`
+        const fileName = fileNameMatch?.[1] ?? `Journal-${child.name}-${new Date().toISOString().split('T')[0]}.docx`
 
         downloadFile({
           data: blob,

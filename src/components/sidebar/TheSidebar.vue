@@ -29,7 +29,7 @@ const placeholderGirl = '/placeholder-girl.png'
 </script>
 
 <template>
-  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-full flex-col md:w-64">
+  <div v-show="isSidebarOpen" class="sticky top-0 flex h-screen w-full flex-col justify-between md:w-64">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
       <RouterLink to="/">
         <p class="text-2xl font-bold">Mon journal IEF</p>
@@ -72,5 +72,9 @@ const placeholderGirl = '/placeholder-girl.png'
       </nav>
     </div>
 
+    <div class="flex gap-4 p-4">
+      <ButtonDarkMode />
+      <ButtonProfile />
+    </div>
   </div>
 </template>

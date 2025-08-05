@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import { useHeaderHeight } from '@/composables/useHeaderHeight'
 
 const route = useRoute()
 
@@ -14,7 +13,6 @@ if (isPageWithNavigation.value) {
 }
 
 const isSidebarOpen = ref(false)
-const { headerHeight } = useHeaderHeight()
 
 const env = import.meta.env.VITE_MODE
 useHead({
@@ -43,14 +41,10 @@ useHead({
   <BaseToast />
   <ConfirmDialog dismissable-mask />
 
-  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex">
+  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex h-screen">
     <TheSidebar v-model="isSidebarOpen" />
     <div class="flex grow flex-col overflow-hidden">
-      <TheHeader @toggle-sidebar="isSidebarOpen = !isSidebarOpen" />
-      <RouterView
-        class="bg-theme-surface-100 px-4 py-6 md:mb-4 md:mr-4 md:rounded-xl md:px-6 md:py-8"
-        :style="{ minHeight: `calc(100vh - ${headerHeight}px` }"
-      />
+      <RouterView class="bg-theme-surface-100 h-full p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
     </div>
   </div>
 
