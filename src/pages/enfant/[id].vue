@@ -66,6 +66,7 @@ watch(
                   v-for="entry in child.journalEntries"
                   :key="entry.id"
                   :entry
+                  @refresh="fetchChild"
                 />
               </Accordion>
             </div>
