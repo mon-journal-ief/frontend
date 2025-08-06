@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import { useMediaQuery } from '@vueuse/core'
 
 const route = useRoute()
 
@@ -12,7 +13,7 @@ if (isPageWithNavigation.value) {
   userStore.fetchUser()
 }
 
-const isSidebarOpen = ref(false)
+const isMobile = useMediaQuery('(max-width: 768px)')
 
 const env = import.meta.env.VITE_MODE
 useHead({
@@ -41,11 +42,13 @@ useHead({
   <BaseToast />
   <ConfirmDialog dismissable-mask />
 
-  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex h-screen">
-    <TheSidebar v-model="isSidebarOpen" />
+  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex h-screen flex-col md:flex-row">
+    <TheSidebar v-if="!isMobile" />
     <div class="flex grow flex-col overflow-hidden">
       <RouterView class="bg-theme-surface-100 h-full p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
     </div>
+
+    <MobileFooter v-if="isMobile" />
   </div>
 
   <div v-else class="bg-theme-surface-50 flex h-screen w-full p-4">
