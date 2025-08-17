@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
-import { useMediaQuery } from '@vueuse/core'
 
 const route = useRoute()
 
-const isPageWithNavigation = computed(() =>
+const hasNavLayout = computed(() =>
   route.name && !['/login', '/[...404]', '/export/pdf/'].includes(route.name),
 )
 
 const userStore = useUserStore()
-if (isPageWithNavigation.value) {
+if (hasNavLayout.value) {
   userStore.fetchUser()
 }
 
-const isMobile = useMediaQuery('(max-width: 768px)')
+const uiStore = useUIStore()
+const { isMobile } = storeToRefs(uiStore)
 
 const env = import.meta.env.VITE_MODE
 useHead({
@@ -42,12 +42,16 @@ useHead({
   <BaseToast />
   <ConfirmDialog dismissable-mask />
 
-  <div v-if="isPageWithNavigation" class="bg-theme-surface-50 text-theme-surface-900 flex h-screen flex-col md:flex-row">
+  <div v-if="hasNavLayout" class="bg-theme-surface-50 text-theme-surface-900 flex h-screen flex-col md:flex-row">
+    <!-- Desktop Sidebar -->
     <TheSidebar v-if="!isMobile" />
-    <div class="flex grow flex-col overflow-hidden">
+
+    <!-- Content Area -->
+    <div class="flex grow flex-col overflow-hidden" :class="{ 'pb-16': isMobile }">
       <RouterView class="bg-theme-surface-100 h-full p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
     </div>
 
+    <!-- Fixed Mobile Footer -->
     <MobileFooter v-if="isMobile" />
   </div>
 

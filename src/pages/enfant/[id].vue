@@ -1,9 +1,28 @@
 <script setup lang="ts">
 const child = ref<IChild>()
 const route = useRoute('/enfant/[id]')
+const router = useRouter()
 
-const showDialogAddEntry = ref(false)
+const uiStore = useUIStore()
+const { showDialogAddEntry } = storeToRefs(uiStore)
 const loading = ref(true)
+
+// Compute active tab based on URL query parameter
+const activeTab = computed(() => {
+  const tab = route.query.tab as string
+  if (tab === 'programme') return '1'
+
+  return '0' // default to journal
+})
+
+// Update URL when tab changes
+function onTabChange(tabValue: string | number) {
+  const tab = tabValue === '1' ? 'programme' : 'journal'
+  router.push({
+    path: route.path,
+    query: { ...route.query, tab },
+  })
+}
 
 function addEntry(entry: IJournalEntry) {
   child.value?.journalEntries.push(entry)
@@ -13,7 +32,7 @@ async function fetchChild() {
   child.value = await api.children.get(route.params.id)
 }
 
-// refresh child when route changes
+// refresh child when route changes and set default tab if needed
 watch(
   () => route.params.id,
   async (id) => {
@@ -21,6 +40,14 @@ watch(
     loading.value = true
     await fetchChild()
     loading.value = false
+
+    // Set default tab in URL if no tab parameter exists
+    if (!route.query.tab) {
+      router.replace({
+        path: route.path,
+        query: { ...route.query, tab: 'journal' },
+      })
+    }
   },
   { immediate: true },
 )
@@ -43,7 +70,7 @@ watch(
 
     <Card v-if="child.program">
       <template #content>
-        <Tabs value="0">
+        <Tabs :value="activeTab" @update:value="onTabChange">
           <TabList class="-mt-4 mb-8">
             <Tab value="0">Journal de bord</Tab>
             <Tab value="1">Programme</Tab>

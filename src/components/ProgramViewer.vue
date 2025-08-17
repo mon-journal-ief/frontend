@@ -8,7 +8,18 @@ const programCopy = computed(() => props.program)
 const showDialogCreateProgram = ref(false)
 const reorderMode = ref(false)
 
-async function addNewElement() {
+const uiStore = useUIStore()
+const { showAddDialogProgram, addNewElement } = storeToRefs(uiStore)
+
+// Watch for mobile add program dialog
+watch(showAddDialogProgram, (show) => {
+  if (show) {
+    addNewElementLocal()
+    showAddDialogProgram.value = false
+  }
+})
+
+async function addNewElementLocal() {
   if (!programCopy.value) return
 
   // Create a temporary element that will be in edit mode
@@ -30,6 +41,15 @@ async function addNewElement() {
   // Add to the top of the elements array in edit mode
   programCopy.value.elements.unshift(tempElement)
 }
+
+// Register the function with the store
+onMounted(() => {
+  addNewElement.value = addNewElementLocal
+})
+
+onUnmounted(() => {
+  addNewElement.value = null
+})
 </script>
 
 <template>
@@ -60,7 +80,7 @@ async function addNewElement() {
         rounded
         severity="secondary"
         variant="outlined"
-        @click="addNewElement"
+        @click="addNewElementLocal"
       />
 
       <DraggableProgramElements

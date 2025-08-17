@@ -6,6 +6,8 @@ withDefaults(defineProps<{ reorderMode?: boolean }>(), {
 const emit = defineEmits<{
   remove: []
 }>()
+const uiStore = useUIStore()
+const { isModifyMode, isMobile } = storeToRefs(uiStore)
 
 const element = defineModel<IProgramElement>({ required: true })
 
@@ -27,10 +29,10 @@ const originalData = ref({
   description: element.value.description,
 })
 
-function startEdit(originalName: string, originalDescription: string) {
+function startEdit() {
   originalData.value = {
-    name: originalName,
-    description: originalDescription,
+    name: element.value.name,
+    description: element.value.description,
   }
   editMode.value = true
 }
@@ -45,28 +47,6 @@ function cancelEdit() {
   element.value.name = originalData.value.name
   element.value.description = originalData.value.description
   editMode.value = false
-}
-
-const confirm = useConfirm()
-function confirmDelete() {
-  confirm.require({
-    header: 'Supprimer cet élément ?',
-    // TODO: add a checkbox to allow deleting the associated journal entries
-    message: 'Cette action est irréversible. Les entrées associées à cet élément ne seront pas supprimées.',
-    icon: 'i-ci-circle-warning',
-    acceptProps: {
-      severity: 'danger',
-      label: 'Supprimer',
-    },
-    rejectProps: {
-      severity: 'secondary',
-      label: 'Annuler',
-      outlined: true,
-    },
-    accept: () => {
-      deleteElement()
-    },
-  })
 }
 
 async function saveEdit() {
@@ -87,12 +67,6 @@ async function saveEdit() {
 
   editMode.value = false
 }
-
-async function deleteElement() {
-  await api.programElement.remove(element.value.id)
-
-  emit('remove')
-}
 </script>
 
 <template>
@@ -110,24 +84,16 @@ async function deleteElement() {
           />
         </div>
 
-        <div class="mr-2 flex items-center gap-2">
-          <Button
-            class="opacity-0 transition-opacity group-hover:opacity-100"
-            icon="i-ci-edit"
-            rounded
-            severity="secondary"
-            variant="outlined"
-            @click="startEdit(element.name, element.description)"
-          />
-          <Button
-            class="opacity-0 transition-opacity group-hover:opacity-100"
-            icon="i-ci-trash-full"
-            rounded
-            severity="danger"
-            variant="outlined"
-            @click="confirmDelete"
-          />
-        </div>
+        <ProgramElementActions
+          v-if="isMobile ? isModifyMode : true"
+          :class="[
+            !isMobile && 'transition-opacity duration-300',
+            isModifyMode && isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+          ]"
+          :element
+          @remove="emit('remove')"
+          @start-edit="startEdit"
+        />
       </div>
     </template>
 

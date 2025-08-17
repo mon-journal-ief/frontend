@@ -2,6 +2,13 @@
 const props = defineProps<{
   entry: IJournalEntry
 }>()
+
+const emit = defineEmits<{
+  refresh: []
+}>()
+
+const uiStore = useUIStore()
+const { isModifyMode, isMobile } = storeToRefs(uiStore)
 </script>
 
 <template>
@@ -13,19 +20,15 @@ const props = defineProps<{
           <p>{{ entry.validatedElements.map((element) => element.name).join(', ') }}</p>
         </div>
 
-        <div class="mr-8 flex items-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <Button
-            icon="i-ci-edit-pencil-01"
-            rounded
-            severity="secondary"
-            variant="outlined"
-          />
-          <Button
-            icon="i-ci-trash-full"
-            rounded
-            severity="secondary"
-            variant="outlined"
-          />
+        <div
+          v-if="isMobile ? isModifyMode : true"
+          class="mr-8 flex items-center gap-2"
+          :class="[
+            !isMobile && 'transition-opacity duration-300',
+            isModifyMode && isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+          ]"
+        >
+          <JournalEntryActions :entry @refresh="emit('refresh')" />
         </div>
       </div>
     </AccordionHeader>
