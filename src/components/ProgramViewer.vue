@@ -6,50 +6,54 @@ const props = defineProps<{
 const programCopy = computed(() => props.program)
 
 const showDialogCreateProgram = ref(false)
+const showDialogAddElement = ref(false)
 const reorderMode = ref(false)
 
 const uiStore = useUIStore()
-const { showAddDialogProgram, addNewElement } = storeToRefs(uiStore)
+const { showAddDialogProgram } = storeToRefs(uiStore)
 
 // Watch for mobile add program dialog
 watch(showAddDialogProgram, (show) => {
   if (show) {
-    addNewElementLocal()
+    showDialogAddElement.value = true
     showAddDialogProgram.value = false
   }
 })
 
-async function addNewElementLocal() {
+function handleAddElement(element: IProgramElement) {
   if (!programCopy.value) return
 
-  // Create a temporary element that will be in edit mode
-  const tempElement: IProgramElement = {
-    id: `temp-${Date.now()}`,
-    name: 'Nouvel élément',
-    description: '',
-    journalEntries: [],
-    programId: programCopy.value.id,
-    children: [],
-    parentId: undefined,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+  // If the element has a parent, add it to the parent's children array
+  if (element.parentId) {
+    const parent = findElementById(programCopy.value.elements, element.parentId)
+    if (parent) {
+      if (!parent.children) {
+        parent.children = []
+      }
+      parent.children.unshift(element)
+
+      return
+    }
   }
 
-  // Prevent some annoying bugs
-  reorderMode.value = false
-
-  // Add to the top of the elements array in edit mode
-  programCopy.value.elements.unshift(tempElement)
+  // If no parent or parent not found, add to root level
+  programCopy.value.elements.unshift(element)
 }
 
-// Register the function with the store
-onMounted(() => {
-  addNewElement.value = addNewElementLocal
-})
+// Helper function to recursively find an element by ID
+function findElementById(elements: IProgramElement[], id: string): IProgramElement | null {
+  for (const element of elements) {
+    if (element.id === id) {
+      return element
+    }
+    if (element.children?.length) {
+      const found = findElementById(element.children, id)
+      if (found) return found
+    }
+  }
 
-onUnmounted(() => {
-  addNewElement.value = null
-})
+  return null
+}
 </script>
 
 <template>
@@ -80,7 +84,7 @@ onUnmounted(() => {
         rounded
         severity="secondary"
         variant="outlined"
-        @click="addNewElementLocal"
+        @click="showDialogAddElement = true"
       />
 
       <DraggableProgramElements
@@ -103,4 +107,11 @@ onUnmounted(() => {
       @click="showDialogCreateProgram = true"
     />
   </div>
+
+  <DialogAddElement
+    v-if="programCopy"
+    v-model="showDialogAddElement"
+    :program-id="programCopy.id"
+    @add-element="handleAddElement"
+  />
 </template>

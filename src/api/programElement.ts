@@ -1,22 +1,6 @@
 import { useApi } from '@/utils/apiRepository'
 
 export function programElementApiRepository() {
-  async function getAll() {
-    const response = await useApi<IProgramElement[]>(`/program/element`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    if (response.response.value?.ok) {
-      return JSON.parse(response.json().data.value)
-    }
-
-    console.error('Program Elements fetch error:', response.error.value)
-    toast.error('Program Elements fetch failed', response.error.value)
-  }
-
   async function get(id: string) {
     const response = await useApi<IProgramElement>(`/program/element/${id}`, {
       method: 'GET',
@@ -90,7 +74,6 @@ export function programElementApiRepository() {
   }
 
   return {
-    getAll,
     get,
     create,
     update,

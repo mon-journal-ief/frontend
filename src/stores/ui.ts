@@ -10,15 +10,11 @@ export const useUIStore = defineStore('ui', () => {
   const showDialogAddEntry = ref(false)
   const showAddDialogProgram = ref(false)
 
-  // Global function to add new element (will be set by child page)
-  const addNewElement = ref<(() => void) | null>(null)
-
   return {
     // State
     isModifyMode,
     isMobile,
     showDialogAddEntry,
     showAddDialogProgram,
-    addNewElement,
   }
 })

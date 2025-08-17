@@ -60,9 +60,10 @@ watch(
 
   <div v-else-if="child" class="flex flex-col gap-4">
     <DialogAddEntry
-      v-if="showDialogAddEntry"
+      v-if="showDialogAddEntry && child.program"
       v-model="showDialogAddEntry"
       :child-id="child.id"
+      :program-id="child.program.id"
       @add-entry="addEntry"
     />
 

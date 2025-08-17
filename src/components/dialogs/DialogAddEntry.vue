@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  childId?: string
+  childId: string
+  programId: string
 }>()
 
 const emit = defineEmits<{
@@ -12,7 +13,7 @@ const visible = defineModel<boolean>({ required: true })
 const date = ref<Date>(new Date())
 const comment = ref('')
 const images = ref<string[]>([])
-const childId = ref<string | undefined>(props.childId)
+const childId = ref<string>(props.childId)
 const validatedElements = ref<IProgramElement[]>([])
 
 const childrenOptions = ref<IChild[]>([])
@@ -21,12 +22,12 @@ const filteredProgramElements = ref<IProgramElement[]>([])
 
 onMounted(async () => {
   childrenOptions.value = await api.children.getAll()
-  programElementsOptions.value = await api.programElement.getAll()
+  programElementsOptions.value = (await api.program.get(props.programId)).elements
   filteredProgramElements.value = programElementsOptions.value
 })
 
 async function handleAddEntry() {
-  if (!childId.value || !date.value) return
+  if (!date.value) return
 
   const entry = await api.journalEntry.create({
     date: date.value,
@@ -90,6 +91,7 @@ function search(event: any) {
           id="validatedElements"
           v-model="validatedElements"
           dropdown
+          dropdown-mode="current"
           empty-search-message="Aucun élément du programme trouvé"
           force-selection
           multiple
@@ -126,7 +128,7 @@ function search(event: any) {
     <template #footer>
       <Button label="Annuler" severity="secondary" @click="visible = false" />
       <Button
-        :disabled="!childId || !date || (!validatedElements.length && !comment)"
+        :disabled="!date || (!validatedElements.length && !comment)"
         label="Ajouter"
         @click="handleAddEntry"
       />

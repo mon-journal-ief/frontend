@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const uiStore = useUIStore()
-const { isModifyMode, showDialogAddEntry, addNewElement } = storeToRefs(uiStore)
+const { isModifyMode, showDialogAddEntry, showAddDialogProgram } = storeToRefs(uiStore)
 
 const router = useRouter()
 // Determine if we can add entries/program elements on current page
@@ -11,9 +11,7 @@ const canAddProgramElement = computed(() => isEnfantPage.value && route.query.ta
 
 function handleAddClick() {
   if (canAddProgramElement.value) {
-    if (addNewElement.value) {
-      addNewElement.value()
-    }
+    showAddDialogProgram.value = true
   }
   else if (canAddEntry.value) {
     showDialogAddEntry.value = true
