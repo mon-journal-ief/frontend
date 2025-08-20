@@ -75,6 +75,6 @@ const menuActionsOptions = ref([
     outlined
     rounded
     severity="secondary"
-    @click="toggleMenu"
+    @click.stop="toggleMenu"
   />
 </template>

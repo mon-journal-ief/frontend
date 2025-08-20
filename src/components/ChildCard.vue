@@ -53,13 +53,9 @@ function handleClick() {
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex  items-center gap-2 self-start">
           <ChildButtonExport :child />
-          <ChildButtonActions
-            :child
-            @click.stop
-            @refresh="emits('refresh')"
-          />
+          <ChildButtonActions :child @refresh="emits('refresh')" />
         </div>
       </div>
     </template>

@@ -49,6 +49,6 @@ const menuActionsOptions = ref([
     :loading
     outlined
     severity="success"
-    @click="toggleMenu"
+    @click.stop="toggleMenu"
   />
 </template>
