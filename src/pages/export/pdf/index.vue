@@ -59,7 +59,7 @@ function formatDateTime(date: Date | string) {
 
 <template>
   <div v-if="loading" class="text-theme-gray-800 mx-auto p-10 print:p-5">
-    <ProgressSpinner />
+    <CustomSpinner />
     <p>Chargement des données du journal...</p>
   </div>
 

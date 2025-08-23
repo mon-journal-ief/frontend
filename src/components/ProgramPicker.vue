@@ -69,7 +69,7 @@ async function copyTemplate() {
       <h4 class="text-theme-surface-700 text-lg font-medium">Programmes existants</h4>
 
       <div v-if="loading.templates" class="flex justify-center">
-        <ProgressSpinner />
+        <CustomSpinner />
       </div>
 
       <div v-else class="grid gap-3 xl:grid-cols-2">

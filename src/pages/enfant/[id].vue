@@ -55,7 +55,7 @@ watch(
 
 <template>
   <div v-if="loading" class="flex h-full items-center justify-center">
-    <ProgressSpinner />
+    <CustomSpinner />
   </div>
 
   <div v-else-if="child" class="flex flex-col gap-4">
@@ -73,8 +73,8 @@ watch(
       <template #content>
         <Tabs class="w-full" :value="activeTab" @update:value="onTabChange">
           <TabList class="-mt-4 mb-8">
-            <Tab class="flex-1" value="0">Journal de bord</Tab>
-            <Tab class="flex-1" value="1">Programme</Tab>
+            <Tab class="flex-1 text-lg" value="0">Journal de bord</Tab>
+            <Tab class="flex-1 text-lg" value="1">Programme</Tab>
           </TabList>
 
           <!-- Journal de bord -->

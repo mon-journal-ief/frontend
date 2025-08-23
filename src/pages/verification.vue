@@ -78,7 +78,7 @@ async function verifyEmail() {
               <p class="text-sm">Veuillez patienter pendant que nous vérifions votre email.</p>
             </div>
           </Message>
-          <ProgressSpinner />
+          <CustomSpinner />
         </div>
 
         <!-- Success State -->
