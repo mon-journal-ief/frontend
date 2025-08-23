@@ -49,8 +49,8 @@ useHead({
     <TheSidebar v-if="!isMobile" />
 
     <!-- Content Area -->
-    <div class="flex grow flex-col overflow-hidden" :class="{ 'pb-16': isMobile }">
-      <RouterView class="bg-theme-surface-100 h-full p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
+    <div class="flex grow flex-col overflow-y-auto" :class="isMobile && 'pb-16'">
+      <RouterView class="bg-theme-surface-100 min-h-full p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
     </div>
 
     <!-- Fixed Mobile Footer -->
