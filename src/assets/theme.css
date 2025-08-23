@@ -16,6 +16,9 @@
 .text-theme-surface-400 {
   @apply text-surface-400 dark:text-surface-600;
 }
+.text-theme-surface-500 {
+  @apply text-surface-500 dark:text-surface-500;
+}
 .text-theme-surface-600 {
   @apply text-surface-600 dark:text-surface-400;
 }
@@ -31,6 +34,13 @@
 .text-theme-surface-950 {
   @apply text-surface-950 dark:text-surface-50;
 }
+
+.text-theme-primary-50 {
+  @apply text-primary-50 dark:text-primary-950;
+}
+.text-theme-primary-100 {
+  @apply text-primary-100 dark:text-primary-900;
+}
 .text-theme-primary-200 {
   @apply text-primary-200 dark:text-primary-800;
 }
@@ -40,6 +50,9 @@
 .text-theme-primary-400 {
   @apply text-primary-400 dark:text-primary-600;
 }
+.text-theme-primary-500 {
+  @apply text-primary-500 dark:text-primary-500;
+}
 .text-theme-primary-600 {
   @apply text-primary-600 dark:text-primary-400;
 }
@@ -48,6 +61,12 @@
 }
 .text-theme-primary-800 {
   @apply text-primary-800 dark:text-primary-200;
+}
+.text-theme-primary-900 {
+  @apply text-primary-900 dark:text-primary-100;
+}
+.text-theme-primary-950 {
+  @apply text-primary-950 dark:text-primary-50;
 }
 
 
@@ -85,50 +104,236 @@
 
 
 /* Color-specific theme classes */
+.text-theme-blue-50 {
+  @apply text-blue-50 dark:text-blue-950;
+}
+.text-theme-blue-100 {
+  @apply text-blue-100 dark:text-blue-900;
+}
+.text-theme-blue-200 {
+  @apply text-blue-200 dark:text-blue-800;
+}
+.text-theme-blue-300 {
+  @apply text-blue-300 dark:text-blue-700;
+}
 .text-theme-blue-400 {
   @apply text-blue-400 dark:text-blue-600;
+}
+.text-theme-blue-500 {
+  @apply text-blue-500 dark:text-blue-500;
 }
 .text-theme-blue-600 {
   @apply text-blue-600 dark:text-blue-400;
 }
+.text-theme-blue-700 {
+  @apply text-blue-700 dark:text-blue-300;
+}
+.text-theme-blue-800 {
+  @apply text-blue-800 dark:text-blue-200;
+}
+.text-theme-blue-900 {
+  @apply text-blue-900 dark:text-blue-100;
+}
+.text-theme-blue-950 {
+  @apply text-blue-950 dark:text-blue-50;
+}
+.text-theme-yellow-50 {
+  @apply text-yellow-50 dark:text-yellow-950;
+}
+.text-theme-yellow-100 {
+  @apply text-yellow-100 dark:text-yellow-900;
+}
+.text-theme-yellow-200 {
+  @apply text-yellow-200 dark:text-yellow-800;
+}
+.text-theme-yellow-300 {
+  @apply text-yellow-300 dark:text-yellow-700;
+}
 .text-theme-yellow-400 {
   @apply text-yellow-400 dark:text-yellow-600;
+}
+.text-theme-yellow-500 {
+  @apply text-yellow-500 dark:text-yellow-500;
 }
 .text-theme-yellow-600 {
   @apply text-yellow-600 dark:text-yellow-400;
 }
+.text-theme-yellow-700 {
+  @apply text-yellow-700 dark:text-yellow-300;
+}
+.text-theme-yellow-800 {
+  @apply text-yellow-800 dark:text-yellow-200;
+}
+.text-theme-yellow-900 {
+  @apply text-yellow-900 dark:text-yellow-100;
+}
+.text-theme-yellow-950 {
+  @apply text-yellow-950 dark:text-yellow-50;
+}
+.text-theme-orange-50 {
+  @apply text-orange-50 dark:text-orange-950;
+}
+.text-theme-orange-100 {
+  @apply text-orange-100 dark:text-orange-900;
+}
+.text-theme-orange-200 {
+  @apply text-orange-200 dark:text-orange-800;
+}
+.text-theme-orange-300 {
+  @apply text-orange-300 dark:text-orange-700;
+}
 .text-theme-orange-400 {
   @apply text-orange-400 dark:text-orange-600;
+}
+.text-theme-orange-500 {
+  @apply text-orange-500 dark:text-orange-500;
 }
 .text-theme-orange-600 {
   @apply text-orange-600 dark:text-orange-400;
 }
+.text-theme-orange-700 {
+  @apply text-orange-700 dark:text-orange-300;
+}
+.text-theme-orange-800 {
+  @apply text-orange-800 dark:text-orange-200;
+}
+.text-theme-orange-900 {
+  @apply text-orange-900 dark:text-orange-100;
+}
+.text-theme-orange-950 {
+  @apply text-orange-950 dark:text-orange-50;
+}
+.text-theme-red-50 {
+  @apply text-red-50 dark:text-red-950;
+}
+.text-theme-red-100 {
+  @apply text-red-100 dark:text-red-900;
+}
+.text-theme-red-200 {
+  @apply text-red-200 dark:text-red-800;
+}
+.text-theme-red-300 {
+  @apply text-red-300 dark:text-red-700;
+}
 .text-theme-red-400 {
   @apply text-red-400 dark:text-red-600;
+}
+.text-theme-red-500 {
+  @apply text-red-500 dark:text-red-500;
 }
 .text-theme-red-600 {
   @apply text-red-600 dark:text-red-400;
 }
+.text-theme-red-700 {
+  @apply text-red-700 dark:text-red-300;
+}
+.text-theme-red-800 {
+  @apply text-red-800 dark:text-red-200;
+}
+.text-theme-red-900 {
+  @apply text-red-900 dark:text-red-100;
+}
+.text-theme-red-950 {
+  @apply text-red-950 dark:text-red-50;
+}
+.text-theme-green-50 {
+  @apply text-green-50 dark:text-green-950;
+}
+.text-theme-green-100 {
+  @apply text-green-100 dark:text-green-900;
+}
+.text-theme-green-200 {
+  @apply text-green-200 dark:text-green-800;
+}
+.text-theme-green-300 {
+  @apply text-green-300 dark:text-green-700;
+}
 .text-theme-green-400 {
   @apply text-green-400 dark:text-green-600;
+}
+.text-theme-green-500 {
+  @apply text-green-500 dark:text-green-500;
 }
 .text-theme-green-600 {
   @apply text-green-600 dark:text-green-400;
 }
+.text-theme-green-700 {
+  @apply text-green-700 dark:text-green-300;
+}
+.text-theme-green-800 {
+  @apply text-green-800 dark:text-green-200;
+}
+.text-theme-green-900 {
+  @apply text-green-900 dark:text-green-100;
+}
+.text-theme-green-950 {
+  @apply text-green-950 dark:text-green-50;
+}
+.text-theme-fuchsia-50 {
+  @apply text-fuchsia-50 dark:text-fuchsia-950;
+}
+.text-theme-fuchsia-100 {
+  @apply text-fuchsia-100 dark:text-fuchsia-900;
+}
+.text-theme-fuchsia-200 {
+  @apply text-fuchsia-200 dark:text-fuchsia-800;
+}
+.text-theme-fuchsia-300 {
+  @apply text-fuchsia-300 dark:text-fuchsia-700;
+}
 .text-theme-fuchsia-400 {
   @apply text-fuchsia-400 dark:text-fuchsia-600;
+}
+.text-theme-fuchsia-500 {
+  @apply text-fuchsia-500 dark:text-fuchsia-500;
 }
 .text-theme-fuchsia-600 {
   @apply text-fuchsia-600 dark:text-fuchsia-400;
 }
+.text-theme-fuchsia-700 {
+  @apply text-fuchsia-700 dark:text-fuchsia-300;
+}
+.text-theme-fuchsia-800 {
+  @apply text-fuchsia-800 dark:text-fuchsia-200;
+}
+.text-theme-fuchsia-900 {
+  @apply text-fuchsia-900 dark:text-fuchsia-100;
+}
+.text-theme-fuchsia-950 {
+  @apply text-fuchsia-950 dark:text-fuchsia-50;
+}
+.text-theme-gray-50 {
+  @apply text-gray-50 dark:text-gray-950;
+}
+.text-theme-gray-100 {
+  @apply text-gray-100 dark:text-gray-900;
+}
+.text-theme-gray-200 {
+  @apply text-gray-200 dark:text-gray-800;
+}
+.text-theme-gray-300 {
+  @apply text-gray-300 dark:text-gray-700;
+}
 .text-theme-gray-400 {
   @apply text-gray-400 dark:text-gray-600;
+}
+.text-theme-gray-500 {
+  @apply text-gray-500 dark:text-gray-500;
 }
 .text-theme-gray-600 {
   @apply text-gray-600 dark:text-gray-400;
 }
+.text-theme-gray-700 {
+  @apply text-gray-700 dark:text-gray-300;
+}
 .text-theme-gray-800 {
   @apply text-gray-800 dark:text-gray-200;
+}
+.text-theme-gray-900 {
+  @apply text-gray-900 dark:text-gray-100;
+}
+.text-theme-gray-950 {
+  @apply text-gray-950 dark:text-gray-50;
 }
 .bg-theme-blue-50 {
   @apply bg-blue-50 dark:bg-surface-900;
