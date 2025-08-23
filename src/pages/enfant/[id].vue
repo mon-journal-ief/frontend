@@ -71,10 +71,10 @@ watch(
 
     <Card v-if="child.program">
       <template #content>
-        <Tabs :value="activeTab" @update:value="onTabChange">
+        <Tabs class="w-full" :value="activeTab" @update:value="onTabChange">
           <TabList class="-mt-4 mb-8">
-            <Tab value="0">Journal de bord</Tab>
-            <Tab value="1">Programme</Tab>
+            <Tab class="flex-1" value="0">Journal de bord</Tab>
+            <Tab class="flex-1" value="1">Programme</Tab>
           </TabList>
 
           <!-- Journal de bord -->
