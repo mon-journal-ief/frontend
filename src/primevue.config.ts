@@ -16,6 +16,7 @@ import type {
   DataTablePassThroughOptions,
   DialogPassThroughOptions,
   DrawerPassThroughOptions,
+  MessagePassThroughOptions,
   SelectButtonPassThroughOptions,
   TabListPassThroughOptions,
   ToastPassThroughOptions,
@@ -395,6 +396,14 @@ export const customPtConfig = {
         class: 'p-5 border-t border-surface-200 dark:border-surface-800',
       },
     } as DrawerPassThroughOptions,
+    message: {
+      root: {
+        class: 'p-2 rounded-xl',
+      },
+      icon: {
+        class: 'text-2xl mr-2',
+      },
+    } as MessagePassThroughOptions,
     selectButton: {
       root: {
         class: 'border border-surface-300 dark:border-surface-700', // same border as colorScheme.formField.borderColor
