@@ -57,7 +57,6 @@ export function authApiRepository() {
         'Content-Type': 'application/json',
       },
     })
-    console.log('🧅 response', response)
 
     return JSON.parse(response.json().data.value)
   }
