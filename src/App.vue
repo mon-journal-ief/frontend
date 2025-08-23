@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import { useColorMode } from '@vueuse/core'
 
 const route = useRoute()
+useColorMode() // so that the color scheme loads at app start
 
 const hasNavLayout = computed(() =>
-  route.name && !['/login', '/[...404]', '/export/pdf/'].includes(route.name),
+  route.name && !PUBLIC_PAGES.includes(route.name),
 )
 
 const userStore = useUserStore()

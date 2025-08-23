@@ -94,6 +94,23 @@ declare global {
     validatedElementIds: string[]
     childId: string
   }
+
+  interface IAuthResponse<T = any> {
+    success: boolean
+    data?: T
+    error?: {
+      code: string
+      message: string
+      requiresVerification?: boolean
+      userId?: string
+      email?: string
+    }
+  }
+
+  interface ITokenResponse {
+    accessToken: string
+    refreshToken: string
+  }
 }
 
 export {}

@@ -25,5 +25,8 @@ declare module 'vue-router/auto-routes' {
     '/enfants': RouteRecordInfo<'/enfants', '/enfants', Record<never, never>, Record<never, never>>,
     '/export/pdf/': RouteRecordInfo<'/export/pdf/', '/export/pdf', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
+    '/mot-de-passe-oublie': RouteRecordInfo<'/mot-de-passe-oublie', '/mot-de-passe-oublie', Record<never, never>, Record<never, never>>,
+    '/reinitialisation': RouteRecordInfo<'/reinitialisation', '/reinitialisation', Record<never, never>, Record<never, never>>,
+    '/verification': RouteRecordInfo<'/verification', '/verification', Record<never, never>, Record<never, never>>,
   }
 }
