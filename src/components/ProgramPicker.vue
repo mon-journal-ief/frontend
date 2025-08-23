@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core'
-
 const props = defineProps<{
   child: IChild
 }>()
@@ -42,20 +40,6 @@ const projectedGrade = computed(() => {
   return 'Terminale'
 })
 
-const colorMode = useColorMode()
-function getCardBorderClasses(program: IProgram) {
-  const isRecommended = projectedGrade.value === program.grade
-  const isSelected = selectedTemplate.value?.id === program.id
-  const isDarkMode = colorMode.store.value === 'dark'
-
-  if (isSelected) return 'border-primary-700 dark:!border-primary-300'
-
-  // Somehow the classes are bugged with the tailwinddark selector
-  if (isRecommended) return isDarkMode ? ' dark:!border-blue-600' : ' !border-blue-400'
-
-  return 'hover:border-primary-400 hover:dark:!border-primary-600'
-}
-
 async function copyTemplate() {
   if (!selectedTemplate.value?.id) return
 
@@ -92,14 +76,17 @@ async function copyTemplate() {
         <Card
           v-for="program in availablePrograms"
           :key="program.id"
-          class="cursor-pointer"
-          :pt:root:class="getCardBorderClasses(program)"
+          class="cursor-pointer border-2"
+          :pt:root:class="selectedTemplate?.id === program.id ? '!border-green-400 dark:!border-green-600' : 'hover:border-primary-400 hover:dark:!border-primary-600'"
           @click="selectedTemplate = program"
         >
           <template #content>
             <div class="flex flex-col gap-2">
               <div class="flex items-center justify-between">
-                <Badge severity="info" :value="program.grade" />
+                <div class="flex items-center gap-2">
+                  <Badge severity="info" :value="program.grade" />
+                  <BaseTag v-if="projectedGrade === program.grade" color="green" value="Suggeré" />
+                </div>
                 <span class="text-theme-surface-600 text-xs">
                   {{ program.elements?.length || 0 }} éléments
                 </span>
@@ -126,7 +113,6 @@ async function copyTemplate() {
         label="Utiliser ce programme"
         :loading="loading.copy"
         severity="success"
-        size="large"
         @click="copyTemplate"
       />
 
@@ -134,7 +120,6 @@ async function copyTemplate() {
         icon="i-ci-plus"
         label="Créer un nouveau programme"
         severity="secondary"
-        size="large"
         variant="outlined"
       />
     </div>
