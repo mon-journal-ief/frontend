@@ -663,9 +663,7 @@ export const mockExportData = {
       id: 'mock-entry-1',
       date: new Date('2024-12-10'),
       comment: 'Aujourd\'hui, Emma a travaillé sur les fractions. Elle a bien compris le concept de moitié et de quart en utilisant des pizzas en papier. Nous avons aussi fait de la lecture avec "Le Petit Prince" - elle a lu 2 pages toute seule !',
-      images: [
-        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZyYWN0aW9ucyBhdmVjIHBpenphczwvdGV4dD48L3N2Zz4=',
-      ],
+      images: [],
       validatedElements: [
         {
           id: 'mock-element-1',
@@ -737,6 +735,7 @@ export const mockExportData = {
       images: [
         'https://picsum.photos/230/343',
         'https://picsum.photos/410/240',
+        'https://picsum.photos/410/240',
       ],
       validatedElements: [
         {
@@ -760,7 +759,6 @@ export const mockExportData = {
       date: new Date('2024-12-07'),
       comment: 'Sortie pédagogique au musée d\'histoire naturelle. Emma a été fascinée par les dinosaures et a posé beaucoup de questions. Elle a pris des notes et des croquis pour son dossier sur la préhistoire.',
       images: [
-        'https://picsum.photos/530/340',
         'https://picsum.photos/430/440',
       ],
       validatedElements: [
@@ -823,6 +821,23 @@ export const mockExportData = {
       child: {} as IChild,
       createdAt: new Date('2024-12-06'),
       updatedAt: new Date('2024-12-06'),
+    },
+    {
+      id: 'mock-entry-6',
+      date: new Date('2024-12-05'),
+      comment: 'Emma a été très active aujourd\'hui. Elle a fait de la gymnastique et a appris à faire des exercices de coordination. Elle a aussi pris des notes pour son dossier sur la gymnastique.',
+      images: [],
+      validatedElements: [
+        {
+          id: 'mock-element-10',
+          name: 'Faire des exercices de gymnastique',
+          description: 'Faire des exercices de gymnastique pour améliorer la coordination',
+          isValidated: true,
+        },
+      ],
+      child: {} as IChild,
+      createdAt: new Date('2024-12-05'),
+      updatedAt: new Date('2024-12-05'),
     },
   ] as IJournalEntry[],
 }

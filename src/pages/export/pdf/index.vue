@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { mockExportData } from '@/utils/mockExportData'
 import ExportTableOfContents from '@/components/export/ExportTableOfContents.vue'
+import ExportJournalEntry from '@/components/export/ExportJournalEntry.vue'
 
 declare global {
   interface Window {
@@ -30,6 +31,11 @@ const config = ref({
     },
     tableOfContents: true,
     programElementsReference: true,
+  },
+  journalEntries: {
+    showComments: true,
+    showValidatedElements: true,
+    showImages: true,
   },
   footer: true,
   numbering: true,
@@ -81,18 +87,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="loading" class="text-gray-800">
+  <div v-if="loading" class="text-surface-800">
     <CustomSpinner />
     <p>Chargement des données du journal...</p>
   </div>
 
-  <div v-else-if="error" class="text-gray-800">
+  <div v-else-if="error" class="text-surface-800">
     <div class="py-10 text-center text-red-600">
       <p>{{ error }}</p>
     </div>
   </div>
 
-  <div v-else-if="child" id="pdf-container" class="text-gray-800">
+  <div v-else-if="child" id="pdf-container" class="text-surface-800">
     <!-- Cover Page -->
     <ExportCover
       v-if="config.pages.cover"
@@ -108,69 +114,30 @@ onMounted(async () => {
     />
 
     <!-- Journal Entries -->
-    <div class="mt-8 break-before-page">
-      <div
-        v-for="(entry, index) in journalEntries"
-        :key="entry.id"
-        class="mb-8 break-inside-avoid rounded-lg border border-gray-200 bg-white p-5 shadow-sm"
-      >
-        <div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-3">
-          <div class="text-base font-bold text-indigo-600">Entrée {{ index + 1 }}</div>
-          <div v-if="entry.date" class="text-sm text-gray-500">
-            {{ new Date(entry.date).toLocaleDateString('fr-FR') }}
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <!-- Comment -->
-          <div v-if="entry.comment" class="mb-4">
-            <div class="mb-2 text-sm font-semibold text-gray-600">Commentaires :</div>
-            <div class="rounded border-l-4 border-amber-400 bg-amber-50 p-3 text-sm ">{{ entry.comment }}</div>
-          </div>
-
-          <!-- Validated Elements -->
-          <div v-if="entry.validatedElements?.length > 0" class="mb-4">
-            <div class="mb-2 text-sm font-semibold text-gray-600">Éléments validés :</div>
-            <div class="rounded border-l-4 border-emerald-400 bg-emerald-50 p-3">
-              <div
-                v-for="element in entry.validatedElements"
-                :key="element.id"
-                class="relative mb-2 pl-4"
-              >
-                <span class="absolute left-0 font-bold text-emerald-500">✓</span>
-                <div class="text-sm font-medium text-emerald-700">{{ element.name }}</div>
-                <div v-if="element.description" class="mt-1 text-xs leading-snug text-emerald-600">
-                  {{ element.description }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Images -->
-          <div v-if="entry.images?.length > 0" class="mb-4">
-            <div class="rounded border-l-4 border-blue-400 bg-blue-50 p-2 text-xs text-blue-800">
-              📷 Images associées : {{ entry.images.length }} fichier(s)
-            </div>
-
-            <img
-              v-for="image in entry.images"
-              :key="image"
-              alt="Image"
-              :src="image"
-            >
-          </div>
+    <div v-if="journalEntries.length > 0" class="mt-8 break-before-page">
+      <div class="mb-8 text-center">
+        <div class="text-4xl font-bold text-surface-800">
+          Entrées du journal
         </div>
       </div>
+
+      <ExportJournalEntry
+        v-for="(entry, index) in journalEntries"
+        :key="entry.id"
+        :config="config.journalEntries"
+        :entry
+        :index
+      />
     </div>
 
     <!-- Footer -->
-    <div class="mt-10 border-t border-gray-200 pt-5 text-center text-xs text-gray-400">
+    <div class="mt-10 border-t border-surface-200 pt-5 text-center text-xs text-surface-400">
       Généré le {{ new Date().toLocaleString('fr-FR') }}
     </div>
   </div>
 
-  <div v-else class="text-gray-800">
-    <div class="py-10 text-center text-gray-500">
+  <div v-else class="text-surface-800">
+    <div class="py-10 text-center text-surface-500">
       <p>Aucune donnée disponible</p>
     </div>
   </div>
