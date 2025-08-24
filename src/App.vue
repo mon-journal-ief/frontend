@@ -9,6 +9,10 @@ const hasNavLayout = computed(() =>
   route.name && !PUBLIC_PAGES.includes(route.name),
 )
 
+const isExportPdf = computed(() =>
+  route.name === '/export/pdf/',
+)
+
 const userStore = useUserStore()
 if (hasNavLayout.value) {
   userStore.fetchUser()
@@ -56,6 +60,8 @@ useHead({
     <!-- Fixed Mobile Footer -->
     <MobileFooter v-if="isMobile" />
   </div>
+
+  <RouterView v-else-if="isExportPdf" class="h-screen w-full px-4" />
 
   <div v-else class="bg-theme-surface-50 flex h-screen w-full p-4">
     <RouterView class="bg-theme-surface-100 w-full px-4 py-6 md:rounded-xl" />
