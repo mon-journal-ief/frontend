@@ -40,15 +40,12 @@ const tableOfContentsItems = computed((): TableOfContentsItem[] => {
       title: 'Page de couverture',
       page: currentPage,
     })
-    currentPage += 2 // Cover page + table of contents page
-  }
-  else {
-    currentPage += 1 // Just table of contents page
+    currentPage += 1 // Cover page
   }
 
-  // Child information page
+  // Table of contents page
   items.push({
-    title: 'Informations de l\'enfant',
+    title: 'Table des matières',
     page: currentPage,
   })
   currentPage += 1
