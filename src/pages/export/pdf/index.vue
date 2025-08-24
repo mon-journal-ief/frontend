@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { mockExportData } from '@/utils/mockExportData'
+
 declare global {
   interface Window {
     pdfData?: {
@@ -8,13 +10,25 @@ declare global {
   }
 }
 
-// Data will be injected by Playwright
+const isDev = import.meta.env.MODE === 'development' || import.meta.env.DEV
+
+// Data will be injected by Playwright or use mock data in development
 const child = ref<IChild>()
 const journalEntries = ref<IJournalEntry[]>([])
 const loading = ref(true)
 const error = ref<string>()
 
 onMounted(async () => {
+  // In development mode, use mock data automatically
+  if (isDev) {
+    child.value = mockExportData.child
+    journalEntries.value = mockExportData.journalEntries
+    loading.value = false
+    console.warn('⚗️ Development mode: Using mock export data')
+
+    return
+  }
+
   // Check if data is already available (injected by Playwright)
   if (window.pdfData) {
     child.value = window.pdfData.child

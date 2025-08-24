@@ -49,6 +49,14 @@ const placeholderGirl = '/placeholder-girl.png'
           label="Debug"
           route="/debug"
         />
+
+        <!-- EXPORT (Development) -->
+        <TheSidebarButton
+          v-if="isDevelopmentMode"
+          icon="i-ci-share-ios-export"
+          label="Debug PDF"
+          route="/export/pdf"
+        />
       </nav>
     </div>
 
