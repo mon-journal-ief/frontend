@@ -18,6 +18,22 @@ const journalEntries = ref<IJournalEntry[]>([])
 const loading = ref(true)
 const error = ref<string>()
 
+const config = ref({
+  pages: {
+    cover: {
+      display: true,
+      progress: true,
+      progressLegend: true,
+      generationDate: true,
+      picture: true,
+    },
+    tableOfContents: true,
+    programElementsReference: true,
+  },
+  footer: true,
+  numbering: true,
+})
+
 onMounted(async () => {
   // In development mode, use mock data automatically
   if (isDev) {
@@ -61,59 +77,54 @@ onMounted(async () => {
     window.removeEventListener('pdfDataReady', handlePdfDataReady)
   })
 })
-
-function formatDate(date: Date | string) {
-  return new Date(date).toLocaleDateString('fr-FR')
-}
-
-function formatDateTime(date: Date | string) {
-  return new Date(date).toLocaleString('fr-FR')
-}
 </script>
 
 <template>
-  <div v-if="loading" class="text-theme-gray-800 mx-auto p-10 print:p-5">
+  <div v-if="loading" class="text-gray-800">
     <CustomSpinner />
     <p>Chargement des données du journal...</p>
   </div>
 
-  <div v-else-if="error" class="text-theme-gray-800 mx-auto p-10 print:p-5">
-    <div class="text-theme-red-600 py-10 text-center">
+  <div v-else-if="error" class="text-gray-800">
+    <div class="py-10 text-center text-red-600">
       <p>{{ error }}</p>
     </div>
   </div>
 
-  <div v-else-if="child" id="pdf-container" class="text-theme-gray-800 mx-auto p-10 print:p-5">
-    <!-- Header -->
-    <div class="mb-10 border-b-4 border-indigo-600 pb-5 text-center">
-      <h1 class="mb-2 text-3xl font-bold text-indigo-600">Journal des apprentissages</h1>
-    </div>
+  <div v-else-if="child" id="pdf-container" class="text-gray-800">
+    <!-- Cover Page -->
+    <ExportCover
+      v-if="config.pages.cover"
+      :child
+      :config="config.pages.cover"
+    />
 
-    <!-- Child Information -->
-    <div class="bg-theme-surface-50 mb-8 rounded-lg border-l-4 border-emerald-500 p-5">
-      <h2 class="text-theme-gray-800 mb-3 text-lg font-semibold">Informations de l'enfant</h2>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="text-sm">
-          <span class="text-theme-gray-600 font-semibold">Nom :</span>
-          {{ child.name }}{{ child.lastName ? ` ${child.lastName}` : '' }}
-        </div>
-        <div v-if="child.age" class="text-sm">
-          <span class="text-theme-gray-600 font-semibold">Âge :</span> {{ child.age }} ans
-        </div>
-        <div v-if="child.gender" class="text-sm">
-          <span class="text-theme-gray-600 font-semibold">Genre :</span> {{ child.gender }}
-        </div>
-        <div class="text-sm">
-          <span class="text-theme-gray-600 font-semibold">Date d'export :</span> {{ formatDate(new Date()) }}
-        </div>
-        <div class="text-sm">
-          <span class="text-theme-gray-600 font-semibold">Nombre d'entrées :</span> {{ journalEntries.length }}
+    <!-- Content Section -->
+    <div class="break-before-page">
+      <!-- Table of Contents (if enabled) -->
+      <div v-if="config.pages.tableOfContents" class="mb-8 break-before-page break-after-page">
+        <h2 class="mb-6 border-b-2 border-indigo-200 pb-2 text-2xl font-bold text-indigo-600">
+          Table des matières
+        </h2>
+        <div class="space-y-2">
+          <div class="flex justify-between border-b border-gray-100 pb-1">
+            <span>Page de couverture</span>
+            <span>1</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-100 pb-1">
+            <span>Informations de l'enfant</span>
+            <span>{{ config.pages.cover ? '3' : '2' }}</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-100 pb-1">
+            <span>Entrées du journal ({{ journalEntries.length }} entrées)</span>
+            <span>{{ config.pages.cover ? '4' : '3' }}</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Journal Entries -->
-    <div class="mt-8">
+    <div class="mt-8 break-before-page">
       <div
         v-for="(entry, index) in journalEntries"
         :key="entry.id"
@@ -122,20 +133,20 @@ function formatDateTime(date: Date | string) {
         <div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-3">
           <div class="text-base font-bold text-indigo-600">Entrée {{ index + 1 }}</div>
           <div v-if="entry.date" class="text-sm text-gray-500">
-            {{ formatDate(entry.date) }}
+            {{ new Date(entry.date).toLocaleDateString('fr-FR') }}
           </div>
         </div>
 
         <div class="mb-4">
           <!-- Comment -->
           <div v-if="entry.comment" class="mb-4">
-            <div class="text-theme-gray-600 mb-2 text-sm font-semibold">Commentaires :</div>
+            <div class="mb-2 text-sm font-semibold text-gray-600">Commentaires :</div>
             <div class="rounded border-l-4 border-amber-400 bg-amber-50 p-3 text-sm ">{{ entry.comment }}</div>
           </div>
 
           <!-- Validated Elements -->
           <div v-if="entry.validatedElements?.length > 0" class="mb-4">
-            <div class="text-theme-gray-600 mb-2 text-sm font-semibold">Éléments validés :</div>
+            <div class="mb-2 text-sm font-semibold text-gray-600">Éléments validés :</div>
             <div class="rounded border-l-4 border-emerald-400 bg-emerald-50 p-3">
               <div
                 v-for="element in entry.validatedElements"
@@ -153,7 +164,7 @@ function formatDateTime(date: Date | string) {
 
           <!-- Images -->
           <div v-if="entry.images?.length > 0" class="mb-4">
-            <div class="bg-theme-blue-50 rounded border-l-4 border-blue-400 p-2 text-xs text-blue-800">
+            <div class="rounded border-l-4 border-blue-400 bg-blue-50 p-2 text-xs text-blue-800">
               📷 Images associées : {{ entry.images.length }} fichier(s)
             </div>
 
@@ -170,11 +181,11 @@ function formatDateTime(date: Date | string) {
 
     <!-- Footer -->
     <div class="mt-10 border-t border-gray-200 pt-5 text-center text-xs text-gray-400">
-      Généré le {{ formatDateTime(new Date()) }}
+      Généré le {{ new Date().toLocaleString('fr-FR') }}
     </div>
   </div>
 
-  <div v-else class="text-theme-gray-800 mx-auto p-10 print:p-5">
+  <div v-else class="text-gray-800">
     <div class="py-10 text-center text-gray-500">
       <p>Aucune donnée disponible</p>
     </div>
