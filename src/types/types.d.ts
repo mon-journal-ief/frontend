@@ -37,6 +37,7 @@ declare global {
     id: string
     name: string
     description: string
+    isValidated: boolean
     journalEntries: IJournalEntry[]
     children: IProgramElement[]
     programId: string

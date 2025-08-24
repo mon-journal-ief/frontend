@@ -10,6 +10,16 @@ const uiStore = useUIStore()
 const { isModifyMode, isMobile } = storeToRefs(uiStore)
 
 const element = defineModel<IProgramElement>({ required: true })
+const elementStatus = computed(() => {
+  if (element.value.isValidated) {
+    return 'validated'
+  }
+  if (element.value.journalEntries?.length > 0) {
+    return 'partiallyValidated'
+  }
+
+  return 'notValidated'
+})
 
 // Ensure children is always an array. This fixes a bug where newly created elements
 // would not be draggable. I'd like to find a better solution.
@@ -44,21 +54,48 @@ async function saveEdit() {
   await api.programElement.update(element.value.id, element.value)
   editMode.value = false
 }
+
+async function toggleValidation() {
+  const newValidationState = !element.value.isValidated
+  const updatedElement = await api.programElement.validate(element.value.id, newValidationState)
+  if (updatedElement) {
+    element.value.isValidated = updatedElement.isValidated
+  }
+}
 </script>
 
 <template>
-  <Panel v-if="!editMode" toggleable>
+  <Panel
+    v-if="!editMode"
+    :class="[
+      elementStatus === 'validated' && 'border-l-4 border-l-green-500',
+      elementStatus === 'partiallyValidated' && 'border-l-4 border-l-yellow-500',
+    ]"
+    toggleable
+  >
     <template #header>
       <div class="group flex w-full justify-between">
         <div class="flex items-center gap-2">
           <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex cursor-grab select-none items-center self-center pr-1 text-2xl" />
-          <h3>{{ element.name }}</h3>
+          <i
+            v-if="elementStatus === 'validated'"
+            v-tooltip.top="'Élément validé'"
+            class="i-ci-wavy-check text-2xl text-green-500"
+          />
           <Badge
             v-if="element.journalEntries?.length > 0"
             v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
-            severity="info"
+            :severity="elementStatus === 'validated' ? 'success' : 'warning'"
             :value="element.journalEntries?.length"
           />
+          <h3
+            :class="[
+              elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
+              elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
+            ]"
+          >
+            {{ element.name }}
+          </h3>
         </div>
 
         <ProgramElementActions
@@ -70,6 +107,7 @@ async function saveEdit() {
           :element
           @remove="emit('remove')"
           @start-edit="startEdit"
+          @validate="toggleValidation"
         />
       </div>
     </template>

@@ -4,6 +4,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
+  validate: []
   startEdit: []
   remove: []
 }>()
@@ -38,6 +39,14 @@ async function deleteElement() {
 
 <template>
   <div class="mr-2 flex items-center gap-2">
+    <Button
+      v-tooltip.top="element.isValidated ? 'Marquer comme non validé' : 'Marquer comme validé'"
+      :icon="element.isValidated ? 'i-ci-close-md' : 'i-ci-check'"
+      rounded
+      :severity="element.isValidated ? 'danger' : 'success'"
+      variant="outlined"
+      @click="emit('validate')"
+    />
     <Button
       icon="i-ci-edit"
       rounded

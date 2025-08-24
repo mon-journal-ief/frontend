@@ -55,6 +55,26 @@ export function programElementApiRepository() {
     toast.error('Program Element update failed', response.error.value)
   }
 
+  async function validate(id: string, isValidated: boolean) {
+    const response = await useApi<IProgramElement>(`/program/element/${id}/validate`, {
+      method: 'PUT',
+      body: JSON.stringify({ isValidated }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.response.value?.ok) {
+      const action = isValidated ? 'validé' : 'invalidé'
+      toast.success(`Élément ${action}`, `L'élément a été ${action} avec succès`)
+
+      return JSON.parse(response.json().data.value)
+    }
+
+    console.error('Program Element validation error:', response.error.value)
+    toast.error('Validation failed', response.error.value)
+  }
+
   async function remove(id: string) {
     const response = await useApi<IProgramElement>(`/program/element/${id}`, {
       method: 'DELETE',
@@ -77,6 +97,7 @@ export function programElementApiRepository() {
     get,
     create,
     update,
+    validate,
     remove,
   }
 }
