@@ -32,12 +32,12 @@ useHead({
   link: [
     {
       rel: 'icon',
-      type: 'image/x-icon',
+      type: 'image/png',
       href: () => {
-        if (env === 'development') return '/logo6.ico'
-        if (env === 'int') return '/logo5.ico'
+        if (env === 'development') return '/chasti_logo_xs.png'
+        if (env === 'int') return '/chasti_logo_xs.png'
 
-        return '/logo6.ico'
+        return '/chasti_logo_xs.png'
       },
     },
   ],
