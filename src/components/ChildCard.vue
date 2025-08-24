@@ -50,6 +50,7 @@ function handleClick() {
           <div class="flex flex-col gap-1">
             <h2>{{ child.name }} {{ child.lastName }}</h2>
             <p class="text-lg text-surface-500 dark:text-surface-400">{{ subtitle }}</p>
+            <ProgressBar class="mt-2" :elements="child.program?.elements ?? []" />
           </div>
         </div>
 
