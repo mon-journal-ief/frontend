@@ -14,10 +14,10 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div v-if="props.config.display" class="cover-page flex min-h-screen flex-col justify-center p-8 text-center">
+  <div v-if="props.config.display" class="cover-page flex min-h-screen flex-col justify-center px-8 text-center">
     <!-- Main Title -->
     <div class="my-16">
-      <div class="text-6xl font-bold text-gray-800">
+      <div class="text-6xl font-bold text-surface-800">
         Journal de suivi
       </div>
     </div>
@@ -28,13 +28,13 @@ const props = defineProps<Props>()
       <!-- Child Picture -->
       <div v-if="props.config.picture && props.child.image" class="flex justify-center">
         <img
-          class="max-h-[600px] w-auto rounded-3xl border-4 border-gray-200 object-cover"
+          class="max-h-[600px] w-auto rounded-3xl border-4 border-surface-200 object-cover"
           :src="props.child.image"
         >
       </div>
 
-      <div class="flex flex-col place-items-center text-lg text-gray-600">
-        <div class="text-4xl font-semibold text-gray-700">
+      <div class="flex flex-col place-items-center text-lg text-surface-600">
+        <div class="text-4xl font-semibold text-surface-700">
           {{ props.child.name }}{{ props.child.lastName ? ` ${props.child.lastName}` : '' }}
         </div>
 
@@ -56,7 +56,7 @@ const props = defineProps<Props>()
       v-if="props.child.program?.elements && props.config.progress"
       class="mx-auto flex max-w-md flex-col gap-4"
     >
-      <div class="text-2xl font-bold text-gray-700">Avancement du programme</div>
+      <div class="text-2xl font-bold text-surface-700">Avancement du programme</div>
       <ProgressBar
         :elements="props.child.program.elements"
         :pt="{ labelList: { class: props.config.progressLegend ? 'text-sm' : 'hidden' } }"
@@ -64,7 +64,7 @@ const props = defineProps<Props>()
     </div>
 
     <!-- Footer -->
-    <div class="mt-auto space-y-2 text-gray-500">
+    <div class="mt-auto text-surface-500">
       <div v-if="props.config.generationDate" class="text-lg">
         Au {{ new Date().toLocaleDateString('fr-FR', {
           year: 'numeric',

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { mockExportData } from '@/utils/mockExportData'
+import ExportTableOfContents from '@/components/export/ExportTableOfContents.vue'
 
 declare global {
   interface Window {
@@ -99,29 +100,12 @@ onMounted(async () => {
       :config="config.pages.cover"
     />
 
-    <!-- Content Section -->
-    <div class="break-before-page">
-      <!-- Table of Contents (if enabled) -->
-      <div v-if="config.pages.tableOfContents" class="mb-8 break-before-page break-after-page">
-        <h2 class="mb-6 border-b-2 border-indigo-200 pb-2 text-2xl font-bold text-indigo-600">
-          Table des matières
-        </h2>
-        <div class="space-y-2">
-          <div class="flex justify-between border-b border-gray-100 pb-1">
-            <span>Page de couverture</span>
-            <span>1</span>
-          </div>
-          <div class="flex justify-between border-b border-gray-100 pb-1">
-            <span>Informations de l'enfant</span>
-            <span>{{ config.pages.cover ? '3' : '2' }}</span>
-          </div>
-          <div class="flex justify-between border-b border-gray-100 pb-1">
-            <span>Entrées du journal ({{ journalEntries.length }} entrées)</span>
-            <span>{{ config.pages.cover ? '4' : '3' }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Table of Contents -->
+    <ExportTableOfContents
+      v-if="config.pages.tableOfContents"
+      :config
+      :journal-entries-count="journalEntries.length"
+    />
 
     <!-- Journal Entries -->
     <div class="mt-8 break-before-page">
