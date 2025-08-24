@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
   entry: IJournalEntry
+  programId: string
+  childId: string
 }>()
 
 const emit = defineEmits<{
@@ -11,6 +13,10 @@ const showEditDialog = ref(false)
 
 function handleEditEntry() {
   showEditDialog.value = true
+}
+
+function handleUpdateEntry() {
+  emit('refresh')
 }
 
 const confirm = useConfirm()
@@ -37,7 +43,14 @@ function confirmDeleteEntry() {
 </script>
 
 <template>
-  <!-- TODO: Add DialogJournalEntryForm when modify dialog is created -->
+  <DialogJournalEntryForm
+    v-if="programId && showEditDialog"
+    v-model="showEditDialog"
+    :child-id
+    :entry
+    :program-id
+    @update-entry="handleUpdateEntry"
+  />
 
   <Button
     icon="i-ci-edit-pencil-01"

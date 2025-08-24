@@ -52,7 +52,7 @@ export function journalEntryApiRepository() {
     toast.error('Entrée de journal', 'Erreur lors de l\'enregistrement de l\'entrée de journal')
   }
 
-  async function update(id: string, entry: IJournalEntry) {
+  async function update(id: string, entry: IJournalEntryUpdate) {
     const response = await useApi<IJournalEntry>(`/journal-entries/${id}`, {
       method: 'PUT',
       body: JSON.stringify(entry),

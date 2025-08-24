@@ -59,7 +59,7 @@ watch(
   </div>
 
   <div v-else-if="child" class="flex flex-col gap-4">
-    <DialogAddEntry
+    <DialogJournalEntryForm
       v-if="showDialogAddEntry && child.program"
       v-model="showDialogAddEntry"
       :child-id="child.id"
@@ -93,7 +93,9 @@ watch(
                 <JournalEntry
                   v-for="entry in child.journalEntries"
                   :key="entry.id"
+                  :child-id="child.id"
                   :entry
+                  :program-id="child.program?.id"
                   @refresh="fetchChild"
                 />
               </Accordion>

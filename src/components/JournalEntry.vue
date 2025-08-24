@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
   entry: IJournalEntry
+  programId: string
+  childId: string
 }>()
 
 const emit = defineEmits<{
@@ -28,7 +30,12 @@ const { isModifyMode, isMobile } = storeToRefs(uiStore)
             isModifyMode && isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
           ]"
         >
-          <JournalEntryActions :entry @refresh="emit('refresh')" />
+          <JournalEntryActions
+            :child-id
+            :entry
+            :program-id
+            @refresh="emit('refresh')"
+          />
         </div>
       </div>
     </AccordionHeader>

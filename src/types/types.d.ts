@@ -95,6 +95,13 @@ declare global {
     childId: string
   }
 
+  interface IJournalEntryUpdate {
+    date: Date
+    comment: string
+    images: string[]
+    validatedElementIds: string[]
+  }
+
   interface IAuthResponse<T = any> {
     success: boolean
     data?: T
