@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { calculateProjectedGrade } from '~/utils/ageCalculator'
+
 const props = defineProps<{
   child: IChild
 }>()
@@ -19,6 +21,22 @@ onMounted(async () => {
   const programs = await api.programTemplate.getAll()
   availablePrograms.value = programs || []
   loading.value.templates = false
+})
+
+const sortedPrograms = computed(() => {
+  const projectedGrade = calculateProjectedGrade(props.child.birthdate)
+
+  return [...availablePrograms.value].sort((a, b) => {
+    // If one program matches the projected grade, put it first
+    const aMatches = a.grade === projectedGrade
+    const bMatches = b.grade === projectedGrade
+
+    if (aMatches && !bMatches) return -1
+    if (!aMatches && bMatches) return 1
+
+    // If both match or both don't match, retain the original order
+    return 0
+  })
 })
 
 async function copyTemplate() {
@@ -55,7 +73,7 @@ async function copyTemplate() {
 
       <div v-else class="grid gap-3 xl:grid-cols-2">
         <Card
-          v-for="program in availablePrograms"
+          v-for="program in sortedPrograms"
           :key="program.id"
           class="cursor-pointer border-2"
           :pt:root:class="selectedTemplate?.id === program.id ? '!border-green-400 dark:!border-green-600' : 'hover:border-primary-400 hover:dark:!border-primary-600'"
