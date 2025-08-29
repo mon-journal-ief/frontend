@@ -16,7 +16,7 @@ const placeholderImage = computed(() => {
 
 const subtitle = computed(() => {
   const grade = child.value.program?.grade
-  const age = child.value.age
+  const age = calculateAge(child.value.birthdate)
   if (grade && age) return `${grade} - ${age} ans`
   if (grade) return grade
   if (age) return `${age} ans`

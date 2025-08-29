@@ -61,7 +61,7 @@ declare global {
     name: string
     lastName?: string
     image?: string
-    age?: number
+    birthdate?: Date
     gender?: EGender
     program?: IProgram
     journalEntries: IJournalEntry[]
@@ -72,7 +72,7 @@ declare global {
   interface IChildCreation {
     name: string
     lastName?: string
-    age?: number
+    birthdate?: Date
     gender?: EGender
     programId?: string
   }

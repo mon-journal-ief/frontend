@@ -13,7 +13,7 @@ const isEditing = computed(() => !!props.child)
 
 // Initialize with existing child data if editing
 const name = ref(props.child?.name || '')
-const age = ref<number | undefined>(props.child?.age)
+const birthdate = ref<Date | undefined>(props.child?.birthdate ? new Date(props.child.birthdate) : undefined)
 const lastName = ref(props.child?.lastName || '')
 const gender = ref<EGender | undefined>(props.child?.gender)
 
@@ -30,7 +30,7 @@ async function handleSubmit() {
       ...props.child,
       name: name.value,
       lastName: lastName.value,
-      age: age.value,
+      birthdate: birthdate.value,
       gender: gender.value,
     })
   }
@@ -39,7 +39,7 @@ async function handleSubmit() {
     await api.children.create({
       name: name.value,
       lastName: lastName.value,
-      age: age.value,
+      birthdate: birthdate.value,
       gender: gender.value,
     })
   }
@@ -78,12 +78,14 @@ async function handleSubmit() {
         />
       </FormContainer>
 
-      <FormContainer input-id="age" title="Age">
-        <InputNumber
-          id="age"
-          v-model="age"
-          placeholder="Age (optionnel)"
-          @keyup.enter="handleSubmit"
+      <FormContainer input-id="birthdate" title="Date de naissance">
+        <DatePicker
+          id="birthdate"
+          v-model="birthdate"
+          date-format="dd/mm/yy"
+          :max-date="new Date()"
+          placeholder="Date de naissance (optionnel)"
+          show-icon
         />
       </FormContainer>
 

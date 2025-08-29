@@ -21,25 +21,6 @@ onMounted(async () => {
   loading.value.templates = false
 })
 
-const projectedGrade = computed(() => {
-  if (!props.child.age) return null
-
-  if (props.child.age < 6) return 'Maternelle'
-  if (props.child.age < 7) return 'CP'
-  if (props.child.age < 8) return 'CE1'
-  if (props.child.age < 9) return 'CE2'
-  if (props.child.age < 10) return 'CM1'
-  if (props.child.age < 11) return 'CM2'
-  if (props.child.age < 12) return 'Sixième'
-  if (props.child.age < 13) return 'Cinquième'
-  if (props.child.age < 14) return 'Quatrième'
-  if (props.child.age < 15) return 'Troisième'
-  if (props.child.age < 16) return 'Seconde'
-  if (props.child.age < 17) return 'Première'
-
-  return 'Terminale'
-})
-
 async function copyTemplate() {
   if (!selectedTemplate.value?.id) return
 
@@ -85,7 +66,7 @@ async function copyTemplate() {
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <Badge severity="info" :value="program.grade" />
-                  <BaseTag v-if="projectedGrade === program.grade" color="green" value="Suggeré" />
+                  <BaseTag v-if="calculateProjectedGrade(child.birthdate) === program.grade" color="green" value="Suggeré" />
                 </div>
                 <span class="text-theme-surface-600 text-xs">
                   {{ program.elements?.length || 0 }} éléments
