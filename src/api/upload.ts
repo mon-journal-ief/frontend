@@ -1,13 +1,14 @@
 import { useApi } from '@/utils/apiRepository'
 
 export function uploadApiRepository() {
-  async function uploadImage(file: File): Promise<{ filename: string, url: string, size: number } | null> {
+  async function uploadJournalEntryImage(file: File, journalEntryId: string): Promise<{ filename: string, url: string, size: number } | null> {
     try {
       const userStore = useUserStore()
       const formData = new FormData()
       formData.append('image', file)
+      formData.append('journalEntryId', journalEntryId)
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/uploads/image`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/journal-entries/images`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -35,14 +36,14 @@ export function uploadApiRepository() {
     }
   }
 
-  async function deleteImage(filename: string): Promise<boolean> {
+  async function deleteJournalEntryImage(filename: string): Promise<boolean> {
     try {
       // Extract filename after '/image' if it exists in the path
       const actualFilename = filename.includes('/images/')
         ? filename.split('/images/')[1]
         : filename
 
-      const response = await useApi(`/uploads/image/${actualFilename}`, {
+      const response = await useApi(`/journal-entries/images/${actualFilename}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ export function uploadApiRepository() {
   }
 
   return {
-    uploadImage,
-    deleteImage,
+    uploadJournalEntryImage,
+    deleteJournalEntryImage,
   }
 }

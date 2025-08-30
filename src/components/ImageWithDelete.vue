@@ -18,7 +18,7 @@ const sizeClasses = computed(() => {
 })
 
 async function handleDelete() {
-  await api.upload.deleteImage(props.src)
+  await api.upload.deleteJournalEntryImage(props.src)
   emit('deleted', props.src)
 }
 </script>

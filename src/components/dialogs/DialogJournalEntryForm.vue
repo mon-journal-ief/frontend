@@ -62,7 +62,7 @@ async function handleSubmit() {
 // Handle file upload - upload files to server and get URLs
 async function handleFileUpload(event: { files: File[] }) {
   const uploadPromises = event.files.map(async (file) => {
-    const result = await api.upload.uploadImage(file)
+    const result = await api.upload.uploadJournalEntryImage(file, props.entry!.id)
     if (result) images.value.push(result.url)
   })
 
@@ -160,7 +160,7 @@ function search(event: any) {
       <Button label="Annuler" severity="secondary" @click="visible = false" />
       <Button
         :disabled="!date || !comment.trim()"
-        :label="isEditing ? 'Modifier' : 'Ajouter'"
+        :label="isEditing ? 'Valider' : 'Ajouter'"
         @click="handleSubmit"
       />
     </template>
