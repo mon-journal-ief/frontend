@@ -6,6 +6,12 @@ const { user } = storeToRefs(userStore)
 const children = computed(() => user.value?.children)
 const placeholderBoy = '/placeholder-boy.png'
 const placeholderGirl = '/placeholder-girl.png'
+
+function getChildImage(child: IChild) {
+  return computed(() => {
+    return child.profileImage || (child.gender === 'MALE' ? placeholderBoy : placeholderGirl)
+  })
+}
 </script>
 
 <template>
@@ -36,7 +42,7 @@ const placeholderGirl = '/placeholder-girl.png'
           <TheSidebarButton
             v-for="child in children"
             :key="child.id"
-            :image="child.image || (child.gender === 'MALE' ? placeholderBoy : placeholderGirl)"
+            :image="getChildImage(child).value"
             :label="child.name"
             :route="`/enfant/${child.id}`"
           />

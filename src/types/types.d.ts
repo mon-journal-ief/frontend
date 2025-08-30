@@ -60,7 +60,7 @@ declare global {
     id: string
     name: string
     lastName?: string
-    image?: string
+    profileImage?: string
     birthdate?: Date
     gender?: EGender
     program?: IProgram

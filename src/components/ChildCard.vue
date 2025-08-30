@@ -30,9 +30,17 @@ function handleClick() {
 
   router.push(`/enfant/${child.value.id}`)
 }
+
+const showDialogUpload = ref(false)
 </script>
 
 <template>
+  <DialogEditChildPicture
+    v-model="showDialogUpload"
+    :child
+    @refresh="emits('refresh')"
+  />
+
   <Card
     class="group"
     :class="link && 'cursor-pointer'"
@@ -40,21 +48,35 @@ function handleClick() {
   >
     <template #content>
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-8">
-          <img
-            alt="Avatar enfant"
-            class="size-16 rounded-full border-2 border-surface-100 object-cover dark:border-surface-800 md:size-24 lg:size-32"
-            :src="child.image || placeholderImage"
-          >
+        <div class="flex items-center gap-3 md:gap-8">
+          <div class="group/avatar relative shrink-0">
+            <img
+              alt="Avatar enfant"
+              class="aspect-square size-16 rounded-full border-2 border-surface-100 object-cover dark:border-surface-800 md:size-24 lg:size-32"
+              :src="child.profileImage || placeholderImage"
+            >
 
-          <div class="flex flex-col gap-1">
-            <h2>{{ child.name }} {{ child.lastName }}</h2>
-            <p class="text-lg text-surface-500 dark:text-surface-400">{{ subtitle }}</p>
+            <!-- Hover mask with upload icon -->
+            <div
+              class="absolute inset-0 flex cursor-pointer items-center justify-center
+              rounded-full bg-black/50 opacity-0 transition-opacity duration-200 group-hover/avatar:opacity-100"
+              @click="showDialogUpload = true"
+            >
+              <div class="flex size-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm lg:size-12">
+                <i class="i-ci-edit-pencil-01 text-2xl text-white" />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex min-w-0 flex-1 flex-col gap-1">
+            <h2 class="truncate">{{ child.name }} {{ child.lastName }}</h2>
+            <p class="truncate text-sm text-surface-500 dark:text-surface-400 md:text-lg">{{ subtitle }}</p>
             <ProgressBar class="mt-2" :elements="child.program?.elements ?? []" />
           </div>
         </div>
 
-        <div class="flex  items-center gap-2 self-start">
+        <div class="flex shrink-0 items-center gap-1 self-start md:gap-2">
           <ChildButtonExport :child />
           <ChildButtonActions :child @refresh="emits('refresh')" />
         </div>
