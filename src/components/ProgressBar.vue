@@ -92,11 +92,13 @@ const meterGroupValue = computed(() => {
     },
   ]
 })
+
+const hasProgress = computed(() => progressStats.value.inProgress || progressStats.value.validated)
 </script>
 
 <template>
   <MeterGroup
-    v-if="progressStats.total > 0"
+    v-if="hasProgress"
     class="-space-y-2"
     :pt="{ labelText: { class: 'text-surface-500 !text-sm' } }"
     :value="meterGroupValue"
