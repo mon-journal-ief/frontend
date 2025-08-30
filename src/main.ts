@@ -28,6 +28,7 @@ const primeVueSettings = {
   ptOptions: {
     mergeProps: true,
   },
+  locale: { noFileChosenMessage: 'Pas de fichier sélectionné' },
   ...customPtConfig,
 }
 

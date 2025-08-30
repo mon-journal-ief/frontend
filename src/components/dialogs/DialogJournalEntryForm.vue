@@ -59,12 +59,15 @@ async function handleSubmit() {
   visible.value = false
 }
 
-// Handle file upload (convert to base64 or upload and get URLs)
-function handleFileUpload(event: { files: File[] }) {
-  // Example: just push file names for now
-  for (const file of event.files) {
-    images.value.push(file.name)
-  }
+// Handle file upload - upload files to server and get URLs
+async function handleFileUpload(event: { files: File[] }) {
+  const uploadPromises = event.files.map(async (file) => {
+    const result = await api.upload.uploadImage(file)
+    if (result) images.value.push(result.url)
+  })
+
+  await Promise.all(uploadPromises)
+  toast.success('Ajout d\'images', `${event.files.length} images ajoutées`)
 }
 
 function search(event: any) {
@@ -115,6 +118,7 @@ function search(event: any) {
           multiple
           option-label="name"
           placeholder="Rechercher dans le programme"
+          :pt="{ overlay: { class: '!max-w-1' } }"
           :suggestions="filteredProgramElements"
           @complete="search"
         />
@@ -138,8 +142,17 @@ function search(event: any) {
           custom-upload
           mode="basic"
           multiple
+          upload-label="Envoyer"
           @select="handleFileUpload"
         />
+        <div class="flex gap-4">
+          <ImageWithDelete
+            v-for="image in images"
+            :key="image"
+            :src="image"
+            @deleted="(src) => images = images.filter(img => img !== src)"
+          />
+        </div>
       </FormContainer>
     </div>
 

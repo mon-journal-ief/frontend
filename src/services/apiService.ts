@@ -5,6 +5,7 @@ import { programTemplateApiRepository } from '@/api/programTemplate'
 import { childrenApiRepository } from '@/api/children'
 import { journalEntryApiRepository } from '@/api/journalEntry'
 import { exportApiRepository } from '@/api/export'
+import { uploadApiRepository } from '@/api/upload'
 
 // Create a centralized API service instance
 export const api = {
@@ -15,4 +16,5 @@ export const api = {
   children: childrenApiRepository(),
   journalEntry: journalEntryApiRepository(),
   export: exportApiRepository(),
+  upload: uploadApiRepository(),
 }

@@ -41,6 +41,15 @@ const { isModifyMode, isMobile } = storeToRefs(uiStore)
     </AccordionHeader>
 
     <AccordionContent>
+      <div class="flex gap-4">
+        <ImageWithDelete
+          v-for="image in entry.images"
+          :key="image"
+          :src="image"
+          @deleted="emit('refresh')"
+        />
+      </div>
+
       <div class="text-theme-surface-600 text-sm">
         <p v-if="entry.comment">{{ entry.comment }}</p>
         <p v-else>Aucun commentaire</p>
