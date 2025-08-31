@@ -3,6 +3,7 @@ import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
 import ConfirmationService from 'primevue/confirmationservice'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { VueUmamiPlugin } from '@jaseeey/vue-umami-plugin'
 import { createHead } from '@unhead/vue'
 import { customPtConfig, customizedAuraPreset } from '@/primevue.config'
 import '@/assets/main.css'
@@ -34,6 +35,13 @@ const primeVueSettings = {
 
 async function initializeApp() {
   try {
+    app.use(VueUmamiPlugin({
+      websiteID: import.meta.env.VITE_UMAMI_WEBSITE_ID ?? 'Dummy',
+      allowLocalhost: true,
+      scriptSrc: import.meta.env.VITE_UMAMI_ENDPOINT,
+      router,
+    }))
+
     // Vue
     app.use(router)
     app.use(createHead())

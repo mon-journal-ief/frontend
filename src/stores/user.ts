@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { identifyUmamiSession } from '@jaseeey/vue-umami-plugin'
 
 export const useUserStore = defineStore('user', () => {
   const accessToken = ref('')
@@ -19,6 +20,12 @@ export const useUserStore = defineStore('user', () => {
   watch(accessToken, async (newToken) => {
     if (newToken) {
       fetchUser()
+
+      identifyUmamiSession({
+        userId: user.value?.id,
+        email: user.value?.email,
+        name: user.value?.name,
+      })
     }
     else {
       user.value = null
