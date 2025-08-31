@@ -35,8 +35,10 @@ function confirmDeleteChild() {
   })
 }
 
+const router = useRouter()
 async function deleteChild() {
   await api.children.remove(props.child.id)
+  router.push('/enfants')
   emits('refresh')
 }
 

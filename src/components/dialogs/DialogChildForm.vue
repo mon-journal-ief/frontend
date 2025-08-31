@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin'
+
 const props = defineProps<{
   child?: IChild
 }>()
@@ -44,7 +46,12 @@ async function handleSubmit() {
       gender: gender.value,
     })
 
-    router.push(`/enfant/${child.id}`)
+    trackUmamiEvent('child-created', {
+      childId: child.id,
+      childName: child.name,
+    })
+
+    router.push(`/enfant/${child.name}`)
   }
 
   emits('refresh')
