@@ -36,6 +36,7 @@ function onReorder(evt: any) {
     ]"
     :disabled="!reorderMode"
     group="program-elements"
+    handle=".drag-handle"
     item-key="id"
     @change="onReorder"
   >

@@ -27,8 +27,6 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.success('Program Element created successfully', 'You have been created successfully')
-
       return JSON.parse(response.json().data.value)
     }
 
@@ -46,8 +44,6 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.success('Program Element updated successfully', 'You have been updated successfully')
-
       return JSON.parse(response.json().data.value)
     }
 
@@ -84,8 +80,6 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.success('Program Element deleted successfully', 'You have been deleted successfully')
-
       return JSON.parse(response.json().data.value)
     }
 

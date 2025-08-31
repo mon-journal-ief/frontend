@@ -76,7 +76,7 @@ async function toggleValidation() {
     <template #header>
       <div class="group flex w-full justify-between">
         <div class="flex items-center gap-2">
-          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex cursor-grab select-none items-center self-center pr-1 text-2xl" />
+          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex shrink-0 cursor-grab select-none items-center self-center pr-1 text-2xl" />
           <i
             v-if="elementStatus === 'validated'"
             v-tooltip.top="'Élément validé'"
@@ -88,14 +88,14 @@ async function toggleValidation() {
             :severity="elementStatus === 'validated' ? 'success' : 'warning'"
             :value="element.journalEntries?.length"
           />
-          <h3
+          <div
             :class="[
               elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
               elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
             ]"
           >
             {{ element.name }}
-          </h3>
+          </div>
         </div>
 
         <ProgramElementActions
@@ -114,7 +114,7 @@ async function toggleValidation() {
 
     <div class="flex justify-between gap-2">
 
-      <p v-if="element.description" class="text-surface-500">
+      <p v-if="element.description && !reorderMode" class="text-sm text-surface-500">
         {{ element.description }}
       </p>
 
@@ -123,7 +123,8 @@ async function toggleValidation() {
     <DraggableProgramElements
       v-if="element.children?.length > 0 || reorderMode"
       v-model:elements="element.children"
-      class="ml-8 mt-4"
+      class="-mx-2 mt-4 md:ml-8"
+      :class="reorderMode && '!mt-0'"
       :parent-id="element.id"
       :reorder-mode
     />

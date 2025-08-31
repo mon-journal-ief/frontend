@@ -57,28 +57,28 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
 </script>
 
 <template>
-  <div v-if="programCopy" class="flex flex-col gap-8">
-    <div class="flex items-center justify-between gap-2">
-      <div class="flex flex-col gap-2">
-        <h2>{{ programCopy.name }}</h2>
-        <p v-if="programCopy.description" class="text-theme-surface-600">
-          {{ programCopy.description }}
-        </p>
-      </div>
-
-      <Button
-        icon="i-ci-list-unordered"
-        label="Réorganiser"
-        pt:icon:class="text-xl"
-        rounded
-        severity="secondary"
-        variant="outlined"
-        @click="reorderMode = !reorderMode"
-      />
+  <div v-if="programCopy" class="flex flex-col gap-4 md:gap-8">
+    <div class="flex flex-col gap-2">
+      <h2>{{ programCopy.name }}</h2>
+      <p v-if="programCopy.description" class="text-theme-surface-600">
+        {{ programCopy.description }}
+      </p>
     </div>
+
+    <Button
+      class="w-full md:w-auto"
+      icon="i-ci-list-unordered"
+      label="Réorganiser"
+      pt:icon:class="text-xl"
+      rounded
+      severity="secondary"
+      variant="outlined"
+      @click="reorderMode = !reorderMode"
+    />
 
     <div class="flex flex-col gap-8">
       <Button
+        class="hidden md:block"
         icon="i-ci-plus"
         label="Ajouter un élément de programme"
         rounded
