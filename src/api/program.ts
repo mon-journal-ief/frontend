@@ -33,7 +33,7 @@ export function programApiRepository() {
     toast.error('Program fetch failed', response.error.value)
   }
 
-  async function create(program: IProgram) {
+  async function create(program: IProgramCreation) {
     const response = await useApi<IProgram>(`/program`, {
       method: 'POST',
       body: JSON.stringify(program),

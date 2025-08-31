@@ -5,7 +5,6 @@ const props = defineProps<{
 
 const programCopy = computed(() => props.program)
 
-const showDialogCreateProgram = ref(false)
 const showDialogAddElement = ref(false)
 const reorderMode = ref(false)
 
@@ -57,6 +56,13 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
 </script>
 
 <template>
+  <DialogAddElement
+    v-if="programCopy"
+    v-model="showDialogAddElement"
+    :program-id="programCopy.id"
+    @add-element="handleAddElement"
+  />
+
   <div v-if="programCopy" class="flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <h2>{{ programCopy.name }}</h2>
@@ -65,26 +71,27 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
       </p>
     </div>
 
-    <Button
-      class="w-full md:w-auto"
-      icon="i-ci-list-unordered"
-      label="Réorganiser"
-      pt:icon:class="text-xl"
-      rounded
-      severity="secondary"
-      variant="outlined"
-      @click="reorderMode = !reorderMode"
-    />
-
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-4">
       <Button
         class="hidden md:block"
-        icon="i-ci-plus"
+        icon="i-ci-plus text-lg -mb-1 mr-1"
         label="Ajouter un élément de programme"
         rounded
         severity="secondary"
         variant="outlined"
         @click="showDialogAddElement = true"
+      />
+
+      <Button
+        v-if="programCopy.elements.length > 0"
+        class="w-full md:w-auto"
+        icon="i-ci-list-unordered"
+        label="Réorganiser"
+        pt:icon:class="text-xl"
+        rounded
+        severity="secondary"
+        variant="outlined"
+        @click="reorderMode = !reorderMode"
       />
 
       <DraggableProgramElements
@@ -94,24 +101,4 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
       />
     </div>
   </div>
-
-  <div v-else class="flex flex-col items-center gap-8 py-16">
-    <h2>Aucun programme associé à cet enfant</h2>
-
-    <Button
-      icon="i-ci-plus"
-      label="Associer ou créer un programme"
-      rounded
-      severity="secondary"
-      variant="outlined"
-      @click="showDialogCreateProgram = true"
-    />
-  </div>
-
-  <DialogAddElement
-    v-if="programCopy"
-    v-model="showDialogAddElement"
-    :program-id="programCopy.id"
-    @add-element="handleAddElement"
-  />
 </template>

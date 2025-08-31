@@ -39,7 +39,7 @@ const sortedPrograms = computed(() => {
   })
 })
 
-async function copyTemplate() {
+async function copyProgramTemplate() {
   if (!selectedTemplate.value?.id) return
 
   loading.value.copy = true
@@ -48,9 +48,17 @@ async function copyTemplate() {
 
   emit('refresh')
 }
+
+const showDialogProgramCreate = ref(false)
 </script>
 
 <template>
+  <DialogProgramCreate
+    v-model="showDialogProgramCreate"
+    :child
+    @refresh="emit('refresh')"
+  />
+
   <div class="m-auto flex flex-col gap-8 p-6">
     <!-- Header text -->
     <div class="flex flex-col gap-2">
@@ -112,7 +120,7 @@ async function copyTemplate() {
         label="Utiliser ce programme"
         :loading="loading.copy"
         severity="success"
-        @click="copyTemplate"
+        @click="copyProgramTemplate"
       />
 
       <Button
@@ -120,6 +128,7 @@ async function copyTemplate() {
         label="Créer un nouveau programme"
         severity="secondary"
         variant="outlined"
+        @click="showDialogProgramCreate = true"
       />
     </div>
 

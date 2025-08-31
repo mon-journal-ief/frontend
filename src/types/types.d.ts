@@ -33,6 +33,13 @@ declare global {
     updatedAt: Date
   }
 
+  interface IProgramCreation {
+    name: string
+    description?: string
+    grade?: string
+    childId: string
+  }
+
   interface IProgramElement {
     id: string
     name: string
