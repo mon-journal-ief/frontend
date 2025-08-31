@@ -44,7 +44,7 @@ function getChildImage(child: IChild) {
             :key="child.id"
             :image="getChildImage(child).value"
             :label="child.name"
-            :route="`/enfant/${child.id}`"
+            :route="`/enfant/${child.name}`"
           />
         </div>
 

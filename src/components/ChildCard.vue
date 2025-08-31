@@ -28,7 +28,7 @@ const router = useRouter()
 function handleClick() {
   if (!props.link) return
 
-  router.push(`/enfant/${child.value.id}`)
+  router.push(`/enfant/${child.value.name}`)
 }
 
 const showDialogUpload = ref(false)

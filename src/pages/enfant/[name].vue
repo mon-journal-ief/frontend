@@ -1,7 +1,10 @@
 <script setup lang="ts">
 const child = ref<IChild>()
-const route = useRoute('/enfant/[id]')
+const route = useRoute('/enfant/[name]')
 const router = useRouter()
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 
 const uiStore = useUIStore()
 const { showDialogAddEntry } = storeToRefs(uiStore)
@@ -29,14 +32,16 @@ function addEntry(entry: IJournalEntry) {
 }
 
 async function fetchChild() {
-  child.value = await api.children.get(route.params.id)
+  const matchingChild = user.value?.children.find(child => child.name === route.params.name)
+  if (!matchingChild) router.push('/enfants')
+  child.value = await api.children.get(matchingChild!.id)
 }
 
 // refresh child when route changes and set default tab if needed
 watch(
-  () => route.params.id,
-  async (id) => {
-    if (!id) return
+  () => route.params.name,
+  async (name) => {
+    if (!name) return
     loading.value = true
     await fetchChild()
     loading.value = false
