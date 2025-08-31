@@ -80,10 +80,7 @@ const showDialogUpload = ref(false)
           </div>
 
           <!-- Buttons: horizontal layout -->
-          <div class="flex shrink-0 items-center gap-1 self-start md:gap-2">
-            <ChildButtonExport :child />
-            <ChildButtonActions :child @refresh="emits('refresh')" />
-          </div>
+          <ChildActions :child @refresh="emits('refresh')" />
         </div>
 
         <!-- Progress bar on new line for mobile only -->
