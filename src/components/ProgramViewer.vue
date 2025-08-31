@@ -57,7 +57,7 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
 </script>
 
 <template>
-  <div v-if="programCopy" class="flex flex-col gap-4 md:gap-8">
+  <div v-if="programCopy" class="flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <h2>{{ programCopy.name }}</h2>
       <p v-if="programCopy.description" class="text-theme-surface-600">

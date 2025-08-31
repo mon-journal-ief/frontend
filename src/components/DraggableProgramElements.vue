@@ -29,9 +29,9 @@ function onReorder(evt: any) {
   <draggable
     v-model="elements"
     :animation="200"
-    class="flex flex-col gap-4"
+    class="flex flex-col"
     :class="[
-      parentId && 'gap-2',
+      !parentId && 'gap-8',
       reorderMode && elements.length === 0 && 'min-h-16 rounded-md border border-dashed border-surface-500 p-2',
     ]"
     :disabled="!reorderMode"

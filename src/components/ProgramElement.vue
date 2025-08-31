@@ -63,62 +63,64 @@ async function toggleValidation() {
 </script>
 
 <template>
-  <Panel
-    v-if="!editMode"
-    :class="[
-      elementStatus === 'validated' && 'border-l-4 border-l-green-500',
-      elementStatus === 'partiallyValidated' && 'border-l-4 border-l-yellow-500',
-    ]"
-    toggleable
-  >
-    <template #header>
-      <div class="group flex w-full justify-between">
-        <div class="flex items-center gap-2">
-          <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex shrink-0 cursor-grab select-none items-center self-center pr-1 text-2xl" />
-          <Badge
-            v-if="element.journalEntries?.length > 0 && !reorderMode"
-            v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
-            :severity="elementStatus === 'validated' ? 'success' : 'warning'"
-            :value="element.journalEntries?.length"
-          />
-          <div
-            :class="[
-              elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
-              elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
-              reorderMode && 'text-sm',
-            ]"
-          >
-            {{ element.name }}
+  <div v-if="!editMode">
+    <Panel
+      :class="[
+        elementStatus === 'validated' && 'border-l-4 border-l-green-500',
+        elementStatus === 'partiallyValidated' && 'border-l-4 border-l-yellow-500',
+      ]"
+      collapsed
+      :toggleable="!!element.description && !reorderMode"
+    >
+      <template #header>
+        <div class="group flex w-full justify-between">
+          <div class="flex items-center gap-2">
+            <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex shrink-0 cursor-grab select-none items-center self-center pr-1 text-2xl" />
+
+            <p
+              :class="[
+                elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
+                elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
+                reorderMode && 'text-sm',
+              ]"
+            >
+              {{ element.name }}
+            </p>
+
+            <Badge
+              v-if="element.journalEntries?.length > 0 && !reorderMode"
+              v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
+              :severity="elementStatus === 'validated' ? 'success' : 'warning'"
+              :value="element.journalEntries?.length"
+            />
           </div>
+
+          <ProgramElementActions
+            v-if="!reorderMode"
+            :element
+            @remove="emit('remove')"
+            @start-edit="startEdit"
+            @validate="toggleValidation"
+          />
         </div>
+      </template>
 
-        <ProgramElementActions
-          v-if="!reorderMode"
-          :element
-          @remove="emit('remove')"
-          @start-edit="startEdit"
-          @validate="toggleValidation"
-        />
+      <div v-if="element.description && !reorderMode" class="flex justify-between gap-2">
+        <p class="text-sm text-surface-500">
+          {{ element.description }}
+        </p>
       </div>
-    </template>
-
-    <div class="flex justify-between gap-2">
-
-      <p v-if="element.description && !reorderMode" class="text-sm text-surface-500">
-        {{ element.description }}
-      </p>
-
-    </div>
+    </Panel>
 
     <DraggableProgramElements
       v-if="element.children?.length > 0 || reorderMode"
       v-model:elements="element.children"
-      class="-mx-2 mt-4 md:ml-8"
+      class="ml-4 md:ml-8"
       :class="reorderMode && '!mt-0'"
       :parent-id="element.id"
       :reorder-mode
     />
-  </Panel>
+  </div>
 
   <!-- Edition card -->
   <Card v-else>
