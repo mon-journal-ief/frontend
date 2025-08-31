@@ -83,6 +83,11 @@ const menuActionsOptions = ref([
     @refresh="emits('refresh')"
   />
 
+  <BaseDialog v-model="loading">
+    <template #header> Export en cours... </template>
+    <CustomSpinner class="mx-auto size-16" />
+  </BaseDialog>
+
   <BaseMenu ref="menuRef" :model="menuActionsOptions" />
 
   <div class="flex items-center self-start">
