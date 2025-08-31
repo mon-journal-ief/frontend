@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const uiStore = useUIStore()
-const { isModifyMode, showDialogAddEntry, showAddDialogProgram } = storeToRefs(uiStore)
+const { showDialogAddEntry, showAddDialogProgram } = storeToRefs(uiStore)
 
 const router = useRouter()
 // Determine if we can add entries/program elements on current page
@@ -40,7 +40,8 @@ const hasNavHistory = computed(() => window.history.length > 1)
         @click="router.push('/account')"
       />
 
-      <div />
+      <!-- Dark mode button -->
+      <ButtonDarkMode />
 
       <!-- Close/Back Button -->
       <Button
