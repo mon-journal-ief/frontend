@@ -1,5 +1,14 @@
 <script setup lang="ts">
-//
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+
+const router = useRouter()
+
+onMounted(async () => {
+  if (user.value?.children?.length === 1) {
+    router.push(`/enfant/${user.value.children[0]!.id}`)
+  }
+})
 </script>
 
 <template>
