@@ -119,7 +119,7 @@ watch(
       </template>
     </Card>
 
-    <Card v-else class="flex h-full">
+    <Card v-else class="flex flex-1 flex-col">
       <template #content>
         <ProgramPicker :child @refresh="fetchChild" />
       </template>
