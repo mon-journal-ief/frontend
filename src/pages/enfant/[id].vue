@@ -72,7 +72,7 @@ watch(
     <Card v-if="child.program">
       <template #content>
         <Tabs class="w-full" :value="activeTab" @update:value="onTabChange">
-          <TabList class="-mt-4 mb-8">
+          <TabList class="-mt-4 mb-4 md:mb-8">
             <Tab class="flex-1 text-lg" value="0">Journal de bord</Tab>
             <Tab class="flex-1 text-lg" value="1">Programme</Tab>
           </TabList>
@@ -81,6 +81,7 @@ watch(
           <TabPanel value="0">
             <div class="flex flex-col gap-4">
               <Button
+                class="hidden md:block"
                 icon="i-ci-plus"
                 label="Ajouter une entrée"
                 rounded
