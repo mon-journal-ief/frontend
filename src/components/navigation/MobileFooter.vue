@@ -58,7 +58,7 @@ const hasNavHistory = computed(() => window.history.length > 1)
       <!-- Back to Home Button -->
       <Button
         class="footer-button"
-        icon="i-ci-chevron-left"
+        icon="i-ci-house-01"
         severity="secondary"
         text
         @click="router.push('/')"
@@ -75,14 +75,15 @@ const hasNavHistory = computed(() => window.history.length > 1)
       />
 
       <!-- Modify Mode Button -->
-      <Button
+      <!-- <Button
         v-if="canAddEntry || canAddProgramElement"
         class="footer-button"
         :icon="isModifyMode ? 'i-ci-show' : 'i-ci-edit-pencil-01'"
         severity="secondary"
         text
         @click="isModifyMode = !isModifyMode"
-      />
+      /> -->
+      <div />
     </template>
   </div>
 </template>

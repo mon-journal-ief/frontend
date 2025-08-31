@@ -38,27 +38,27 @@ async function deleteElement() {
 </script>
 
 <template>
-  <div class="mr-2 flex items-center gap-2">
+  <div class="flex items-center">
     <Button
       v-tooltip.top="element.isValidated ? 'Marquer comme non validé' : 'Marquer comme validé'"
-      :icon="element.isValidated ? 'i-ci-close-md' : 'i-ci-check'"
-      rounded
-      :severity="element.isValidated ? 'danger' : 'success'"
-      variant="outlined"
+      class="p-0"
+      :icon="element.isValidated ? 'i-ci-close-md !text-xl' : 'i-ci-check !text-2xl'"
+      :severity="element.isValidated ? 'secondary' : 'success'"
+      variant="text"
       @click="emit('validate')"
     />
     <Button
-      icon="i-ci-edit"
-      rounded
+      class="p-0"
+      icon="i-ci-edit !text-xl"
       severity="secondary"
-      variant="outlined"
+      variant="text"
       @click="emit('startEdit')"
     />
     <Button
-      icon="i-ci-trash-full"
-      rounded
-      severity="danger"
-      variant="outlined"
+      class="p-0"
+      icon="i-ci-trash-full !text-xl"
+      severity="secondary"
+      variant="text"
       @click="confirmDelete"
     />
   </div>

@@ -6,8 +6,6 @@ withDefaults(defineProps<{ reorderMode?: boolean }>(), {
 const emit = defineEmits<{
   remove: []
 }>()
-const uiStore = useUIStore()
-const { isModifyMode, isMobile } = storeToRefs(uiStore)
 
 const element = defineModel<IProgramElement>({ required: true })
 const elementStatus = computed(() => {
@@ -77,13 +75,8 @@ async function toggleValidation() {
       <div class="group flex w-full justify-between">
         <div class="flex items-center gap-2">
           <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex shrink-0 cursor-grab select-none items-center self-center pr-1 text-2xl" />
-          <i
-            v-if="elementStatus === 'validated'"
-            v-tooltip.top="'Élément validé'"
-            class="i-ci-wavy-check text-2xl text-green-500"
-          />
           <Badge
-            v-if="element.journalEntries?.length > 0"
+            v-if="element.journalEntries?.length > 0 && !reorderMode"
             v-tooltip.top="`${element.journalEntries?.length} entrée${element.journalEntries?.length > 1 ? 's' : ''} associée${element.journalEntries?.length > 1 ? 's' : ''}`"
             :severity="elementStatus === 'validated' ? 'success' : 'warning'"
             :value="element.journalEntries?.length"
@@ -92,6 +85,7 @@ async function toggleValidation() {
             :class="[
               elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
               elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
+              reorderMode && 'text-sm',
             ]"
           >
             {{ element.name }}
@@ -99,11 +93,7 @@ async function toggleValidation() {
         </div>
 
         <ProgramElementActions
-          v-if="isMobile ? isModifyMode : true"
-          :class="[
-            !isMobile && 'transition-opacity duration-300',
-            isModifyMode && isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
-          ]"
+          v-if="!reorderMode"
           :element
           @remove="emit('remove')"
           @start-edit="startEdit"

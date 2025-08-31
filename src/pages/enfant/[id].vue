@@ -91,7 +91,11 @@ watch(
               />
 
               <div class="flex-1 overflow-y-auto">
-                <Accordion multiple>
+                <Accordion
+                  collapse-icon="i-ci-remove-minus text-3xl"
+                  expand-icon="i-ci-add-plus text-3xl"
+                  multiple
+                >
                   <JournalEntry
                     v-for="entry in child.journalEntries"
                     :key="entry.id"
