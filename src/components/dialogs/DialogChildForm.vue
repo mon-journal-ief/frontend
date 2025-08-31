@@ -8,6 +8,7 @@ const emits = defineEmits<{
 }>()
 
 const visible = defineModel<boolean>('visible', { required: true })
+const router = useRouter()
 
 const isEditing = computed(() => !!props.child)
 
@@ -36,12 +37,14 @@ async function handleSubmit() {
   }
   else {
     // Create new child
-    await api.children.create({
+    const child = await api.children.create({
       name: name.value,
       lastName: lastName.value,
       birthdate: birthdate.value,
       gender: gender.value,
     })
+
+    router.push(`/enfant/${child.id}`)
   }
 
   emits('refresh')
