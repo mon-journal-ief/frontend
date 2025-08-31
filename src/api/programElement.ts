@@ -61,9 +61,6 @@ export function programElementApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      const action = isValidated ? 'validé' : 'invalidé'
-      toast.success(`Élément ${action}`, `L'élément a été ${action} avec succès`)
-
       return JSON.parse(response.json().data.value)
     }
 
