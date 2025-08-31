@@ -26,10 +26,10 @@ const props = defineProps<Props>()
     <div class="mb-16 space-y-8">
 
       <!-- Child Picture -->
-      <div v-if="props.config.picture && props.child.image" class="flex justify-center">
+      <div v-if="props.config.picture && props.child.profileImage" class="flex justify-center">
         <img
           class="max-h-[600px] w-auto rounded-3xl border-4 border-surface-200 object-cover"
-          :src="props.child.image"
+          :src="props.child.profileImage"
         >
       </div>
 
