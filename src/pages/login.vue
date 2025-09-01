@@ -45,7 +45,6 @@ async function handleLogin() {
       // User needs to verify email
       showEmailVerificationPrompt.value = true
       unverifiedUserEmail.value = result.error.email || loginForm.value.email
-      loginError.value = result.error.message || `Activez d'abord votre compte en cliquant sur le lien reçu par email.`
     }
     else {
       // Other errors
@@ -120,7 +119,7 @@ async function handleRegister() {
 
 <template>
   <div class="flex items-center justify-center">
-    <Card>
+    <Card class="max-w-md">
       <template #title>
         <h1 class="text-center text-2xl font-bold">Content de vous revoir !</h1>
       </template>
@@ -158,7 +157,13 @@ async function handleRegister() {
           <TabPanel value="0">
             <form class="flex flex-col gap-4" @submit.prevent="handleLogin">
               <InputText v-model="loginForm.email" placeholder="Email" />
-              <Password v-model="loginForm.password" :feedback="false" placeholder="Mot de passe" />
+              <Password
+                v-model="loginForm.password"
+                :feedback="false"
+                fluid
+                placeholder="Mot de passe"
+                toggle-mask
+              />
 
               <!-- Login Error -->
               <Message v-if="loginError" icon="i-ci-circle-warning" severity="error">
@@ -205,8 +210,20 @@ async function handleRegister() {
             <form class="flex flex-col gap-4" @submit.prevent="handleRegister">
               <InputText v-model="registerForm.name" placeholder="Nom" />
               <InputText v-model="registerForm.email" placeholder="Email" />
-              <Password v-model="registerForm.password" :feedback="false" placeholder="Mot de passe" />
-              <Password v-model="registerForm.confirmPassword" :feedback="false" placeholder="Confirmation du mot de passe" />
+              <Password
+                v-model="registerForm.password"
+                :feedback="false"
+                fluid
+                placeholder="Mot de passe"
+                toggle-mask
+              />
+              <Password
+                v-model="registerForm.confirmPassword"
+                :feedback="false"
+                fluid
+                placeholder="Confirmation du mot de passe"
+                toggle-mask
+              />
               <Button type="submit">Créer un compte</Button>
             </form>
           </TabPanel>
