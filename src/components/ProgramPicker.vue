@@ -63,17 +63,27 @@ const showDialogProgramCreate = ref(false)
     <!-- Header text -->
     <div class="flex flex-col gap-2">
       <h2 class="text-theme-surface-800 !text-3xl font-semibold">
-        Choisissez un programme pour votre enfant
+        Choisissez un programme
       </h2>
-      <p class="text-theme-surface-600 text-lg">
-        Vous pouvez sélectionner un programme existant ou créer le vôtre de toutes pièces.<br>
-        Quelque soit votre choix, vous pourrez toujours personnaliser le programme après sélection.
+      <p class="text-theme-surface-600 text-dlg">
+        Vous pourrez le personnaliser après sélection.
       </p>
     </div>
 
     <!-- Available programs section -->
     <div class="flex flex-col gap-4">
-      <h4 class="text-theme-surface-700 text-lg font-medium">Programmes existants</h4>
+      <h4 class="text-theme-surface-700 text-lg font-medium">Programmes officiels</h4>
+      <Message
+        class="mb-4"
+        icon="i-ci-info text-3xl px-4"
+        pt:text:class="text-sm"
+        severity="info"
+      >
+        Les programmes ont été générés avec IA selon les programmes officiels de l'école maternelle.<br>
+        Bien que je les ai vérifiés et corrigés, il se peut que des erreurs/imprécisions soient encore présentes.
+        N'hésitez pas à me les signaler afin que je les corrige pour tout le monde.<br>
+        Vous trouverez les sources que j'ai utilisées sur la page du programme.
+      </Message>
 
       <div v-if="loading.templates" class="flex justify-center">
         <CustomSpinner />
