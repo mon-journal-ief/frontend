@@ -12,7 +12,7 @@ const emit = defineEmits<{
 
 <template>
   <AccordionPanel class="group" :value="entry.id">
-    <AccordionHeader class="place-items-start" pt:toggle-icon:class="-mt-1">
+    <AccordionHeader class="place-items-start" pt:toggle-icon:class="mt-0.5">
       <div class="flex w-full flex-col gap-2">
         <!-- Date and Actions Row -->
         <div class="flex w-full items-center justify-between gap-2">

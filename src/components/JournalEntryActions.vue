@@ -53,16 +53,16 @@ function confirmDeleteEntry() {
   />
 
   <Button
-    class="p-0"
-    icon="i-ci-edit !text-xl"
+    class="p-1"
+    icon="i-ci-edit !text-2xl"
     severity="secondary"
     size="small"
     variant="text"
     @click.stop="handleEditEntry"
   />
   <Button
-    class="p-0"
-    icon="i-ci-trash-full !text-xl"
+    class="p-1"
+    icon="i-ci-trash-full !text-2xl"
     severity="secondary"
     size="small"
     variant="text"
