@@ -105,10 +105,18 @@ async function toggleValidation() {
         </div>
       </template>
 
-      <div v-if="element.description && !reorderMode" class="flex justify-between gap-2">
-        <p class="text-sm text-surface-500">
+      <div v-if="element.description && !reorderMode" class="mt-2 flex flex-col justify-between gap-4 text-sm">
+        <p class="text-theme-surface-700">
           {{ element.description }}
         </p>
+        <div v-if="element.exercices?.length" class="flex flex-col gap-2">
+          <p class="text-theme-surface-700">
+            Exemples d'exercices :
+          </p>
+          <ul class="text-theme-surface-600 list-inside list-disc">
+            <li v-for="exercice in element.exercices" :key="exercice">{{ exercice }}</li>
+          </ul>
+        </div>
       </div>
     </Panel>
 

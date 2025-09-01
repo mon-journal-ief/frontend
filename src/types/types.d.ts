@@ -26,6 +26,8 @@ declare global {
     id: string
     name: string
     description?: string
+    sources?: { name: string, url: string }[]
+    cycle: number
     grade: string
     elements: IProgramElement[]
     children: IChild[]
@@ -45,6 +47,7 @@ declare global {
     name: string
     description: string
     isValidated: boolean
+    exercices?: string[]
     journalEntries: IJournalEntry[]
     children: IProgramElement[]
     programId: string

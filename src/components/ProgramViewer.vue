@@ -69,6 +69,18 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
       <p v-if="programCopy.description" class="text-theme-surface-600">
         {{ programCopy.description }}
       </p>
+      <div class="flex gap-2">
+        <a
+          v-for="source in programCopy.sources"
+          :key="source.name"
+          v-tooltip.top="source.name"
+          class="text-theme-surface-300 hover:text-theme-primary-600 flex items-center gap-2 transition-colors"
+          :href="source.url"
+          target="_blank"
+        >
+          <i class="i-ci-external-link text-lg" />
+        </a>
+      </div>
     </div>
 
     <div class="flex flex-col gap-4">
