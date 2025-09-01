@@ -36,10 +36,11 @@ function confirmDeleteChild() {
 }
 
 const router = useRouter()
+const userStore = useUserStore()
 async function deleteChild() {
   await api.children.remove(props.child.id)
   router.push('/enfants')
-  emits('refresh')
+  userStore.fetchChildren()
 }
 
 async function exportJournal(type: 'pdf' | 'word') {

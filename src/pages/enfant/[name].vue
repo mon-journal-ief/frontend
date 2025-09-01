@@ -4,7 +4,7 @@ const route = useRoute('/enfant/[name]')
 const router = useRouter()
 
 const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
+const { children } = storeToRefs(userStore)
 
 const uiStore = useUIStore()
 const { showDialogAddEntry } = storeToRefs(uiStore)
@@ -32,7 +32,7 @@ function addEntry(entry: IJournalEntry) {
 }
 
 async function fetchChild() {
-  const matchingChild = user.value?.children.find(child => child.name === route.params.name)
+  const matchingChild = children.value.find(child => child.name === route.params.name)
   if (!matchingChild) router.push('/enfants')
   child.value = await api.children.get(matchingChild!.id)
 }
@@ -41,7 +41,8 @@ async function fetchChild() {
 watch(
   () => route.params.name,
   async (name) => {
-    if (!name) return
+    if (!name) router.push('/enfants')
+
     loading.value = true
     await fetchChild()
     loading.value = false
@@ -87,7 +88,7 @@ watch(
             <div class="flex flex-1 flex-col gap-4">
               <Button
                 class="hidden md:block"
-                icon="i-ci-plus"
+                icon="i-ci-plus text-lg -mb-1 mr-1"
                 label="Ajouter une entrée"
                 rounded
                 severity="secondary"

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
+const { children } = storeToRefs(userStore)
 
 const router = useRouter()
 
 onMounted(async () => {
-  if (user.value?.children?.length === 1) {
-    router.push(`/enfant/${user.value.children[0]!.id}`)
+  if (children.value.length === 1) {
+    router.push(`/enfant/${children.value[0]!.name}`)
   }
 })
 </script>

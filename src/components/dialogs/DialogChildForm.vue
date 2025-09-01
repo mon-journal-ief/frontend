@@ -11,6 +11,8 @@ const emits = defineEmits<{
 
 const visible = defineModel<boolean>('visible', { required: true })
 const router = useRouter()
+const userStore = useUserStore()
+const { children } = storeToRefs(userStore)
 
 const isEditing = computed(() => !!props.child)
 
@@ -51,6 +53,7 @@ async function handleSubmit() {
       childName: child.name,
     })
 
+    children.value.push(child)
     router.push(`/enfant/${child.name}`)
   }
 

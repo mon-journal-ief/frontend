@@ -4,10 +4,15 @@ import { identifyUmamiSession } from '@jaseeey/vue-umami-plugin'
 export const useUserStore = defineStore('user', () => {
   const accessToken = ref('')
   const user = ref<IUser | null>(null)
+  const children = ref<IChild[]>([])
 
   async function fetchUser() {
     const response = await api.auth.me()
     user.value = response.data.value
+  }
+
+  async function fetchChildren() {
+    children.value = await api.children.getAll()
   }
 
   async function logout() {
@@ -20,6 +25,7 @@ export const useUserStore = defineStore('user', () => {
   watch(accessToken, async (newToken) => {
     if (newToken) {
       fetchUser()
+      fetchChildren()
 
       identifyUmamiSession({
         userId: user.value?.id,
@@ -36,6 +42,8 @@ export const useUserStore = defineStore('user', () => {
     accessToken,
     fetchUser,
     user,
+    fetchChildren,
+    children,
     logout,
   }
 }, { persist: true })

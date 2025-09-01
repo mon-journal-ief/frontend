@@ -42,8 +42,6 @@ export function childrenApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.success('Enfant', 'Enfant enregistré avec succès')
-
       return JSON.parse(response.json().data.value)
     }
 
