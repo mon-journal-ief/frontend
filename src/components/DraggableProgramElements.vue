@@ -26,13 +26,14 @@ function onReorder(evt: any) {
 </script>
 
 <template>
+  <!-- Both normal and reorder mode -->
   <draggable
     v-model="elements"
     :animation="200"
     class="flex flex-col"
     :class="[
       !parentId && 'gap-8',
-      reorderMode && elements.length === 0 && 'min-h-16 rounded-md border border-dashed border-surface-500 p-2',
+      reorderMode && elements.length === 0 && 'min-h-12 rounded-md rounded-t-none border-x border-b border-dashed border-surface-500 p-2',
     ]"
     :disabled="!reorderMode"
     group="program-elements"

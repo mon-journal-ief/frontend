@@ -7,14 +7,13 @@ const emit = defineEmits<{
   remove: []
 }>()
 
+const isExpanded = ref(false)
+const showEditDialog = ref(false)
+
 const element = defineModel<IProgramElement>({ required: true })
 const elementStatus = computed(() => {
-  if (element.value.isValidated) {
-    return 'validated'
-  }
-  if (element.value.journalEntries?.length > 0) {
-    return 'partiallyValidated'
-  }
+  if (element.value.isValidated) return 'validated'
+  if (element.value.journalEntries?.length) return 'partiallyValidated'
 
   return 'notValidated'
 })
@@ -27,61 +26,51 @@ watchEffect(() => {
   }
 })
 
-const editMode = ref(false)
-
-const originalData = ref({
-  name: element.value.name,
-  description: element.value.description,
-})
-
-function startEdit() {
-  originalData.value = {
-    name: element.value.name,
-    description: element.value.description,
-  }
-  editMode.value = true
-}
-
-function cancelEdit() {
-  element.value.name = originalData.value.name
-  element.value.description = originalData.value.description
-  editMode.value = false
-}
-
-async function saveEdit() {
-  await api.programElement.update(element.value.id, element.value)
-  editMode.value = false
-}
-
 async function toggleValidation() {
-  const newValidationState = !element.value.isValidated
-  const updatedElement = await api.programElement.validate(element.value.id, newValidationState)
-  if (updatedElement) {
-    element.value.isValidated = updatedElement.isValidated
-  }
+  await api.programElement.validate(element.value.id, !element.value.isValidated)
 }
 </script>
 
 <template>
-  <div v-if="!editMode">
-    <Panel
-      :class="[
-        elementStatus === 'validated' && 'border-l-4 border-l-green-500',
-        elementStatus === 'partiallyValidated' && 'border-l-4 border-l-yellow-500',
-      ]"
-      collapsed
-      :toggleable="!!element.description && !reorderMode"
-    >
-      <template #header>
+  <div>
+    <!-- Edit Dialog -->
+    <DialogEditProgramElement
+      v-if="showEditDialog"
+      v-model:visible="showEditDialog"
+      :element
+      @remove="emit('remove')"
+    />
+
+    <!-- Accordion -->
+    <AccordionPanel class="rounded-xl transition-all duration-300" :value="element.id">
+      <!-- Header -->
+      <AccordionHeader
+        class="place-items-start rounded-b-xl"
+        :class="[
+          elementStatus === 'validated' && 'bg-green-200/20 dark:bg-green-800/20',
+          elementStatus === 'partiallyValidated' && 'bg-yellow-200/20 dark:bg-yellow-800/20',
+          isExpanded ? '!rounded-b-none' : 'rounded-b-xl',
+        ]"
+        pt:toggle-icon:class="-mt-0.5"
+        @click="isExpanded = !isExpanded"
+      >
         <div class="group flex w-full justify-between">
+          <!-- Left Header Side -->
           <div class="flex items-center gap-2">
             <i v-if="reorderMode" class="drag-handle i-ci-hamburger-md mr-3 flex shrink-0 cursor-grab select-none items-center self-center pr-1 text-2xl" />
+            <Checkbox
+              v-else
+              v-model="element.isValidated"
+              binary
+              :dt="{ checked: { background: '{green.500}', borderColor: '{green.500}', hoverBackground: '{green.500}', hoverBorderColor: '{green.500}' } }"
+              @change="toggleValidation"
+              @click.stop
+            />
 
             <p
               :class="[
                 elementStatus === 'validated' && 'text-green-700 dark:text-green-400',
                 elementStatus === 'partiallyValidated' && 'text-yellow-700 dark:text-yellow-400',
-                reorderMode && 'text-sm',
               ]"
             >
               {{ element.name }}
@@ -95,31 +84,43 @@ async function toggleValidation() {
             />
           </div>
 
-          <ProgramElementActions
-            v-if="!reorderMode"
-            :element
-            @remove="emit('remove')"
-            @start-edit="startEdit"
-            @validate="toggleValidation"
+          <!-- Right Header Side -->
+          <Button
+            class="self-start p-0"
+            icon="i-ci-edit !text-xl"
+            severity="secondary"
+            variant="text"
+            @click.stop="showEditDialog = true"
           />
         </div>
-      </template>
+      </AccordionHeader>
 
-      <div v-if="element.description && !reorderMode" class="mt-2 flex flex-col justify-between gap-4 text-sm">
-        <p class="text-theme-surface-700">
-          {{ element.description }}
-        </p>
-        <div v-if="element.exercices?.length" class="flex flex-col gap-2">
+      <!-- Content -->
+      <AccordionContent
+        v-if="(element.description || element.exercices?.length) && !reorderMode"
+        :pt:content:class="[
+          elementStatus === 'validated' && 'bg-green-200/20 dark:bg-green-800/20',
+          elementStatus === 'partiallyValidated' && 'bg-yellow-200/20 dark:bg-yellow-800/20',
+          'rounded-b-xl',
+        ]"
+      >
+        <div class="flex flex-col justify-between gap-4 text-sm">
           <p class="text-theme-surface-700">
-            Exemples d'exercices :
+            {{ element.description }}
           </p>
-          <ul class="text-theme-surface-600 list-inside list-disc">
-            <li v-for="exercice in element.exercices" :key="exercice">{{ exercice }}</li>
-          </ul>
+          <div v-if="element.exercices?.length" class="flex flex-col gap-2">
+            <p class="text-theme-surface-700">
+              Exemples d'exercices :
+            </p>
+            <ul class="text-theme-surface-600 list-inside list-disc">
+              <li v-for="exercice in element.exercices" :key="exercice">{{ exercice }}</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </Panel>
+      </AccordionContent>
+    </AccordionPanel>
 
+    <!-- Children Accordion -->
     <DraggableProgramElements
       v-if="element.children?.length > 0 || reorderMode"
       v-model:elements="element.children"
@@ -129,35 +130,4 @@ async function toggleValidation() {
       :reorder-mode
     />
   </div>
-
-  <!-- Edition card -->
-  <Card v-else>
-    <template #content>
-      <div class="flex flex-col gap-4">
-        <FormContainer input-id="name" title="Nom">
-          <InputText id="name" v-model="element.name" />
-        </FormContainer>
-
-        <FormContainer input-id="description" title="Description">
-          <InputText id="description" v-model="element.description" />
-        </FormContainer>
-
-        <div class="mt-4 flex justify-end gap-2">
-          <Button
-            icon="i-ci-close-md"
-            label="Annuler"
-            severity="secondary"
-            variant="outlined"
-            @click="cancelEdit()"
-          />
-          <Button
-            icon="i-ci-check"
-            label="Enregistrer"
-            variant="outlined"
-            @click="saveEdit"
-          />
-        </div>
-      </div>
-    </template>
-  </Card>
 </template>

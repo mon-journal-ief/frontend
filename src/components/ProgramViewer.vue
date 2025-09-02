@@ -5,19 +5,10 @@ const props = defineProps<{
 
 const programCopy = computed(() => props.program)
 
-const showDialogAddElement = ref(false)
 const reorderMode = ref(false)
 
 const uiStore = useUIStore()
-const { showAddDialogProgram } = storeToRefs(uiStore)
-
-// Watch for mobile add program dialog
-watch(showAddDialogProgram, (show) => {
-  if (show) {
-    showDialogAddElement.value = true
-    showAddDialogProgram.value = false
-  }
-})
+const { showDialogAddProgramElement } = storeToRefs(uiStore)
 
 function handleAddElement(element: IProgramElement) {
   if (!programCopy.value) return
@@ -56,9 +47,9 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
 </script>
 
 <template>
-  <DialogAddElement
-    v-if="programCopy"
-    v-model="showDialogAddElement"
+  <DialogAddProgramElement
+    v-if="programCopy && showDialogAddProgramElement"
+    v-model="showDialogAddProgramElement"
     :program-id="programCopy.id"
     @add-element="handleAddElement"
   />
@@ -91,7 +82,7 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
         rounded
         severity="secondary"
         variant="outlined"
-        @click="showDialogAddElement = true"
+        @click="showDialogAddProgramElement = true"
       />
 
       <Button
@@ -106,11 +97,18 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
         @click="reorderMode = !reorderMode"
       />
 
-      <DraggableProgramElements
-        v-model:elements="programCopy.elements"
-        :parent-id="null"
-        :reorder-mode
-      />
+      <Accordion
+        collapse-icon="i-ci-caret-down-md text-3xl"
+        expand-icon="i-ci-caret-up-md text-3xl"
+        multiple
+      >
+        <!-- Accordion Items (Main node) -->
+        <DraggableProgramElements
+          v-model:elements="programCopy.elements"
+          :parent-id="null"
+          :reorder-mode
+        />
+      </Accordion>
     </div>
   </div>
 </template>
