@@ -125,11 +125,27 @@ export const customizedAuraPreset = definePreset(Aura, {
         light: {
           header: {
             color: '{surface.950}',
+            toggleIcon: {
+              active: {
+                color: '{surface.700}',
+              },
+              hover: {
+                color: '{surface.800}',
+              },
+            },
           },
         },
         dark: {
           header: {
             color: '{surface.50}',
+            toggleIcon: {
+              active: {
+                color: '{surface.300}',
+              },
+              hover: {
+                color: '{surface.200}',
+              },
+            },
           },
         },
       },
