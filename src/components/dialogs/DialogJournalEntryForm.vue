@@ -150,7 +150,7 @@ function search(event: any) {
             v-for="image in images"
             :key="image"
             :src="image"
-            @deleted="(src) => images = images.filter(img => img !== src)"
+            @deleted="(src: string) => images = images.filter(img => img !== src)"
           />
         </div>
       </FormContainer>
