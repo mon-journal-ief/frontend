@@ -79,10 +79,8 @@ const showDialogProgramCreate = ref(false)
         pt:text:class="text-sm"
         severity="info"
       >
-        Les programmes ont été générés avec IA selon les programmes officiels de l'école maternelle.<br>
-        Bien que je les ai vérifiés et corrigés, il se peut que des erreurs/imprécisions soient encore présentes.
-        N'hésitez pas à me les signaler afin que je les corrige pour tout le monde.<br>
-        Vous trouverez les sources que j'ai utilisées sur la page du programme.
+        Les programmes ont été avec IA selon les programmes officiels.<br>
+        Ils ont été vérifiés et corrigés, mais il se peut que des erreurs persistent, n'hésitez pas à nous les signaler.
       </Message>
 
       <div v-if="loading.templates" class="flex justify-center">
