@@ -5,6 +5,7 @@ export const useUserStore = defineStore('user', () => {
   const accessToken = ref('')
   const user = ref<IUser | null>(null)
   const children = ref<IChild[]>([])
+  const selectedChild = ref<IChild | null>(null)
 
   async function fetchUser() {
     const response = await api.auth.me()
@@ -13,6 +14,12 @@ export const useUserStore = defineStore('user', () => {
 
   async function fetchChildren() {
     children.value = await api.children.getAll()
+  }
+
+  async function fetchSelectedChild() {
+    if (!selectedChild.value?.id) return
+
+    selectedChild.value = await api.children.get(selectedChild.value?.id)
   }
 
   async function logout() {
@@ -44,6 +51,8 @@ export const useUserStore = defineStore('user', () => {
     user,
     fetchChildren,
     children,
+    fetchSelectedChild,
+    selectedChild,
     logout,
   }
 }, { persist: true })

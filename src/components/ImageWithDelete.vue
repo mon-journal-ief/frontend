@@ -4,9 +4,7 @@ const props = defineProps<{
   size?: 'small' | 'medium' | 'large'
 }>()
 
-const emit = defineEmits<{
-  deleted: [src: string]
-}>()
+const userStore = useUserStore()
 
 const showMaximizedDialog = ref(false)
 
@@ -19,7 +17,7 @@ const sizeClasses = computed(() => {
 
 async function handleDelete() {
   await api.upload.deleteJournalEntryImage(props.src)
-  emit('deleted', props.src)
+  userStore.fetchSelectedChild()
 }
 </script>
 

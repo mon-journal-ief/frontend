@@ -5,9 +5,7 @@ const props = defineProps<{
   child: IChild
 }>()
 
-const emit = defineEmits<{
-  refresh: []
-}>()
+const userStore = useUserStore()
 
 const loading = ref({
   templates: true,
@@ -46,7 +44,7 @@ async function copyProgramTemplate() {
   await api.programTemplate.copy(selectedTemplate.value.id, props.child.id)
   loading.value.copy = false
 
-  emit('refresh')
+  userStore.fetchSelectedChild()
 }
 
 const showDialogProgramCreate = ref(false)
@@ -56,7 +54,6 @@ const showDialogProgramCreate = ref(false)
   <DialogProgramCreate
     v-model="showDialogProgramCreate"
     :child
-    @refresh="emit('refresh')"
   />
 
   <div class="m-auto flex flex-col gap-8 p-6">

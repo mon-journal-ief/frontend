@@ -7,7 +7,7 @@ const showAddChildDialog = ref(false)
 
 <template>
   <div class="flex flex-col gap-6">
-    <DialogChildForm v-model:visible="showAddChildDialog" @refresh="userStore.fetchChildren()" />
+    <DialogChildForm v-model:visible="showAddChildDialog" />
 
     <!-- Children List -->
     <div v-if="children?.length" class="flex flex-col gap-4">
@@ -18,7 +18,6 @@ const showAddChildDialog = ref(false)
           :key="child.id"
           :child
           link
-          @refresh="userStore.fetchChildren()"
         />
       </div>
     </div>

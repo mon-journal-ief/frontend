@@ -3,10 +3,6 @@ const props = defineProps<{
   child: IChild
 }>()
 
-const emits = defineEmits<{
-  refresh: []
-}>()
-
 const showEditDialog = ref(false)
 const loading = ref(false)
 
@@ -40,7 +36,7 @@ const userStore = useUserStore()
 async function deleteChild() {
   await api.children.remove(props.child.id)
   router.push('/enfants')
-  userStore.fetchChildren()
+  userStore.fetchSelectedChild()
 }
 
 async function exportJournal(type: 'pdf' | 'word') {
@@ -83,7 +79,6 @@ const menuActionsOptions = ref([
     v-if="showEditDialog"
     v-model:visible="showEditDialog"
     :child="props.child"
-    @refresh="emits('refresh')"
   />
 
   <BaseDialog v-model="loading">

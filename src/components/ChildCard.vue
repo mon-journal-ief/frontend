@@ -4,19 +4,13 @@ const props = defineProps<{
   link?: boolean
 }>()
 
-const emits = defineEmits<{
-  refresh: []
-}>()
-
-const child = computed(() => props.child)
-
 const placeholderImage = computed(() => {
-  return child.value.gender === 'MALE' ? '/placeholder-boy.png' : '/placeholder-girl.png'
+  return props.child.gender === 'MALE' ? '/placeholder-boy.png' : '/placeholder-girl.png'
 })
 
 const subtitle = computed(() => {
-  const grade = child.value.program?.grade
-  const age = calculateAge(child.value.birthdate)
+  const grade = props.child.program?.grade
+  const age = calculateAge(props.child.birthdate)
   if (grade && age) return `${grade} - ${age} ans`
   if (grade) return grade
   if (age) return `${age} ans`
@@ -28,18 +22,14 @@ const router = useRouter()
 function handleClick() {
   if (!props.link) return
 
-  router.push(`/enfant/${child.value.name}`)
+  router.push(`/enfant/${props.child.name}`)
 }
 
 const showDialogUpload = ref(false)
 </script>
 
 <template>
-  <DialogEditChildPicture
-    v-model="showDialogUpload"
-    :child
-    @refresh="emits('refresh')"
-  />
+  <DialogEditChildPicture v-model="showDialogUpload" :child />
 
   <Card
     class="group"
@@ -80,7 +70,7 @@ const showDialogUpload = ref(false)
           </div>
 
           <!-- Buttons: horizontal layout -->
-          <ChildActions :child @refresh="emits('refresh')" />
+          <ChildActions :child />
         </div>
 
         <!-- Progress bar on new line for mobile only -->

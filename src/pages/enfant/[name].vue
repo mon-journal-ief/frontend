@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const child = ref<IChild>()
 const route = useRoute('/enfant/[name]')
 const router = useRouter()
 
 const userStore = useUserStore()
-const { children } = storeToRefs(userStore)
+const { children, selectedChild } = storeToRefs(userStore)
 
 const uiStore = useUIStore()
 const { showDialogAddEntry } = storeToRefs(uiStore)
@@ -28,13 +27,7 @@ function onTabChange(tabValue: string | number) {
 }
 
 function addEntry(entry: IJournalEntry) {
-  child.value?.journalEntries.push(entry)
-}
-
-async function fetchChild() {
-  const matchingChild = children.value.find(child => child.name === route.params.name)
-  if (!matchingChild) router.push('/enfants')
-  child.value = await api.children.get(matchingChild!.id)
+  selectedChild.value?.journalEntries.push(entry)
 }
 
 // refresh child when route changes and set default tab if needed
@@ -43,8 +36,13 @@ watch(
   async (name) => {
     if (!name) router.push('/enfants')
 
+    const matchingChild = children.value.find(child => child.name === name)
+    if (!matchingChild) router.push('/enfants')
+
+    selectedChild.value = matchingChild!
+
     loading.value = true
-    await fetchChild()
+    await userStore.fetchSelectedChild()
     loading.value = false
 
     // Set default tab in URL if no tab parameter exists
@@ -64,18 +62,18 @@ watch(
     <CustomSpinner />
   </div>
 
-  <div v-else-if="child" class="flex h-full flex-col gap-4">
+  <div v-else-if="selectedChild" class="flex h-full flex-col gap-4">
     <DialogJournalEntryForm
-      v-if="showDialogAddEntry && child.program"
+      v-if="showDialogAddEntry && selectedChild.program"
       v-model="showDialogAddEntry"
-      :child-id="child.id"
-      :program-id="child.program.id"
+      :child-id="selectedChild.id"
+      :program-id="selectedChild.program.id"
       @add-entry="addEntry"
     />
 
-    <ChildCard :child @refresh="fetchChild" />
+    <ChildCard :child="selectedChild" />
 
-    <Card v-if="child.program" class="flex flex-1 flex-col">
+    <Card v-if="selectedChild.program" class="flex flex-1 flex-col">
       <template #content>
         <Tabs class="flex size-full flex-col" :value="activeTab" @update:value="onTabChange">
           <TabList class="-mt-4 mb-4 md:mb-8">
@@ -103,12 +101,11 @@ watch(
                   multiple
                 >
                   <JournalEntry
-                    v-for="entry in child.journalEntries"
+                    v-for="entry in selectedChild.journalEntries"
                     :key="entry.id"
-                    :child-id="child.id"
+                    :child-id="selectedChild.id"
                     :entry
-                    :program-id="child.program?.id"
-                    @refresh="fetchChild"
+                    :program-id="selectedChild.program?.id"
                   />
                 </Accordion>
               </div>
@@ -118,7 +115,7 @@ watch(
           <!-- Programme -->
           <TabPanel class="flex flex-1 flex-col" value="1">
             <div class="flex-1 overflow-y-auto">
-              <ProgramViewer :program="child.program" />
+              <ProgramViewer :program="selectedChild.program" />
             </div>
           </TabPanel>
         </Tabs>
@@ -127,7 +124,7 @@ watch(
 
     <Card v-else class="flex flex-1 flex-col">
       <template #content>
-        <ProgramPicker :child @refresh="fetchChild" />
+        <ProgramPicker :child="selectedChild" />
       </template>
     </Card>
   </div>

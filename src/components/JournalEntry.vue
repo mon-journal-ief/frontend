@@ -4,10 +4,6 @@ const props = defineProps<{
   programId: string
   childId: string
 }>()
-
-const emit = defineEmits<{
-  refresh: []
-}>()
 </script>
 
 <template>
@@ -25,7 +21,6 @@ const emit = defineEmits<{
               :child-id
               :entry
               :program-id
-              @refresh="emit('refresh')"
             />
           </div>
         </div>
@@ -58,7 +53,6 @@ const emit = defineEmits<{
             v-for="image in entry.images"
             :key="image"
             :src="image"
-            @deleted="emit('refresh')"
           />
         </div>
       </div>

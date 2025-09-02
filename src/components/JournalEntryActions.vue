@@ -5,9 +5,7 @@ const props = defineProps<{
   childId: string
 }>()
 
-const emit = defineEmits<{
-  refresh: []
-}>()
+const userStore = useUserStore()
 
 const showEditDialog = ref(false)
 
@@ -16,7 +14,7 @@ function handleEditEntry() {
 }
 
 function handleUpdateEntry() {
-  emit('refresh')
+  userStore.fetchSelectedChild()
 }
 
 const confirm = useConfirm()
@@ -36,7 +34,7 @@ function confirmDeleteEntry() {
     },
     accept: async () => {
       await api.journalEntry.remove(props.entry.id)
-      emit('refresh')
+      userStore.fetchSelectedChild()
     },
   })
 }

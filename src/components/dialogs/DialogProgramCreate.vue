@@ -5,9 +5,7 @@ const props = defineProps<{
   child: IChild
 }>()
 
-const emit = defineEmits<{
-  refresh: []
-}>()
+const userStore = useUserStore()
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -29,7 +27,8 @@ async function handleCreateProgram() {
   if (!formSchema.safeParse(form.value).success) return
 
   await api.program.create(form.value)
-  emit('refresh')
+
+  userStore.fetchSelectedChild()
   visible.value = false
 }
 </script>

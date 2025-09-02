@@ -3,9 +3,7 @@ const props = defineProps<{
   child: IChild
 }>()
 
-const emits = defineEmits<{
-  refresh: []
-}>()
+const userStore = useUserStore()
 
 const visible = defineModel<boolean>({ required: true })
 
@@ -18,14 +16,16 @@ async function handleProfileImageUpload(event: { files: File[] }) {
   const result = await api.upload.uploadChildProfileImage(file, props.child.id)
 
   if (result) {
-    emits('refresh')
+    userStore.fetchSelectedChild()
     visible.value = false
   }
 }
 
 async function handleProfileImageDelete() {
   await api.upload.deleteChildProfileImage(props.child!.profileImage!)
-  emits('refresh')
+
+  userStore.fetchSelectedChild()
+  userStore.fetchChildren()
   visible.value = false
 }
 </script>

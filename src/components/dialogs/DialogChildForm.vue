@@ -5,10 +5,6 @@ const props = defineProps<{
   child?: IChild
 }>()
 
-const emits = defineEmits<{
-  refresh: []
-}>()
-
 const visible = defineModel<boolean>('visible', { required: true })
 const router = useRouter()
 const userStore = useUserStore()
@@ -57,7 +53,8 @@ async function handleSubmit() {
     router.push(`/enfant/${child.name}`)
   }
 
-  emits('refresh')
+  userStore.fetchChildren()
+  userStore.fetchSelectedChild()
   visible.value = false
 }
 </script>
