@@ -8,13 +8,13 @@ export const useUIStore = defineStore('ui', () => {
 
   // Add dialog state
   const showDialogAddEntry = ref(false)
-  const showAddDialogProgram = ref(false)
+  const showDialogAddProgramElement = ref(false)
 
   return {
     // State
     isModifyMode,
     isMobile,
     showDialogAddEntry,
-    showAddDialogProgram,
+    showDialogAddProgramElement,
   }
 })

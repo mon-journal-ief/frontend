@@ -1,17 +1,17 @@
 <script setup lang="ts">
 const route = useRoute()
 const uiStore = useUIStore()
-const { showDialogAddEntry, showAddDialogProgram } = storeToRefs(uiStore)
+const { showDialogAddEntry, showDialogAddProgramElement } = storeToRefs(uiStore)
 
 const router = useRouter()
 // Determine if we can add entries/program elements on current page
-const isEnfantPage = computed(() => route.name === '/enfant/[id]')
+const isEnfantPage = computed(() => route.name === '/enfant/[name]')
 const canAddEntry = computed(() => isEnfantPage.value && route.query.tab === 'journal')
 const canAddProgramElement = computed(() => isEnfantPage.value && route.query.tab === 'programme')
 
 function handleAddClick() {
   if (canAddProgramElement.value) {
-    showAddDialogProgram.value = true
+    showDialogAddProgramElement.value = true
   }
   else if (canAddEntry.value) {
     showDialogAddEntry.value = true
