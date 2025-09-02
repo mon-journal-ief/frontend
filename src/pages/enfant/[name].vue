@@ -98,8 +98,8 @@ watch(
 
               <div class="flex-1 overflow-y-auto">
                 <Accordion
-                  collapse-icon="i-ci-remove-minus text-3xl"
-                  expand-icon="i-ci-add-plus text-3xl"
+                  collapse-icon="i-ci-caret-down-md text-3xl"
+                  expand-icon="i-ci-caret-up-md text-3xl"
                   multiple
                 >
                   <JournalEntry
