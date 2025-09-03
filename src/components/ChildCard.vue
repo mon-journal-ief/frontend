@@ -33,7 +33,7 @@ const showDialogUpload = ref(false)
 
   <Card
     class="group"
-    :class="link && 'cursor-pointer'"
+    :class="link && 'cursor-pointer hover:bg-surface-50/70 dark:hover:bg-surface-950/70'"
     @click="handleClick()"
   >
     <template #content>
