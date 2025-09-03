@@ -57,6 +57,36 @@ async function handleSubmit() {
   userStore.fetchSelectedChild()
   visible.value = false
 }
+
+const confirm = useConfirm()
+function confirmDelete() {
+  if (!props.child) return
+
+  confirm.require({
+    header: 'Suppression du profil',
+    message: `Êtes-vous sûr(e) de vouloir supprimer le profil de ${props.child.name} ?
+    Cette action supprimera définitivement son programme et son journal de suivi.
+    Exportez d'abord ses données si vous souhaitez les conserver.`,
+    icon: 'i-ci-triangle-warning',
+    acceptProps: {
+      severity: 'danger',
+      label: 'Supprimer définitivement',
+    },
+    rejectProps: {
+      severity: 'secondary',
+      label: 'Annuler',
+      outlined: true,
+    },
+    accept: async () => {
+      if (props.child) {
+        await api.children.remove(props.child.id)
+        router.push('/enfants')
+        userStore.fetchChildren()
+        visible.value = false
+      }
+    },
+  })
+}
 </script>
 
 <template>
@@ -119,11 +149,21 @@ async function handleSubmit() {
         />
       </FormContainer>
 
+      <FormContainer v-if="isEditing" class="mt-12" title="Actions">
+        <Button
+          class="w-fit"
+          icon="i-ci-trash-full"
+          label="Supprimer le profil"
+          severity="danger"
+          variant="outlined"
+          @click="confirmDelete"
+        />
+      </FormContainer>
     </div>
 
     <template #footer>
       <Button label="Annuler" severity="secondary" @click="visible = false" />
-      <Button :label="isEditing ? 'Modifier' : 'Ajouter'" @click="handleSubmit" />
+      <Button label="Valider" @click="handleSubmit" />
     </template>
 
   </BaseDialog>

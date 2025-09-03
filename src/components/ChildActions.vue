@@ -10,35 +10,6 @@ function handleEditChild() {
   showEditDialog.value = true
 }
 
-const confirm = useConfirm()
-function confirmDeleteChild() {
-  confirm.require({
-    header: 'Retirer cet enfant ?',
-    message: 'Cet enfant sera retiré de votre compte. Cette action est irréversible.',
-    icon: 'i-ci-triangle-warning text-theme-red-600',
-    acceptProps: {
-      severity: 'danger',
-      label: 'Supprimer',
-    },
-    rejectProps: {
-      severity: 'secondary',
-      label: 'Annuler',
-      outlined: true,
-    },
-    accept: () => {
-      deleteChild()
-    },
-  })
-}
-
-const router = useRouter()
-const userStore = useUserStore()
-async function deleteChild() {
-  await api.children.remove(props.child.id)
-  router.push('/enfants')
-  userStore.fetchSelectedChild()
-}
-
 async function exportJournal(type: 'pdf' | 'word') {
   try {
     loading.value = true
@@ -106,15 +77,6 @@ const menuActionsOptions = ref([
       severity="secondary"
       variant="text"
       @click.stop="handleEditChild"
-    />
-
-    <!-- Delete -->
-    <Button
-      class="p-0"
-      icon="i-ci-trash-full !text-xl"
-      severity="secondary"
-      variant="text"
-      @click.stop="confirmDeleteChild"
     />
   </div>
 </template>

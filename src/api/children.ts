@@ -77,13 +77,13 @@ export function childrenApiRepository() {
     })
 
     if (response.response.value?.ok) {
-      toast.success('Enfant', 'Suppression enregistrée')
+      toast.success('Profil d\'enfant supprimé', 'Suppression effectuée avec succès')
 
       return JSON.parse(response.json().data.value)
     }
 
     console.error('Enfant deletion error:', response.error.value)
-    toast.error('Enfant', 'Erreur lors de la suppression')
+    toast.error('Profil d\'enfant', 'Erreur lors de la suppression du profil')
   }
 
   return {
