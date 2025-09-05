@@ -44,8 +44,7 @@ const props = defineProps<Props>()
             <span>{{ calculateAge(props.child.birthdate) }} ans</span>
           </div>
           <div v-if="props.child.gender" class="flex items-center space-x-2">
-            <span class="font-medium">Classe :</span>
-            <span>{{ props.child.program?.grade }}</span>
+            <span class="font-medium">Cycle {{ props.child.program?.cycle }}</span>
           </div>
         </div>
       </div>

@@ -8,16 +8,6 @@ const placeholderImage = computed(() => {
   return props.child.gender === 'MALE' ? '/placeholder-boy.png' : '/placeholder-girl.png'
 })
 
-const subtitle = computed(() => {
-  const grade = props.child.program?.grade
-  const age = calculateAge(props.child.birthdate)
-  if (grade && age) return `${grade} - ${age} ans`
-  if (grade) return grade
-  if (age) return `${age} ans`
-
-  return ''
-})
-
 const router = useRouter()
 function handleClick() {
   if (!props.link) return
@@ -62,7 +52,10 @@ const showDialogUpload = ref(false)
 
             <div class="flex min-w-0 flex-1 flex-col gap-1">
               <h2 class="truncate">{{ child.name }} {{ child.lastName }}</h2>
-              <p class="truncate text-sm text-surface-500 dark:text-surface-400 md:text-lg">{{ subtitle }}</p>
+              <p v-if="child.birthdate" class="truncate text-sm text-surface-500 dark:text-surface-400 md:text-lg">{{ calculateAge(child.birthdate) }} ans</p>
+              <p v-if="child.program?.cycle" class="truncate text-sm text-surface-500 dark:text-surface-400 md:text-lg">
+                Cycle {{ child.program?.cycle }}
+              </p>
 
               <!-- Progress bar hidden on mobile, shown on larger screens -->
               <ProgressBar class="mt-2 hidden md:flex" :elements="child.program?.elements ?? []" />

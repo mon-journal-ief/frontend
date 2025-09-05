@@ -28,22 +28,14 @@ export function calculateAge(birthdate: Date | string | null | undefined): numbe
  * @param birthdate - The birthdate as a Date object or string
  * @returns The projected grade or null if birthdate is not provided
  */
-export function calculateProjectedGrade(birthdate: Date | string | null | undefined): string | null {
+export function calculateProjectedCycle(birthdate: Date | string | null | undefined): number | null {
   const age = calculateAge(birthdate)
   if (age === null || age === undefined) return null
 
-  if (age < 6) return 'Maternelle'
-  if (age < 7) return 'CP'
-  if (age < 8) return 'CE1'
-  if (age < 9) return 'CE2'
-  if (age < 10) return 'CM1'
-  if (age < 11) return 'CM2'
-  if (age < 12) return 'Sixième'
-  if (age < 13) return 'Cinquième'
-  if (age < 14) return 'Quatrième'
-  if (age < 15) return 'Troisième'
-  if (age < 16) return 'Seconde'
-  if (age < 17) return 'Première'
+  if (age < 6) return 1 // Cycle 1: Maternelle
+  if (age < 9) return 2 // Cycle 2: CP, CE1, CE2
+  if (age < 12) return 3 // Cycle 3: CM1, CM2, 6ème
+  if (age < 15) return 4 // Cycle 4: Cinquième, Quatrième, Troisième
 
-  return 'Terminale'
+  return 5 // Cycle 5: Seconde, Première, Terminale
 }

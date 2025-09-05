@@ -6,6 +6,9 @@ declare global {
   }
 
   enum EGrade {
+    PS = 'PS',
+    MS = 'MS',
+    GS = 'GS',
     CP = 'CP',
     CE1 = 'CE1',
     CE2 = 'CE2',
@@ -28,7 +31,7 @@ declare global {
     description?: string
     sources?: { name: string, url: string }[]
     cycle: number
-    grade: string
+    grades: string[]
     elements: IProgramElement[]
     children: IChild[]
     createdAt: Date
@@ -38,7 +41,7 @@ declare global {
   interface IProgramCreation {
     name: string
     description?: string
-    grade?: string
+    grades?: string[]
     childId: string
   }
 
@@ -61,7 +64,7 @@ declare global {
     name: string
     description: string
     elements: IProgramElement[]
-    grade: EGrade
+    grades: EGrade[]
     createdAt: Date
     updatedAt: Date
   }

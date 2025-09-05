@@ -10,7 +10,7 @@ const userStore = useUserStore()
 const formSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
-  grade: z.string().optional(),
+  grades: z.array(z.string()).optional(),
   childId: z.string().min(1),
 })
 
@@ -19,7 +19,7 @@ const visible = defineModel<boolean>({ required: true })
 const form = ref<IProgramCreation>({
   name: '',
   description: undefined,
-  grade: undefined,
+  grades: undefined,
   childId: props.child.id,
 })
 
@@ -59,9 +59,11 @@ async function handleCreateProgram() {
       </FormContainer>
 
       <FormContainer input-id="grade" title="Niveau">
-        <Select
+        <MultiSelect
           id="grade"
-          v-model="form.grade"
+          v-model="form.grades"
+          display="chip"
+          multiple
           option-label="label"
           option-value="value"
           :options="[
@@ -80,6 +82,7 @@ async function handleCreateProgram() {
             { label: 'Terminale', value: 'Terminale' },
           ]"
           placeholder="Niveau (optionnel)"
+          :show-toggle-all="false"
         />
       </FormContainer>
 

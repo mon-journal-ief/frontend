@@ -11,7 +11,8 @@ export const mockExportData = {
       id: 'mock-program-1',
       name: 'Programme CE2',
       description: 'Programme officiel CE2 adapté pour l\'instruction en famille',
-      grade: 'CE2',
+      grades: ['CE2'],
+      cycle: 2,
       elements: [
         {
           id: 'c77508fc-2cc4-48e2-8c62-1ab133c27b9f',
