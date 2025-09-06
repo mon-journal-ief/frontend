@@ -59,15 +59,23 @@ async function handleSubmit() {
   visible.value = false
 }
 
+const loadingUpload = ref(false)
+const loadingDelete = ref(false)
 // Handle file upload - upload files to server and get URLs
 async function handleFileUpload(event: { files: File[] }) {
-  const uploadPromises = event.files.map(async (file) => {
-    const result = await api.upload.uploadJournalEntryImage(file, props.entry!.id)
-    if (result) images.value.push(result.url)
-  })
+  loadingUpload.value = true
+  try {
+    const uploadPromises = event.files.map(async (file) => {
+      const result = await api.upload.uploadJournalEntryImage(file, props.entry?.id)
+      if (result) images.value.push(result.url)
+    })
 
-  await Promise.all(uploadPromises)
-  toast.success('Ajout d\'images', `${event.files.length} images ajoutées`)
+    await Promise.all(uploadPromises)
+    toast.success('Ajout d\'images', `${event.files.length} images ajoutées`)
+  }
+  finally {
+    loadingUpload.value = false
+  }
 }
 
 function search(event: any) {
@@ -135,6 +143,7 @@ function search(event: any) {
 
       <FormContainer input-id="images" title="Images">
         <FileUpload
+          v-if="!loadingUpload"
           id="images"
           accept="image/*"
           choose-label="Ajouter des images"
@@ -145,12 +154,15 @@ function search(event: any) {
           upload-label="Envoyer"
           @select="handleFileUpload"
         />
-        <div class="flex gap-4">
+        <CustomSpinner v-else class="m-auto min-h-16" />
+
+        <div v-if="images.length" class="mt-8 flex flex-wrap gap-4">
           <ImageWithDelete
             v-for="image in images"
             :key="image"
+            v-model:images="images"
+            v-model:loading="loadingDelete"
             :src="image"
-            @deleted="(src: string) => images = images.filter(img => img !== src)"
           />
         </div>
       </FormContainer>
@@ -159,8 +171,9 @@ function search(event: any) {
     <template #footer>
       <Button label="Annuler" severity="secondary" @click="visible = false" />
       <Button
-        :disabled="!date || !comment.trim()"
+        :disabled="!date || !comment.trim() || loadingUpload || loadingDelete"
         :label="isEditing ? 'Valider' : 'Ajouter'"
+        :loading="loadingUpload"
         @click="handleSubmit"
       />
     </template>

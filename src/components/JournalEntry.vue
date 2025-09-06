@@ -4,6 +4,12 @@ const props = defineProps<{
   programId: string
   childId: string
 }>()
+
+const images = ref<string[]>(props.entry.images)
+
+watch(props.entry, () => {
+  images.value = props.entry.images
+})
 </script>
 
 <template>
@@ -50,8 +56,9 @@ const props = defineProps<{
         <!-- Images -->
         <div class="flex gap-4">
           <ImageWithDelete
-            v-for="image in entry.images"
+            v-for="image in images"
             :key="image"
+            v-model:images="images"
             :src="image"
           />
         </div>

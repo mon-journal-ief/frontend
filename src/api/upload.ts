@@ -1,12 +1,12 @@
 import { useApi } from '@/utils/apiRepository'
 
 export function uploadApiRepository() {
-  async function uploadJournalEntryImage(file: File, journalEntryId: string): Promise<{ filename: string, url: string, size: number } | null> {
+  async function uploadJournalEntryImage(file: File, journalEntryId?: string): Promise<{ filename: string, url: string, size: number } | null> {
     try {
       const userStore = useUserStore()
       const formData = new FormData()
       formData.append('image', file)
-      formData.append('journalEntryId', journalEntryId)
+      if (journalEntryId) formData.append('journalEntryId', journalEntryId)
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/journal-entries/images`, {
         method: 'POST',

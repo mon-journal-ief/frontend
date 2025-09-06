@@ -4,6 +4,9 @@ const props = defineProps<{
   size?: 'small' | 'medium' | 'large'
 }>()
 
+const loadingUpload = defineModel<boolean>('loading', { required: false, default: false })
+const images = defineModel<string[]>('images', { required: true })
+
 const userStore = useUserStore()
 
 const showMaximizedDialog = ref(false)
@@ -16,8 +19,15 @@ const sizeClasses = computed(() => {
 })
 
 async function handleDelete() {
-  await api.upload.deleteJournalEntryImage(props.src)
-  userStore.fetchSelectedChild()
+  loadingUpload.value = true
+  try {
+    await api.upload.deleteJournalEntryImage(props.src)
+    images.value = images.value.filter(img => img !== props.src)
+    userStore.fetchSelectedChild()
+  }
+  finally {
+    loadingUpload.value = false
+  }
 }
 </script>
 
@@ -36,6 +46,7 @@ async function handleDelete() {
       <Button
         class="w-fit"
         icon="i-ci-trash-full text-xl"
+        :loading="loadingUpload"
         severity="danger"
         size="small"
         @click="handleDelete"
