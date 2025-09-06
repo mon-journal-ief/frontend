@@ -132,10 +132,10 @@ async function handleRegister() {
         >
           <div class="flex flex-col">
             <p class="text-theme-green-600 font-medium">Félicitations ! Votre compte a été créé</p>
-            <p class="text-theme-green-400 font-normal">Un email de confirmation vous a été envoyé. Cliquez sur le lien pour activer votre compte.</p>
+            <p class="text-sm font-normal text-green-500">Un email de confirmation vous a été envoyé. Vérifiez vos spams si vous ne le trouvez pas.</p>
             <Button
               class="ml-[-0.6rem] mt-2 self-start"
-              severity="secondary"
+              severity="success"
               size="small"
               text
               @click="resendVerificationEmail"
@@ -173,10 +173,11 @@ async function handleRegister() {
               <Message v-if="showEmailVerificationPrompt" icon="i-ci-mail" severity="warn">
                 <div class="flex flex-col">
                   <p class="font-medium">Compte non activé</p>
-                  <p class="mt-1 text-sm">Consultez votre boîte mail et cliquez sur le lien de confirmation pour accéder à votre compte.</p>
+                  <p class="mt-1 text-sm font-normal">Consultez votre boîte mail et cliquez sur le lien de confirmation pour accéder à votre compte.</p>
+                  <p class="mt-1 text-sm font-normal">Pensez à vérifier vos spams si vous ne le trouvez pas.</p>
                   <Button
                     class="ml-[-0.6rem] mt-2 self-start"
-                    severity="secondary"
+                    severity="primary"
                     size="small"
                     text
                     @click="resendVerificationEmail"
