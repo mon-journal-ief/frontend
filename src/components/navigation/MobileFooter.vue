@@ -18,7 +18,7 @@ function handleAddClick() {
   }
 }
 
-const hasNavHistory = computed(() => window.history.length > 1)
+// const hasNavHistory = computed(() => window.history.length > 1)
 </script>
 
 <template>
@@ -40,18 +40,21 @@ const hasNavHistory = computed(() => window.history.length > 1)
         @click="router.push('/account')"
       />
 
+      <!-- Contact button -->
+      <ButtonContact />
+
       <!-- Dark mode button -->
       <ButtonDarkMode />
 
       <!-- Close/Back Button -->
-      <Button
+      <!-- <Button
         v-if="hasNavHistory"
         class="footer-button"
         icon="i-ci-chevron-right"
         severity="secondary"
         text
         @click="router.back()"
-      />
+      /> -->
     </template>
 
     <!-- Other pages -->

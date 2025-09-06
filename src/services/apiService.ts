@@ -6,6 +6,7 @@ import { childrenApiRepository } from '@/api/children'
 import { journalEntryApiRepository } from '@/api/journalEntry'
 import { exportApiRepository } from '@/api/export'
 import { uploadApiRepository } from '@/api/upload'
+import { contactApiRepository } from '@/api/contact'
 
 // Create a centralized API service instance
 export const api = {
@@ -17,4 +18,5 @@ export const api = {
   journalEntry: journalEntryApiRepository(),
   export: exportApiRepository(),
   upload: uploadApiRepository(),
+  contact: contactApiRepository(),
 }

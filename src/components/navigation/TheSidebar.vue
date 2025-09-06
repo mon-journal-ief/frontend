@@ -66,8 +66,9 @@ function getChildImage(child: IChild) {
     </div>
 
     <div class="flex gap-4 p-4">
-      <ButtonDarkMode />
       <ButtonProfile />
+      <ButtonContact />
+      <ButtonDarkMode />
     </div>
   </div>
 </template>
