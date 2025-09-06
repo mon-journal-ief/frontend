@@ -42,7 +42,7 @@ const showDialogUpload = ref(false)
               <div
                 class="absolute inset-0 flex cursor-pointer items-center justify-center
                 rounded-full bg-black/50 opacity-0 transition-opacity duration-200 group-hover/avatar:opacity-100"
-                @click="showDialogUpload = true"
+                @click.stop="showDialogUpload = true"
               >
                 <div class="flex size-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm lg:size-12">
                   <i class="i-ci-edit-pencil-01 text-2xl text-white" />
