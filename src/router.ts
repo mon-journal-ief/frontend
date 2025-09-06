@@ -27,15 +27,19 @@ declare module 'vue-router/auto-routes' {
   }
 }
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
-  const { accessToken } = storeToRefs(userStore)
+  const { accessToken, children } = storeToRefs(userStore)
   const isAuthenticated = !!accessToken.value
 
   const isPublic = PUBLIC_PAGES.includes(to.path)
 
   if (!isPublic && !isAuthenticated) {
     next({ name: '/login' })
+  }
+  else if (to.path === '/' && !from.name && isAuthenticated && children.value.length === 1) {
+    // QOL: redirect to the only child when starting the app
+    next(`/enfant/${children.value[0]!.name}`)
   }
   else {
     next()
