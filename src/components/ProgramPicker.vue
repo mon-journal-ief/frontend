@@ -51,33 +51,33 @@ const showDialogProgramCreate = ref(false)
 </script>
 
 <template>
-  <DialogProgramCreate
-    v-model="showDialogProgramCreate"
-    :child
-  />
+  <DialogProgramCreate v-model="showDialogProgramCreate" :child />
 
   <div class="m-auto flex flex-col gap-8 p-6">
-    <!-- Header text -->
-    <div class="flex flex-col gap-2">
-      <h2 class="text-theme-surface-800 !text-3xl font-semibold">
-        Choisissez un programme
-      </h2>
-      <p class="text-theme-surface-600 text-dlg">
-        Vous pourrez le personnaliser après sélection.
-      </p>
-    </div>
+    <h2 class="text-theme-surface-800 !text-3xl font-semibold">
+      Choisissez un programme
+    </h2>
 
     <!-- Available programs section -->
     <div class="flex flex-col gap-4">
       <h4 class="text-theme-surface-700 text-lg font-medium">Programmes officiels</h4>
+      <Message
+        icon="i-ci-triangle-warning text-3xl px-4"
+        pt:text:class="text-sm"
+        severity="warn"
+      >
+        Les programmes ont été retranscrits à l'aide d'IA selon les programmes officiels.<br>
+        Ils ont été vérifiés et corrigés, mais il se peut que des erreurs persistent, n'hésitez pas à me les signaler.
+      </Message>
+
       <Message
         class="mb-4"
         icon="i-ci-info text-3xl px-4"
         pt:text:class="text-sm"
         severity="info"
       >
-        Les programmes ont été retranscrits avec IA selon les programmes officiels.<br>
-        Ils ont été vérifiés et corrigés, mais il se peut que des erreurs persistent, n'hésitez pas à me les signaler.
+        Les programmes officiels contiennent des éléments pouvant ne pas convenir à tous les parents, comme l'utilisation
+        d'écrans en maternelle, ou l'éducation sexuelle. N'hésitez pas à relire le programme choisi et à vous l'approprier.
       </Message>
 
       <!-- Additionnal comments
