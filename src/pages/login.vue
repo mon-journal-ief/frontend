@@ -102,8 +102,6 @@ async function handleRegister() {
       // Registration successful, but requires email verification
       registrationSuccess.value = true
       tabValue.value = '0'
-
-      toast.success('Compte créé !', 'Consultez votre boîte mail pour activer votre compte')
     }
     else {
       // Registration error
