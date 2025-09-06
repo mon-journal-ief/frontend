@@ -54,7 +54,7 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
     @add-element="handleAddElement"
   />
 
-  <div v-if="programCopy" class="flex flex-col gap-4">
+  <div v-if="programCopy" class="flex h-full flex-col gap-4">
     <div class="flex flex-col gap-2">
       <h2>{{ programCopy.name }}</h2>
       <p v-if="programCopy.description" class="text-theme-surface-600">
@@ -74,7 +74,7 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
       </div>
     </div>
 
-    <div class="flex flex-col gap-4">
+    <div class="flex h-full flex-col gap-4">
       <Button
         class="hidden md:block"
         icon="i-ci-plus text-lg -mb-1 mr-1"
@@ -96,6 +96,14 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
         variant="outlined"
         @click="reorderMode = !reorderMode"
       />
+
+      <div
+        v-if="programCopy.elements.length === 0"
+        class="flex h-full flex-col place-items-end items-center justify-end gap-8 text-2xl md:hidden"
+      >
+        <p> Appuyez ici pour ajouter un élément de programme</p>
+        <i class="i-ci-arrow-down-md animate-bounce text-5xl" />
+      </div>
 
       <Accordion
         collapse-icon="i-ci-caret-down-md text-3xl"
