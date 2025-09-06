@@ -26,19 +26,13 @@ function handleAddClick() {
     class="
   bg-theme-surface-50 border-theme-surface-200
   fixed inset-x-0 bottom-0 z-30
-  flex justify-around border-t px-4 py-2"
+  flex justify-around px-4 py-2"
   >
 
     <!-- Home page -->
     <template v-if="route.path === '/'">
       <!-- Account Button -->
-      <Button
-        class="footer-button"
-        icon="i-ci-user"
-        severity="secondary"
-        text
-        @click="router.push('/account')"
-      />
+      <ButtonProfile />
 
       <!-- Contact button -->
       <ButtonContact />

@@ -2,24 +2,24 @@
 const menu = ref()
 const router = useRouter()
 const items = ref([
-  {
-    label: 'Compte',
-    icon: 'i-ci-user',
-    route: '/account',
-  },
-  {
-    label: 'Confidentialité',
-    icon: 'i-ci-book-open',
-    route: '/privacy',
-  },
-  {
-    label: 'À propos',
-    icon: 'i-ci-info',
-    route: '/about',
-  },
-  {
-    separator: true,
-  },
+  // {
+  //   label: 'Compte',
+  //   icon: 'i-ci-user',
+  //   route: '/account',
+  // },
+  // {
+  //   label: 'Confidentialité',
+  //   icon: 'i-ci-book-open',
+  //   route: '/privacy',
+  // },
+  // {
+  //   label: 'À propos',
+  //   icon: 'i-ci-info',
+  //   route: '/about',
+  // },
+  // {
+  //   separator: true,
+  // },
   {
     label: 'Déconnexion',
     icon: 'i-ci-log-out',
@@ -41,10 +41,21 @@ function toggle(event) {
     <Button
       aria-controls="profile_menu"
       aria-haspopup="true"
+      class="hidden md:block"
       icon="i-ci-user"
       outlined
       rounded
       severity="secondary"
+      @click="toggle"
+    />
+
+    <Button
+      aria-controls="profile_menu"
+      aria-haspopup="true"
+      class="text-2xl md:hidden"
+      icon="i-ci-user"
+      severity="secondary"
+      text
       @click="toggle"
     />
 
