@@ -9,7 +9,7 @@ const showContactDialog = ref(false)
   />
 
   <Button
-    class="hidden md:block"
+    class="hidden pl-1 md:block"
     icon="i-ci-mail"
     outlined
     rounded
