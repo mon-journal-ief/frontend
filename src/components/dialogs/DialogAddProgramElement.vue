@@ -93,6 +93,7 @@ watch(visible, (isVisible) => {
           force-selection
           option-label="name"
           placeholder="Rechercher un élément parent (optionnel)"
+          :pt="{ option: { class: 'whitespace-normal' }, overlay: { class: '!max-w-1' } }"
           :suggestions="filteredProgramElements"
           @complete="searchParent"
         />

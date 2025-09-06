@@ -118,7 +118,7 @@ function search(event: any) {
           multiple
           option-label="name"
           placeholder="Rechercher dans le programme"
-          :pt="{ overlay: { class: '!max-w-1' } }"
+          :pt="{ option: { class: 'whitespace-normal' }, overlay: { class: '!max-w-1' } }"
           :suggestions="filteredProgramElements"
           @complete="search"
         />
