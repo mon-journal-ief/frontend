@@ -3,10 +3,11 @@ const userStore = useUserStore()
 const { children } = storeToRefs(userStore)
 
 const showAddChildDialog = ref(false)
+const isOnboarding = computed(() => children.value.length === 0)
 </script>
 
 <template>
-  <div class="flex flex-col gap-6">
+  <div class="flex h-full flex-col gap-6">
     <DialogChildForm v-model:visible="showAddChildDialog" />
 
     <!-- Children List -->
@@ -23,6 +24,6 @@ const showAddChildDialog = ref(false)
     </div>
 
     <!-- Add Child Card -->
-    <ChildCardEmpty @click="showAddChildDialog = true" />
+    <ChildCardEmpty :is-onboarding @click="showAddChildDialog = true" />
   </div>
 </template>

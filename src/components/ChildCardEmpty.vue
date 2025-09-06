@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const props = defineProps<{
+  isOnboarding?: boolean
+}>()
+
 const emits = defineEmits<{
   click: []
 }>()
@@ -11,6 +15,7 @@ function handleClick() {
 <template>
   <Card
     class="border-color-class bg-color-class group cursor-pointer"
+    :class="props.isOnboarding && 'm-auto pr-8'"
     @click="handleClick"
   >
     <template #content>
@@ -20,7 +25,9 @@ function handleClick() {
             <i class="text-color-class i-ci-plus text-2xl md:text-3xl lg:text-4xl" />
           </div>
 
-          <h3 class="text-color-class text-lg font-medium">Ajouter un enfant</h3>
+          <h3 class="text-color-class text-lg font-medium">
+            {{ props.isOnboarding ? 'Pour commencer, ajoutez un enfant' : 'Ajouter un enfant' }}
+          </h3>
         </div>
       </div>
     </template>
