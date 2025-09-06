@@ -76,8 +76,8 @@ const showDialogProgramCreate = ref(false)
         pt:text:class="text-sm"
         severity="info"
       >
-        Les programmes ont été avec IA selon les programmes officiels.<br>
-        Ils ont été vérifiés et corrigés, mais il se peut que des erreurs persistent, n'hésitez pas à nous les signaler.
+        Les programmes ont été retranscrits avec IA selon les programmes officiels.<br>
+        Ils ont été vérifiés et corrigés, mais il se peut que des erreurs persistent, n'hésitez pas à me les signaler.
       </Message>
 
       <!-- Additionnal comments
