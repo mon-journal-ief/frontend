@@ -72,6 +72,9 @@ function handleAddClick() {
         @click="handleAddClick"
       />
 
+      <!-- Space that would occupy the add button -->
+      <div class="w-9 rounded-lg" />
+
       <!-- Modify Mode Button -->
       <!-- <Button
         v-if="canAddEntry || canAddProgramElement"
@@ -81,7 +84,6 @@ function handleAddClick() {
         text
         @click="isModifyMode = !isModifyMode"
       /> -->
-      <div />
     </template>
   </div>
 </template>

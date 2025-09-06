@@ -62,7 +62,7 @@ watch(
     <CustomSpinner />
   </div>
 
-  <div v-else-if="selectedChild" class="flex h-full flex-col gap-4">
+  <div v-else-if="selectedChild" class="flex h-full flex-col gap-2 md:first-letter:gap-4">
     <DialogJournalEntryForm
       v-if="showDialogAddEntry && selectedChild.program"
       v-model="showDialogAddEntry"
@@ -73,7 +73,12 @@ watch(
 
     <ChildCard :child="selectedChild" />
 
-    <Card v-if="selectedChild.program" class="flex flex-1 flex-col">
+    <Card
+      v-if="selectedChild.program"
+      class="flex flex-1 flex-col"
+      pt:body:class="h-full"
+      pt:content:class="h-full"
+    >
       <template #content>
         <Tabs class="flex size-full flex-col" :value="activeTab" @update:value="onTabChange">
           <TabList class="-mt-4 mb-4 md:mb-8">
@@ -93,6 +98,14 @@ watch(
                 variant="outlined"
                 @click="showDialogAddEntry = true"
               />
+
+              <div
+                v-if="selectedChild.journalEntries.length === 0"
+                class="flex h-full flex-col place-items-end items-center justify-end gap-8 text-2xl md:hidden"
+              >
+                <p> Appuyez ici pour ajouter une entrée</p>
+                <i class="i-ci-arrow-down-md animate-bounce text-5xl" />
+              </div>
 
               <div class="flex-1 overflow-y-auto">
                 <Accordion
