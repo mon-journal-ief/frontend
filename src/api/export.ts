@@ -4,11 +4,11 @@ import downloadFile from '@/utils/downloadFile'
 export function exportApiRepository() {
   async function exportToPDF(child: IChild) {
     try {
-      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/pdf/${child.id}`)
+      const { response, data } = await useApi<Blob>(`/export/pdf/${child.id}`, { responseType: 'blob' })
 
-      if (response.value?.ok) {
-        const blob = await response.value.blob()
-        const contentDisposition = response.value.headers.get('Content-Disposition') || ''
+      if (response?.ok) {
+        const blob = data
+        const contentDisposition = response.headers.get('Content-Disposition') || ''
         const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
         const fileName = fileNameMatch?.[1] ?? `Journal-${child.name}-${new Date().toISOString().split('T')[0]}.pdf`
 
@@ -19,7 +19,7 @@ export function exportApiRepository() {
         })
       }
       else {
-        throw new Error(`Export failed : ${response.value?.status}`)
+        throw new Error(`Export failed : ${response.status}`)
       }
     }
     catch (error) {
@@ -30,11 +30,11 @@ export function exportApiRepository() {
 
   async function exportToWord(child: IChild) {
     try {
-      const { response } = await useApi(`${import.meta.env.VITE_API_URL}/export/word/${child.id}`)
+      const { response, data } = await useApi<Blob>(`/export/word/${child.id}`, { responseType: 'blob' })
 
-      if (response.value?.ok) {
-        const blob = await response.value.blob()
-        const contentDisposition = response.value.headers.get('Content-Disposition') || ''
+      if (response?.ok) {
+        const blob = data
+        const contentDisposition = response.headers.get('Content-Disposition') || ''
         const fileNameMatch = contentDisposition.match(/filename="(.+)"/)
         const fileName = fileNameMatch?.[1] ?? `Journal-${child.name}-${new Date().toISOString().split('T')[0]}.docx`
 
@@ -45,7 +45,7 @@ export function exportApiRepository() {
         })
       }
       else {
-        throw new Error(`Export failed : ${response.value?.status}`)
+        throw new Error(`Export failed : ${response.status}`)
       }
     }
     catch (error) {

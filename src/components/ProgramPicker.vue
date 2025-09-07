@@ -12,12 +12,11 @@ const loading = ref({
   copy: false,
 })
 
-const availablePrograms = ref<IProgram[]>([])
-const selectedTemplate = ref<IProgram | null>(null)
+const availablePrograms = ref<IProgramTemplate[]>([])
+const selectedTemplate = ref<IProgramTemplate | null>(null)
 
 onMounted(async () => {
-  const programs = await api.programTemplate.getAll()
-  availablePrograms.value = programs || []
+  availablePrograms.value = await api.programTemplate.getAll()
   loading.value.templates = false
 })
 

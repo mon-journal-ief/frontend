@@ -65,6 +65,7 @@ declare global {
     description: string
     elements: IProgramElement[]
     grades: EGrade[]
+    cycle: number
     createdAt: Date
     updatedAt: Date
   }

@@ -5,20 +5,13 @@ const message = ref('')
 const subject = ref('')
 
 async function handleSubmit() {
-  try {
-    const result = await api.contact.sendMessage({
-      subject: subject.value,
-      message: message.value,
-    })
+  await api.contact.sendMessage({
+    subject: subject.value,
+    message: message.value,
+  })
 
-    if (result?.success) {
-      toast.success('Message envoyé !', result.message || 'Je vous reviendrai vers vous très rapidement si nécessaire :)')
-    }
-  }
-  catch (error) {
-    console.error('Error sending contact message:', error)
-    toast.error('Erreur', 'Erreur lors de l\'envoi du message. Veuillez réessayer.')
-  }
+  toast.success('Message envoyé !', 'Je vous reviendrai vers vous très rapidement si nécessaire :)')
+  visible.value = false
 }
 </script>
 

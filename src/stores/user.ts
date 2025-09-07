@@ -8,8 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const selectedChild = ref<IChild | null>(null)
 
   async function fetchUser() {
-    const response = await api.auth.me()
-    user.value = response.data.value
+    user.value = await api.auth.me()
   }
 
   async function fetchChildren() {
