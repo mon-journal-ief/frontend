@@ -34,6 +34,7 @@ async function handleSubmit() {
       birthdate: birthdate.value,
       gender: gender.value,
     })
+    userStore.fetchSelectedChild()
   }
   else {
     // Create new child
@@ -54,7 +55,6 @@ async function handleSubmit() {
   }
 
   userStore.fetchChildren()
-  userStore.fetchSelectedChild()
   visible.value = false
 }
 
