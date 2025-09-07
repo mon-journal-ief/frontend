@@ -14,7 +14,7 @@ export function uploadApiRepository() {
       formData.append('image', file)
       if (journalEntryId) formData.append('journalEntryId', journalEntryId)
 
-      const { response, data, error } = await useApi<IUploadResponse>(`/journal-entries/images`, {
+      const { response, data, error } = await useApi<{ data: IUploadResponse }>(`/journal-entries/images`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -23,7 +23,7 @@ export function uploadApiRepository() {
       })
 
       if (response.ok) {
-        return data
+        return data.data
       }
 
       console.error('Image upload error:', error)
