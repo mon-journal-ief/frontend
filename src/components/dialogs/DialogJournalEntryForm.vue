@@ -13,6 +13,7 @@ const emit = defineEmits<{
 const visible = defineModel<boolean>({ required: true })
 
 const isEditing = computed(() => !!props.entry)
+const continueCreating = ref(false)
 
 // Initialize form data
 const date = ref<Date>(props.entry ? new Date(props.entry.date) : new Date())
@@ -56,7 +57,14 @@ async function handleSubmit() {
     emit('addEntry', newEntry)
   }
 
-  visible.value = false
+  if (continueCreating.value) {
+    comment.value = ''
+    images.value = []
+    validatedElements.value = []
+  }
+  else {
+    visible.value = false
+  }
 }
 
 const loadingUpload = ref(false)
@@ -169,13 +177,27 @@ function search(event: any) {
     </div>
 
     <template #footer>
-      <Button label="Annuler" severity="secondary" @click="visible = false" />
-      <Button
-        :disabled="!date || !comment.trim() || loadingUpload || loadingDelete"
-        :label="isEditing ? 'Valider' : 'Ajouter'"
-        :loading="loadingUpload"
-        @click="handleSubmit"
-      />
+      <div class="flex w-full items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <Checkbox
+            v-if="!isEditing"
+            v-model="continueCreating"
+            binary
+            input-id="continueCreating"
+          />
+          <label class="text-theme-surface-600" for="continueCreating"> Continuer de créer </label>
+        </div>
+
+        <div class="flex gap-2">
+          <Button label="Annuler" severity="secondary" @click="visible = false" />
+          <Button
+            :disabled="!date || !comment.trim() || loadingUpload || loadingDelete"
+            :label="isEditing ? 'Valider' : 'Ajouter'"
+            :loading="loadingUpload"
+            @click="handleSubmit"
+          />
+        </div>
+      </div>
     </template>
   </BaseDialog>
 </template>
