@@ -19,11 +19,15 @@ async function handleSubmit() {
   <BaseDialog v-if="visible" v-model="visible">
     <template #header>
       <h2 class="text-2xl font-bold">
-        Contact
+        Contacter le développeur
       </h2>
     </template>
 
     <div class="flex flex-col gap-4">
+      <Message icon="i-ci-info" severity="info">
+        Pour toutes demandes, même mineures !
+      </Message>
+
       <FormContainer input-id="contact-subject" title="Sujet *">
         <InputText
           id="contact-subject"
@@ -37,7 +41,7 @@ async function handleSubmit() {
           id="contact-message"
           v-model="message"
           auto-resize
-          placeholder="Décrivez votre demande, question ou suggestion..."
+          placeholder="Décrivez votre demande, votre bug ou votre suggestion..."
           rows="3"
         />
       </FormContainer>
