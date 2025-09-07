@@ -46,9 +46,8 @@ function confirmDelete() {
   if (!props.element) return
 
   confirm.require({
-    header: 'Supprimer cet élément ?',
-    // TODO: add a checkbox to allow deleting the associated journal entries
-    message: 'Cette action est irréversible. Les entrées associées à cet élément ne seront pas supprimées.',
+    header: 'Supprimer cet élément ainsi que ses éléments enfants ?',
+    message: 'Cette action est irréversible.  Ses éléments de programme enfants seront supprimés. Les entrées de journal associées à cet élément ne seront pas supprimées.',
     icon: 'i-ci-circle-warning',
     acceptProps: {
       severity: 'danger',
