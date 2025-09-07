@@ -11,7 +11,7 @@ export function programTemplateApiRepository() {
 
     if (response.ok) return data
 
-    toast.error('Program templates fetch failed', error || 'Erreur lors de la récupération des templates de programmes')
+    toast.error('Échec de récupération des modèles de programme', error || 'Erreur lors de la récupération des templates de programmes')
     throw new Error(error || 'Erreur lors de la récupération des templates de programmes')
   }
 
@@ -25,7 +25,7 @@ export function programTemplateApiRepository() {
 
     if (response.ok) return data
 
-    toast.error('Program template fetch failed', error || 'Erreur lors de la récupération du template de programme')
+    toast.error('Échec de récupération du modèle de programme', error || 'Erreur lors de la récupération du template de programme')
     throw new Error(error || 'Erreur lors de la récupération du template de programme')
   }
 
@@ -39,12 +39,12 @@ export function programTemplateApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program template created successfully', 'You have been created successfully')
+      toast.success('Modèle de programme créé avec succès', 'Le modèle a été créé avec succès')
 
       return data
     }
 
-    toast.error('Program template creation failed', error || 'Erreur lors de la crération du template de programme')
+    toast.error('Échec de création du modèle de programme', error || 'Erreur lors de la crération du template de programme')
     throw new Error(error || 'Erreur lors de la crération du template de programme')
   }
 
@@ -58,12 +58,12 @@ export function programTemplateApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program template updated successfully', 'You have been updated successfully')
+      toast.success('Modèle de programme mis à jour avec succès', 'Le modèle a été mis à jour avec succès')
 
       return data
     }
 
-    toast.error('Program template update failed', error || 'Erreur lors de la mise à jour du template de programme')
+    toast.error('Échec de mise à jour du modèle de programme', error || 'Erreur lors de la mise à jour du template de programme')
     throw new Error(error || 'Erreur lors de la mise à jour du template de programme')
   }
 
@@ -76,12 +76,12 @@ export function programTemplateApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program template deleted successfully', 'You have been deleted successfully')
+      toast.success('Modèle de programme supprimé avec succès', 'Le modèle a été supprimé avec succès')
 
       return data
     }
 
-    toast.error('Program template deletion failed', error || 'Erreur lors de la suppression du template de programme')
+    toast.error('Échec de suppression du modèle de programme', error || 'Erreur lors de la suppression du template de programme')
     throw new Error(error || 'Erreur lors de la suppression du template de programme')
   }
 
@@ -100,7 +100,7 @@ export function programTemplateApiRepository() {
       return data
     }
 
-    toast.error('Program template copy failed', error || 'Erreur lors de l\'import du template de programme')
+    toast.error('Échec de copie du modèle de programme', error || 'Erreur lors de l\'import du template de programme')
     throw new Error(error || 'Erreur lors de l\'import du template de programme')
   }
 

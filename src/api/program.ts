@@ -11,7 +11,7 @@ export function programApiRepository() {
 
     if (response.ok) return data
 
-    toast.error('Programs fetch failed', error || 'Erreur lors de la récupération des programmes')
+    toast.error('Échec de récupération des programmes', error || 'Erreur lors de la récupération des programmes')
     throw new Error(error || 'Erreur lors de la récupération des programmes')
   }
 
@@ -25,7 +25,7 @@ export function programApiRepository() {
 
     if (response.ok) return data
 
-    toast.error('Program fetch failed', error || 'Erreur lors de la récupération du programme')
+    toast.error('Échec de récupération du programme', error || 'Erreur lors de la récupération du programme')
     throw new Error(error || 'Erreur lors de la récupération du programme')
   }
 
@@ -39,12 +39,12 @@ export function programApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program created successfully', 'You have been created successfully')
+      toast.success('Programme créé avec succès', 'Le programme a été créé avec succès')
 
       return data
     }
 
-    toast.error('Program creation failed', error || 'Erreur lors de la création du programme')
+    toast.error('Échec de création du programme', error || 'Erreur lors de la création du programme')
     throw new Error(error || 'Erreur lors de la création du programme')
   }
 
@@ -58,12 +58,12 @@ export function programApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program updated successfully', 'You have been updated successfully')
+      toast.success('Programme mis à jour avec succès', 'Le programme a été mis à jour avec succès')
 
       return data
     }
 
-    toast.error('Program update failed', error || 'Erreur lors de la mise à jour du programme')
+    toast.error('Échec de mise à jour du programme', error || 'Erreur lors de la mise à jour du programme')
     throw new Error(error || 'Erreur lors de la mise à jour du programme')
   }
 
@@ -76,12 +76,12 @@ export function programApiRepository() {
     })
 
     if (response.ok) {
-      toast.success('Program deleted successfully', 'You have been deleted successfully')
+      toast.success('Programme supprimé avec succès', 'Le programme a été supprimé avec succès')
 
       return data
     }
 
-    toast.error('Program deletion failed', error || 'Erreur lors de la suppression du programme')
+    toast.error('Échec de suppression du programme', error || 'Erreur lors de la suppression du programme')
     throw new Error(error || 'Erreur lors de la suppression du programme')
   }
 

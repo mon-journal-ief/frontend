@@ -14,7 +14,7 @@ export function programElementApiRepository() {
     }
 
     console.error('Registration error:', error)
-    toast.error('Program Element fetch failed', error || 'There was an error fetching the program element')
+    toast.error('Échec de récupération de l\'élément de programme', error || 'Une erreur est survenue lors de la récupération de l\'élément de programme')
   }
 
   async function create(programElement: Partial<IProgramElement>) {
@@ -31,7 +31,7 @@ export function programElementApiRepository() {
     }
 
     console.error('Program Element creation error:', error)
-    toast.error('Program Element creation failed', error || 'There was an error creating the program element')
+    toast.error('Échec de création de l\'élément de programme', error || 'Une erreur est survenue lors de la création de l\'élément de programme')
   }
 
   async function update(id: string, programElement: IProgramElement) {
@@ -48,7 +48,7 @@ export function programElementApiRepository() {
     }
 
     console.error('Program Element update error:', error)
-    toast.error('Program Element update failed', error || 'There was an error updating the program element')
+    toast.error('Échec de mise à jour de l\'élément de programme', error || 'Une erreur est survenue lors de la mise à jour de l\'élément de programme')
   }
 
   async function validate(id: string, isValidated: boolean) {
@@ -65,7 +65,7 @@ export function programElementApiRepository() {
     }
 
     console.error('Program Element validation error:', error)
-    toast.error('Validation failed', error || 'There was an error validating the program element')
+    toast.error('Échec de validation', error || 'Une erreur est survenue lors de la validation de l\'élément de programme')
   }
 
   async function remove(id: string) {
@@ -81,7 +81,7 @@ export function programElementApiRepository() {
     }
 
     console.error('Program Element deletion error:', error)
-    toast.error('Program Element deletion failed', error || 'There was an error deleting the program element')
+    toast.error('Échec de suppression de l\'élément de programme', error || 'Une erreur est survenue lors de la suppression de l\'élément de programme')
   }
 
   return {
