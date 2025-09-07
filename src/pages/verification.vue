@@ -37,10 +37,10 @@ async function verifyEmail() {
       verificationComplete.value = true
       toast.success('Email vérifié !', 'Votre compte a été activé avec succès')
 
-      // Redirect to dashboard after 3 seconds
+      // Redirect to dashboard after 6 seconds
       setTimeout(() => {
         router.push('/')
-      }, 3000)
+      }, 6000)
     }
     else {
       verificationError.value = response.error?.message || 'Une erreur est survenue lors de la vérification'
