@@ -27,7 +27,7 @@ watchEffect(() => {
 })
 
 async function toggleValidation() {
-  await api.programElement.validate(element.value.id, !element.value.isValidated)
+  await api.programElement.validate(element.value.id, element.value.isValidated)
 }
 </script>
 
