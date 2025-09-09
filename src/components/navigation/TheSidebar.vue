@@ -17,7 +17,10 @@ function getChildImage(child: IChild) {
   <div class="sticky top-0 flex h-screen w-full flex-col justify-between md:w-64">
     <div class="flex flex-col gap-4 overflow-y-auto p-4">
       <RouterLink to="/">
-        <p class="text-2xl font-bold">Mon journal IEF</p>
+        <div class="flex items-center gap-2">
+          <img alt="Mon journal IEF" class="size-8" src="/chasti_logo_md.png">
+          <p class="text-theme-surface-800 text-2xl font-bold">Mon journal IEF</p>
+        </div>
       </RouterLink>
 
       <!-- NAVIGATION -->
