@@ -62,7 +62,7 @@ watch(
     <CustomSpinner />
   </div>
 
-  <div v-else-if="selectedChild" class="flex h-full flex-col gap-2 md:first-letter:gap-4">
+  <div v-else-if="selectedChild" class="flex h-full flex-col gap-2 md:gap-4">
     <DialogJournalEntryForm
       v-if="showDialogAddEntry && selectedChild.program"
       v-model="showDialogAddEntry"

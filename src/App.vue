@@ -54,7 +54,7 @@ useHead({
 
     <!-- Content Area -->
     <div class="flex grow flex-col" :class="isMobile && 'pb-[4.5rem]'">
-      <RouterView class="border-theme-surface-200 bg-theme-surface-100 flex-1 overflow-y-auto border p-2 sm:p-4 md:my-4 md:mr-4 md:rounded-xl md:px-6 md:py-8" />
+      <RouterView class="border-theme-surface-200 bg-theme-surface-100 flex-1 overflow-y-auto border p-2 sm:p-4 md:my-4 md:mr-4 md:rounded-xl" />
     </div>
 
     <!-- Fixed Mobile Footer -->
