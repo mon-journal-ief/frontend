@@ -85,11 +85,29 @@ export function journalEntryApiRepository() {
     throw new Error(error || 'Erreur lors de la suppression de l\'entrée de journal')
   }
 
+  async function getSuggestion({ comment, childId }: { comment: string, childId: string }) {
+    const { response, data, error } = await useApi<IProgramElement[]>(`/journal-entries/suggestion`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ comment, childId }),
+    })
+
+    if (response?.ok) {
+      return data
+    }
+
+    toast.error('Entrée de journal', 'Erreur lors de la récupération de la suggestion')
+    throw new Error(error || 'Erreur lors de la récupération de la suggestion')
+  }
+
   return {
     getAll,
     get,
     create,
     update,
     remove,
+    getSuggestion,
   }
 }

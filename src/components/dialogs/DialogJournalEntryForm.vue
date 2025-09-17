@@ -26,12 +26,6 @@ const childrenOptions = ref<IChild[]>([])
 const programElementsOptions = ref<IProgramElement[]>([])
 const filteredProgramElements = ref<IProgramElement[]>([])
 
-onMounted(async () => {
-  childrenOptions.value = await api.children.getAll()
-  programElementsOptions.value = (await api.program.get(props.programId)).elements
-  filteredProgramElements.value = programElementsOptions.value
-})
-
 async function handleSubmit() {
   if (!date.value || !comment.value.trim()) return
 
@@ -69,6 +63,8 @@ async function handleSubmit() {
 
 const loadingUpload = ref(false)
 const loadingDelete = ref(false)
+const loadingSuggestion = ref(false)
+
 // Handle file upload - upload files to server and get URLs
 async function handleFileUpload(event: { files: File[] }) {
   loadingUpload.value = true
@@ -91,6 +87,22 @@ function search(event: any) {
     element.name.toLowerCase().includes(event.query.toLowerCase()),
   )
 }
+
+async function handleSuggestion() {
+  loadingSuggestion.value = true
+  try {
+    validatedElements.value = await api.journalEntry.getSuggestion({ comment: comment.value.trim(), childId: childId.value })
+  }
+  finally {
+    loadingSuggestion.value = false
+  }
+}
+
+onMounted(async () => {
+  childrenOptions.value = await api.children.getAll()
+  programElementsOptions.value = (await api.program.get(props.programId)).elements
+  filteredProgramElements.value = programElementsOptions.value
+})
 </script>
 
 <template>
@@ -123,23 +135,6 @@ function search(event: any) {
         />
       </FormContainer>
 
-      <FormContainer input-id="validatedElements" title="Éléments du programme travaillés">
-        <AutoComplete
-          id="validatedElements"
-          v-model="validatedElements"
-          dropdown
-          dropdown-mode="current"
-          empty-search-message="Aucun élément du programme trouvé"
-          force-selection
-          multiple
-          option-label="name"
-          placeholder="Rechercher dans le programme"
-          :pt="{ option: { class: 'whitespace-normal' }, overlay: { class: '!max-w-1' } }"
-          :suggestions="filteredProgramElements"
-          @complete="search"
-        />
-      </FormContainer>
-
       <FormContainer input-id="comment" title="Commentaire *">
         <Textarea
           id="comment"
@@ -147,6 +142,35 @@ function search(event: any) {
           auto-resize
           placeholder="Ex: Lecture de 30min, exercices de math p.24-25, expérience sur les volcans..."
         />
+      </FormContainer>
+
+      <FormContainer input-id="validatedElements" title="Éléments du programme travaillés">
+        <div class="flex w-full items-center justify-between  gap-4">
+          <AutoComplete
+            id="validatedElements"
+            v-model="validatedElements"
+            class="w-full"
+            dropdown
+            dropdown-mode="current"
+            empty-search-message="Aucun élément du programme trouvé"
+            force-selection
+            multiple
+            option-label="name"
+            placeholder="Rechercher dans le programme"
+            :pt="{ option: { class: 'whitespace-normal' }, overlay: { class: '!max-w-1' } }"
+            :suggestions="filteredProgramElements"
+            @complete="search"
+          />
+
+          <IconSparkles
+            v-if="!loadingSuggestion"
+            v-tooltip.top="comment.trim() ? '' : 'Écrivez un commentaire pour utiliser les suggestions'"
+            class="size-8"
+            :class="comment.trim() ? 'cursor-pointer text-yellow-500 hover:text-theme-yellow-600' : 'text-theme-surface-400'"
+            @click="handleSuggestion"
+          />
+          <CustomSpinner v-else class="size-8 !fill-yellow-500" />
+        </div>
       </FormContainer>
 
       <FormContainer input-id="images" title="Images">
@@ -178,14 +202,14 @@ function search(event: any) {
 
     <template #footer>
       <div class="flex w-full items-center justify-between gap-2">
-        <div class="flex items-center gap-2">
+        <div class="flex cursor-pointer items-center gap-2">
           <Checkbox
             v-if="!isEditing"
             v-model="continueCreating"
             binary
             input-id="continueCreating"
           />
-          <label class="text-theme-surface-600" for="continueCreating"> Continuer de créer </label>
+          <label class="text-theme-surface-600" for="continueCreating"> Continuer d'ajouter des entrées </label>
         </div>
 
         <div class="flex gap-2">
