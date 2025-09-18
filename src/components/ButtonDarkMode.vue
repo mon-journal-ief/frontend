@@ -19,7 +19,7 @@ const iconClass = computed(() => {
 <template>
   <!-- Desktop -->
   <Button
-    class="hidden pl-1 md:block"
+    class="hidden md:block"
     :icon="iconClass"
     outlined
     rounded

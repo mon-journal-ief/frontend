@@ -9,7 +9,7 @@ const showContactDialog = ref(false)
   />
 
   <Button
-    class="hidden pl-0.5 md:block"
+    class="hidden md:block"
     icon="i-ci-paper-plane"
     outlined
     rounded

@@ -41,7 +41,7 @@ function toggle(event) {
     <Button
       aria-controls="profile_menu"
       aria-haspopup="true"
-      class="hidden pl-1 md:block"
+      class="hidden md:block"
       icon="i-ci-user"
       outlined
       rounded

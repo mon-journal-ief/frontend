@@ -70,6 +70,7 @@ function handleAddClick() {
         text
         @click="handleAddClick"
       />
+      <div v-else class="w-9 rounded-lg" />
 
       <!-- Space that would occupy the add button -->
       <div class="w-9 rounded-lg" />
