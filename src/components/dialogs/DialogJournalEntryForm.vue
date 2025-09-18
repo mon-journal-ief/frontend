@@ -174,7 +174,7 @@ onMounted(async () => {
           <IconSparkles
             v-if="!user!.aiSuggestionsEnabled && !user!.aiOnboardingShown"
             v-tooltip.top="'En savoir plus sur les suggestions AI'"
-            class="hover:text-theme-yellow-600 size-8 cursor-pointer text-yellow-500"
+            class="hover:text-theme-yellow-600 size-8 animate-pulse cursor-pointer text-yellow-500"
             @click="showDialogAiOnboarding = true"
           />
 
