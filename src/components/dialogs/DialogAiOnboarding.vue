@@ -7,8 +7,12 @@ async function handleClose(enabled: boolean) {
   visible.value = false
 }
 
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 onMounted(() => {
-  api.user.updatePreferences({ aiOnboardingShown: true })
+  if (!user.value?.aiOnboardingShown) {
+    api.user.updatePreferences({ aiOnboardingShown: true })
+  }
 })
 </script>
 
