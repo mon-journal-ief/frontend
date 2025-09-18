@@ -21,6 +21,8 @@ declare global {
     email: string
     name: string
     children: IChild[]
+    aiSuggestionsEnabled: boolean
+    aiOnboardingShown: boolean
     createdAt: Date
     updatedAt: Date
   }

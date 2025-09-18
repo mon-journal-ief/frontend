@@ -10,6 +10,9 @@ const emit = defineEmits<{
   updateEntry: [entry: IJournalEntry]
 }>()
 
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+
 const visible = defineModel<boolean>({ required: true })
 
 const isEditing = computed(() => !!props.entry)
@@ -64,6 +67,7 @@ async function handleSubmit() {
 const loadingUpload = ref(false)
 const loadingDelete = ref(false)
 const loadingSuggestion = ref(false)
+const showDialogAiOnboarding = ref(false)
 
 // Handle file upload - upload files to server and get URLs
 async function handleFileUpload(event: { files: File[] }) {
@@ -89,6 +93,8 @@ function search(event: any) {
 }
 
 async function handleSuggestion() {
+  if (!comment.value.trim()) return
+
   loadingSuggestion.value = true
   try {
     validatedElements.value = await api.journalEntry.getSuggestion({ comment: comment.value.trim(), childId: childId.value })
@@ -112,6 +118,8 @@ onMounted(async () => {
         {{ isEditing ? 'Modifier l\'entrée de journal' : 'Ajouter une entrée de journal' }}
       </h2>
     </template>
+
+    <DialogAiOnboarding v-if="showDialogAiOnboarding" v-model="showDialogAiOnboarding" />
 
     <div class="flex flex-col gap-4">
       <FormContainer input-id="date" title="Date *">
@@ -162,14 +170,23 @@ onMounted(async () => {
             @complete="search"
           />
 
+          <!-- Onboarding button -->
           <IconSparkles
-            v-if="!loadingSuggestion"
+            v-if="!user!.aiSuggestionsEnabled && !user!.aiOnboardingShown"
+            v-tooltip.top="'En savoir plus sur les suggestions AI'"
+            class="hover:text-theme-yellow-600 size-8 cursor-pointer text-yellow-500"
+            @click="showDialogAiOnboarding = true"
+          />
+
+          <!-- Actual suggestion button -->
+          <IconSparkles
+            v-else-if="user!.aiSuggestionsEnabled && !loadingSuggestion"
             v-tooltip.top="comment.trim() ? '' : 'Écrivez un commentaire pour utiliser les suggestions'"
             class="size-8"
             :class="comment.trim() ? 'cursor-pointer text-yellow-500 hover:text-theme-yellow-600' : 'text-theme-surface-400'"
             @click="handleSuggestion"
           />
-          <CustomSpinner v-else class="size-8 !fill-yellow-500" />
+          <CustomSpinner v-else-if="loadingSuggestion" class="size-8 !fill-yellow-500" />
         </div>
       </FormContainer>
 
