@@ -2,11 +2,11 @@
 const menu = ref()
 const router = useRouter()
 const items = ref([
-  // {
-  //   label: 'Compte',
-  //   icon: 'i-ci-user',
-  //   route: '/account',
-  // },
+  {
+    label: 'Mon compte',
+    icon: 'i-ci-user',
+    route: '/compte',
+  },
   // {
   //   label: 'Confidentialité',
   //   icon: 'i-ci-book-open',

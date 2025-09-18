@@ -31,29 +31,28 @@ function handleAddClick() {
 
     <!-- Home page -->
     <template v-if="route.path === '/'">
-      <!-- Account Button -->
       <ButtonProfile />
-
-      <!-- Contact button -->
       <ButtonContact />
-
-      <!-- Dark mode button -->
       <ButtonDarkMode />
+    </template>
 
-      <!-- Close/Back Button -->
-      <!-- <Button
-        v-if="hasNavHistory"
+    <!-- Account page -->
+    <template v-else-if="route.path === '/compte'">
+      <!-- Home Button -->
+      <Button
         class="footer-button"
-        icon="i-ci-chevron-right"
+        icon="i-ci-house-01"
         severity="secondary"
         text
-        @click="router.back()"
-      /> -->
+        @click="router.push('/')"
+      />
+      <ButtonContact />
+      <ButtonDarkMode />
     </template>
 
     <!-- Other pages -->
     <template v-else>
-      <!-- Back to Home Button -->
+      <!-- Home Button -->
       <Button
         class="footer-button"
         icon="i-ci-house-01"
