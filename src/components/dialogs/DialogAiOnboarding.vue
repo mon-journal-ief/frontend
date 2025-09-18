@@ -20,7 +20,7 @@ onMounted(() => {
   <BaseDialog v-if="visible" v-model="visible">
     <template #header>
       <h2 class="text-2xl font-bold">
-        Suggestions par IA
+        ✨ Suggestions par IA
       </h2>
     </template>
 
@@ -29,17 +29,17 @@ onMounted(() => {
       <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Fonctionnement</h3>
         <p class="text-theme-surface-600 leading-relaxed">
-          Pour gagner du temps dans vos saisies, vous pouvez utiliser les suggestions par IA.
-          Celle-ci se basera sur votre commentaire pour vous proposer des éléments du programme en lien.
+          Pour gagner du temps dans vos saisies, vous pouvez désormais utiliser les suggestions par IA.
+          Celles-ci se basent sur votre commentaire afin de proposer des éléments du programme en lien avec l'activité.
         </p>
       </div>
 
       <div class="flex flex-col gap-2">
-        <h3 class="text-lg font-semibold">Respect de votre vie privée</h3>
+        <h3 class="text-lg font-semibold">Confidentialité</h3>
         <ul class="text-theme-surface-600 leading-relaxed">
-          <li>• J'utilise OpenAI pour générer les suggestions </li>
+          <li>• ChatGPT est utilisé pour générer les suggestions </li>
           <li>• Seul le texte de votre commentaire et le programme sont communiqués</li>
-          <li>• Aucune autre information personnelle n'est transmise (noms, dates, mails, images, etc.)</li>
+          <li>• Aucune autre information personnelle n'est transmise (noms, images, dates, mails, etc.)</li>
         </ul>
       </div>
 

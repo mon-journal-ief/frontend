@@ -173,8 +173,7 @@ onMounted(async () => {
           <!-- Onboarding button -->
           <IconSparkles
             v-if="!user!.aiSuggestionsEnabled && !user!.aiOnboardingShown"
-            v-tooltip.top="'En savoir plus sur les suggestions AI'"
-            class="hover:text-theme-yellow-600 size-8 animate-pulse cursor-pointer text-yellow-500"
+            class="hover:text-theme-yellow-600 animate-ai-sparkle size-12 cursor-pointer text-yellow-500"
             @click="showDialogAiOnboarding = true"
           />
 
@@ -195,6 +194,7 @@ onMounted(async () => {
           v-if="!loadingUpload"
           id="images"
           accept="image/*"
+          :choose-button-props="{ class: 'p-button-secondary' }"
           choose-label="Ajouter des images"
           class="my-4"
           custom-upload
@@ -242,3 +242,24 @@ onMounted(async () => {
     </template>
   </BaseDialog>
 </template>
+
+<style scoped>
+@keyframes ai-sparkle {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px rgba(234, 179, 8, 0.4));
+  }
+  50% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.6));
+  }
+}
+
+.animate-ai-sparkle {
+  animation: ai-sparkle 2s ease-in-out infinite;
+}
+
+.animate-ai-sparkle:hover {
+  animation-play-state: paused;
+}
+</style>
