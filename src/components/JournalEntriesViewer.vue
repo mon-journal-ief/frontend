@@ -67,20 +67,18 @@ function addEntry(entry: IJournalEntry) {
     <!-- Controls Row -->
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <!-- Add Entry Button -->
-      <div class="flex">
-        <Button
-          class="hidden whitespace-nowrap md:block"
-          icon="i-ci-plus text-lg -mb-1 mr-1"
-          label="Ajouter une entrée"
-          rounded
-          severity="secondary"
-          variant="outlined"
-          @click="showDialogAddEntry = true"
-        />
-      </div>
+      <Button
+        class="hidden whitespace-nowrap md:block"
+        :fluid="!selectedChild.journalEntries.length"
+        icon="i-ci-plus text-lg -mb-1 mr-1"
+        label="Ajouter une entrée"
+        rounded
+        variant="outlined"
+        @click="showDialogAddEntry = true"
+      />
 
       <!-- Search and Sort Controls -->
-      <div class="flex gap-2">
+      <div v-if="selectedChild.journalEntries.length" class="flex gap-2">
         <InputText
           v-model="searchQuery"
           class="flex-1 whitespace-nowrap"
