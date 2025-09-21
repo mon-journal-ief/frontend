@@ -139,12 +139,14 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
         </div>
 
         <!-- Search Controls -->
-        <InputText
-          v-if="programCopy.elements.length > 0"
-          v-model="searchQuery"
-          class="self-start"
-          placeholder="Rechercher un élément"
-        />
+        <div class="w-full md:ml-auto md:w-auto">
+          <InputText
+            v-if="programCopy.elements.length > 0"
+            v-model="searchQuery"
+            class="w-full"
+            placeholder="Rechercher un élément"
+          />
+        </div>
       </div>
 
       <!-- Empty State -->

@@ -2,7 +2,7 @@
 const selectedChild = defineModel<IChild>({ required: true })
 
 const uiStore = useUIStore()
-const { showDialogAddEntry } = storeToRefs(uiStore)
+const { showDialogAddEntry, isMobile } = storeToRefs(uiStore)
 
 // Search and sort state
 const searchQuery = ref('')
@@ -78,17 +78,19 @@ function addEntry(entry: IJournalEntry) {
       />
 
       <!-- Search and Sort Controls -->
-      <div v-if="selectedChild.journalEntries.length" class="flex gap-2">
-        <InputText
-          v-model="searchQuery"
-          class="flex-1 whitespace-nowrap"
-          placeholder="Rechercher une entrée"
-        />
+      <div v-if="selectedChild.journalEntries.length" class="flex min-w-0 gap-2">
+        <div class="min-w-0 flex-1">
+          <InputText
+            v-model="searchQuery"
+            class="w-full"
+            placeholder="Rechercher une entrée"
+          />
+        </div>
 
         <Button
-          class="whitespace-nowrap"
-          :icon="sortOrder === 'desc' ? 'i-ci-sort-descending' : 'i-ci-sort-ascending'"
-          :label="sortOrder === 'desc' ? 'Plus récent' : 'Plus ancien'"
+          class="shrink-0 whitespace-nowrap"
+          :icon="sortOrder === 'desc' ? 'i-ci-sort-descending text-xl' : 'i-ci-sort-ascending text-xl'"
+          :label="isMobile ? '' : sortOrder === 'desc' ? 'Plus récent' : 'Plus ancien'"
           severity="secondary"
           variant="outlined"
           @click="toggleSortOrder"
