@@ -6,9 +6,45 @@ const props = defineProps<{
 const programCopy = computed(() => props.program)
 
 const reorderMode = ref(false)
+const searchQuery = ref('')
 
 const uiStore = useUIStore()
 const { showDialogAddProgramElement } = storeToRefs(uiStore)
+
+const filteredElements = computed(() => {
+  if (!programCopy.value) return []
+
+  let elements = [...programCopy.value.elements]
+
+  const query = searchQuery.value.toLowerCase().trim()
+  if (query) {
+    elements = filterElementsRecursively(elements, query)
+  }
+
+  return elements
+})
+
+function filterElementsRecursively(elements: IProgramElement[], query: string): IProgramElement[] {
+  return elements.reduce((filtered: IProgramElement[], element) => {
+    // Check if current element matches
+    const nameMatch = element.name.toLowerCase().includes(query)
+    const descriptionMatch = element.description?.toLowerCase().includes(query)
+    const currentMatches = nameMatch || descriptionMatch
+
+    // Filter children recursively
+    const filteredChildren = element.children ? filterElementsRecursively(element.children, query) : []
+
+    // Include element if it matches or has matching children
+    if (currentMatches || filteredChildren.length > 0) {
+      filtered.push({
+        ...element,
+        children: filteredChildren.length > 0 ? filteredChildren : element.children,
+      })
+    }
+
+    return filtered
+  }, [])
+}
 
 function handleAddElement(element: IProgramElement) {
   if (!programCopy.value) return
@@ -75,28 +111,43 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
     </div>
 
     <div class="flex h-full flex-col gap-4">
-      <Button
-        class="hidden md:block"
-        icon="i-ci-plus text-lg -mb-1 mr-1"
-        label="Ajouter un élément de programme"
-        rounded
-        severity="secondary"
-        variant="outlined"
-        @click="showDialogAddProgramElement = true"
-      />
+      <!-- Controls Row -->
+      <div class="flex items-center justify-between gap-4">
+        <!-- Add Element and Reorder Buttons -->
+        <div class="flex flex-col gap-2 lg:flex-row">
+          <Button
+            class="hidden whitespace-nowrap md:block"
+            icon="i-ci-plus text-lg -mb-1 mr-1"
+            label="Ajouter un élément de programme"
+            rounded
+            severity="secondary"
+            variant="outlined"
+            @click="showDialogAddProgramElement = true"
+          />
 
-      <Button
-        v-if="programCopy.elements.length > 0"
-        class="w-full md:w-auto"
-        icon="i-ci-list-unordered"
-        label="Réorganiser"
-        pt:icon:class="text-xl"
-        rounded
-        severity="secondary"
-        variant="outlined"
-        @click="reorderMode = !reorderMode"
-      />
+          <Button
+            v-if="programCopy.elements.length > 0"
+            class="whitespace-nowrap"
+            icon="i-ci-list-unordered"
+            label="Réorganiser"
+            pt:icon:class="text-xl"
+            rounded
+            severity="secondary"
+            variant="outlined"
+            @click="reorderMode = !reorderMode"
+          />
+        </div>
 
+        <!-- Search Controls -->
+        <InputText
+          v-if="programCopy.elements.length > 0"
+          v-model="searchQuery"
+          class="self-start"
+          placeholder="Rechercher un élément"
+        />
+      </div>
+
+      <!-- Empty State -->
       <div
         v-if="programCopy.elements.length === 0"
         class="flex h-full flex-col place-items-end items-center justify-end gap-8 text-2xl md:hidden"
@@ -105,16 +156,37 @@ function findElementById(elements: IProgramElement[], id: string): IProgramEleme
         <i class="i-ci-arrow-down-md animate-bounce text-5xl" />
       </div>
 
+      <!-- No Results State -->
+      <div
+        v-else-if="filteredElements.length === 0 && searchQuery.trim()"
+        class="flex h-full flex-col items-center justify-center gap-4 text-center text-surface-500"
+      >
+        <i class="i-ci-search text-4xl" />
+        <div>
+          <p class="text-lg">Aucun élément trouvé</p>
+          <p class="text-sm">Essayez de modifier votre recherche</p>
+        </div>
+      </div>
+
+      <!-- Program Elements List -->
       <Accordion
+        v-else
         collapse-icon="i-ci-caret-down-md text-3xl"
         expand-icon="i-ci-caret-up-md text-3xl"
         multiple
       >
         <!-- Accordion Items (Main node) -->
         <DraggableProgramElements
+          v-if="reorderMode"
           v-model:elements="programCopy.elements"
           :parent-id="null"
           :reorder-mode
+        />
+        <DraggableProgramElements
+          v-else
+          v-model:elements="filteredElements"
+          :parent-id="null"
+          :reorder-mode="false"
         />
       </Accordion>
     </div>
