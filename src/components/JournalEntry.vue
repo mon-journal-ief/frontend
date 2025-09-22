@@ -33,8 +33,7 @@ watch(props.entry, () => {
 
         <!-- Comment Row -->
         <div class="w-full">
-          <p v-if="entry.comment">{{ entry.comment }}</p>
-          <p v-else>Aucun commentaire</p>
+          <p class="whitespace-pre-wrap">{{ entry.comment }}</p>
         </div>
       </div>
     </AccordionHeader>
