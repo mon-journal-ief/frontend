@@ -8,10 +8,10 @@ const loadingUpload = defineModel<boolean>('loading', { required: false, default
 const images = defineModel<string[]>('images', { required: true })
 
 const userStore = useUserStore()
+const { getImageUrl, bustCache, removeFromCache } = useImageCache()
 
 const showMaximizedDialog = ref(false)
 const loadingRotate = ref(false)
-const cacheBuster = ref(Date.now())
 
 const sizeClasses = computed(() => {
   if (props.size === 'small') return 'max-w-32'
@@ -21,7 +21,7 @@ const sizeClasses = computed(() => {
 })
 
 const imageUrl = computed(() => {
-  return `${props.src}?v=${cacheBuster.value}`
+  return getImageUrl(props.src)
 })
 
 async function handleDelete() {
@@ -29,6 +29,7 @@ async function handleDelete() {
   try {
     await api.upload.deleteJournalEntryImage(props.src)
     images.value = images.value.filter(img => img !== props.src)
+    removeFromCache(props.src)
     userStore.fetchSelectedChild()
   }
   finally {
@@ -41,8 +42,9 @@ async function handleRotate(direction: 'left' | 'right') {
   try {
     const success = await api.upload.rotateJournalEntryImage(props.src, direction)
     if (success) {
-      // Force image reload by updating cache buster
-      cacheBuster.value = Date.now()
+      // Force image reload by updating cache buster globally
+      // This will update ALL instances showing this image
+      bustCache(props.src)
       // Refresh child data to update any references
       userStore.fetchSelectedChild()
     }
