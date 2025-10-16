@@ -131,10 +131,43 @@ export function uploadApiRepository() {
     }
   }
 
+  async function rotateJournalEntryImage(filename: string, direction: 'left' | 'right'): Promise<boolean> {
+    try {
+      // Extract filename after '/images/' if it exists in the path
+      const actualFilename = filename.includes('/images/')
+        ? filename.split('/images/')[1]
+        : filename
+
+      const { response, error } = await useApi(`/journal-entries/images/${actualFilename}/rotate`, {
+        method: 'PATCH',
+        body: JSON.stringify({ direction }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (response.ok) {
+        return true
+      }
+
+      console.error('Image rotate error:', error || 'Erreur lors de la rotation de l\'image')
+      toast.error('Upload', error || 'Erreur lors de la rotation de l\'image')
+
+      return false
+    }
+    catch (error) {
+      console.error('Image rotate error:', error)
+      toast.error('Upload', 'Erreur lors de la rotation de l\'image')
+
+      return false
+    }
+  }
+
   return {
     uploadJournalEntryImage,
     deleteJournalEntryImage,
     uploadChildProfileImage,
     deleteChildProfileImage,
+    rotateJournalEntryImage,
   }
 }
