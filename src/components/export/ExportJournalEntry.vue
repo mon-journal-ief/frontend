@@ -8,6 +8,20 @@ defineProps<{
     showImages: boolean
   }
 }>()
+
+// Format date in UTC to avoid timezone issues when rendering in Playwright
+// The date is stored as UTC midnight, so we use UTC methods to get the correct day
+function formatDateUTC(dateString: string | Date): string {
+  const date = new Date(dateString)
+
+  return date.toLocaleDateString('fr-FR', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })
+}
 </script>
 
 <template>
@@ -15,12 +29,7 @@ defineProps<{
     <!-- Header with date only -->
     <div class="mb-6 border-b border-surface-100 pb-4">
       <div class="text-xl font-semibold text-surface-700">
-        {{ new Date(entry.date).toLocaleDateString('fr-FR', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        }) }}
+        {{ formatDateUTC(entry.date) }}
       </div>
     </div>
 
