@@ -81,7 +81,7 @@ function formatDateUTC(dateString: string | Date): string {
           >
             <img
               :alt="`Image ${imageIndex + 1}`"
-              class="h-auto w-full rounded-xl object-contain"
+              class="h-auto max-h-[500px] w-full rounded-xl object-contain"
               :src="image"
             >
           </div>
