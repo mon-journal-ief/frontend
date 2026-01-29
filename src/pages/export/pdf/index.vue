@@ -42,22 +42,11 @@ const config = ref({
 })
 
 onMounted(async () => {
-  // In development mode, use mock data automatically
-  if (isDev) {
-    child.value = mockExportData.child
-    journalEntries.value = mockExportData.journalEntries
-    loading.value = false
-    console.warn('⚗️ Development mode: Using mock export data')
-
-    return
-  }
-
   // Check if data is already available (injected by Playwright)
   if (window.pdfData) {
     child.value = window.pdfData.child
     journalEntries.value = window.pdfData.journalEntries
     loading.value = false
-
     return
   }
 
@@ -71,18 +60,26 @@ onMounted(async () => {
 
   window.addEventListener('pdfDataReady', handlePdfDataReady)
 
-  // Fallback: if no data is injected within 5 seconds, show error
-  setTimeout(() => {
-    if (loading.value) {
-      error.value = 'Aucune donnée reçue'
-      loading.value = false
-    }
-  }, 5000)
-
   // Cleanup event listener
   onUnmounted(() => {
     window.removeEventListener('pdfDataReady', handlePdfDataReady)
   })
+
+  // Fallback: if no data is injected within 5 seconds, use mock data in dev or show error
+  setTimeout(() => {
+    if (loading.value) {
+      if (isDev) {
+        child.value = mockExportData.child
+        journalEntries.value = mockExportData.journalEntries
+        loading.value = false
+        console.warn('⚗️ Development mode: Using mock export data (no Playwright data received)')
+      }
+      else {
+        error.value = 'Aucune donnée reçue'
+        loading.value = false
+      }
+    }
+  }, 5000)
 })
 </script>
 
